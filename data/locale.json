@@ -1,0 +1,31 @@
+{
+    "locale": [
+        ["English", "Anglais"], 
+        ["French", "Français"]
+    ],
+    "main_window": {
+        "file_label": ["Open save file to edit", "Ouvrir une sauvegarde à modifier"]
+    },
+    "menubar": {
+        "file": ["File", "Fichier"],
+        "locale": ["Language", "Langue"]
+    },
+    "file": {
+        "open": ["Open", "Ouvrir"],
+        "save_as": ["Save as...", "Enregistrer sous..."]
+    },
+    "zones": [
+        ["Plains",      "Prairie"],
+        ["Meadow",      "Champ de Fleurs"],
+        ["Savannah",    "Savane"],
+        ["Peak",        "Rochers"],
+        ["Rocky Beach", "Rocs et Lac"],
+        ["Wetland",     "Terre Humide"],
+        ["Forest",      "Bois"],
+        ["Swamp",       "Bois et Lacs"],
+        ["Marshland",   "Marais"],
+        ["Wasteland",   "Terre Aride"],
+        ["Mountain",    "Montagne"],
+        ["Desert",      "Désert"]
+    ]
+}
