@@ -11,9 +11,9 @@ LangMenu::LangMenu(QWidget *parent) : QMenu(parent), action_group_(this) {
         return;
     }
 
-    json menubar_table;
-    if(!locale_manager.getTable(&menubar_table, "menubar")) {
-        std::cerr << "Unable to load menubar table" << std::endl;
+    json options_table;
+    if(!locale_manager.getTable(&options_table, "options")) {
+        std::cerr << "Unable to load options table" << std::endl;
         return;
     }
 
@@ -23,7 +23,7 @@ LangMenu::LangMenu(QWidget *parent) : QMenu(parent), action_group_(this) {
         if(i == locale) action->setChecked(true);
         action_group_.addAction(action);
     }
-    this->setTitle(QString::fromStdString(menubar_table[JSON_KEY][locale]));
+    this->setTitle(QString::fromStdString(options_table[JSON_KEY][locale]));
 }
 
 LangMenu::~LangMenu() {}
@@ -36,9 +36,9 @@ void LangMenu::updateLanguage(uint8_t& locale) {
         return;
     }
 
-    json menubar_table;
-    if(!locale_manager.getTable(&menubar_table, "menubar")) {
-        std::cerr << "Unable to load menubar table" << std::endl;
+    json options_table;
+    if(!locale_manager.getTable(&options_table, "options")) {
+        std::cerr << "Unable to load options table" << std::endl;
         return;
     }
     
@@ -47,5 +47,5 @@ void LangMenu::updateLanguage(uint8_t& locale) {
         QAction* action = action_list[i];
         action->setText(QString::fromStdString(language_table[i][locale]));
     }
-    this->setTitle(QString::fromStdString(menubar_table[JSON_KEY][locale]));
+    this->setTitle(QString::fromStdString(options_table[JSON_KEY][locale]));
 }

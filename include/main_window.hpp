@@ -2,7 +2,7 @@
 #define MAIN_WINDOW_HPP
 
 #include "file_menu.hpp"
-#include "lang_menu.hpp"
+#include "options_menu.hpp"
 #include "day_counters.hpp"
 #include "locale_manager.hpp"
 #include "config_manager.hpp"
@@ -24,7 +24,7 @@ private:
     QGridLayout layout_;
     QMenuBar menu_bar_;
     FileMenu file_menu_;
-    LangMenu lang_menu_;
+    OptionsMenu options_menu_;
     QLabel file_label_;
     DayCounters day_counters_;
 

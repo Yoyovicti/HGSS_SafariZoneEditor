@@ -26,10 +26,12 @@ set(PROJECT_SOURCES
     src/main_window.cpp
     src/file_menu.cpp
     src/lang_menu.cpp
+    src/options_menu.cpp
     src/day_counters.cpp
     include/main_window.hpp
     include/file_menu.hpp
     include/lang_menu.hpp
+    include/options_menu.hpp
     include/day_counters.hpp
 )
 

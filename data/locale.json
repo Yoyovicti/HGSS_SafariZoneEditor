@@ -8,11 +8,15 @@
     },
     "menubar": {
         "file": ["File", "Fichier"],
-        "locale": ["Language", "Langue"]
+        "options": ["Options", "Options"]
     },
     "file": {
         "open": ["Open", "Ouvrir"],
         "save_as": ["Save as...", "Enregistrer sous..."]
+    },
+    "options": {
+        "locale": ["Language", "Langue"],
+        "about": ["About", "À propos"]
     },
     "zones": [
         ["Plains",      "Prairie"],
