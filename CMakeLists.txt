@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(hgss_safari_zone_editor
-    VERSION 0.1
+    VERSION 0.2
     LANGUAGES CXX)
 
 set(CMAKE_AUTOUIC ON)
@@ -27,11 +27,13 @@ set(PROJECT_SOURCES
     src/file_menu.cpp
     src/lang_menu.cpp
     src/options_menu.cpp
+    src/about_message_box.cpp
     src/day_counters.cpp
     include/main_window.hpp
     include/file_menu.hpp
     include/lang_menu.hpp
     include/options_menu.hpp
+    include/about_message_box.hpp
     include/day_counters.hpp
 )
 
@@ -64,9 +66,6 @@ endif()
 
 target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
 
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
 if(${QT_VERSION} VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.yoyovicti.${PROJECT_NAME})
 endif()

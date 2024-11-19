@@ -1,6 +1,6 @@
 #include "options_menu.hpp"
 
-OptionsMenu::OptionsMenu(QWidget* parent) : QMenu(parent), lang_menu_(this) {
+OptionsMenu::OptionsMenu(QWidget* parent) : QMenu(parent), lang_menu_(this), about_message_box_(this) {
     ConfigManager& config_manager = ConfigManager::getInstance();
     uint8_t locale = config_manager.getLocale();
 
@@ -18,7 +18,7 @@ OptionsMenu::OptionsMenu(QWidget* parent) : QMenu(parent), lang_menu_(this) {
     }
 
     addMenu(&lang_menu_);
-    addAction(QString::fromStdString(table["about"][locale]));
+    addAction(QString::fromStdString(table["about"][locale]), [this](){about_message_box_.show();});
     this->setTitle(QString::fromStdString(menubar_table[JSON_KEY][locale]));
 
     QObject::connect(&lang_menu_, &LangMenu::languageChangeClicked, this, &OptionsMenu::updateLanguage);
@@ -26,6 +26,7 @@ OptionsMenu::OptionsMenu(QWidget* parent) : QMenu(parent), lang_menu_(this) {
 
 void OptionsMenu::updateLanguage(uint8_t locale) {
     lang_menu_.updateLanguage(locale);
+    about_message_box_.updateLanguage(locale);
 
     LocaleManager& locale_manager = LocaleManager::getInstance();
     json options_table;

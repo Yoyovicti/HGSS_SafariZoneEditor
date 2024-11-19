@@ -18,6 +18,12 @@
         "locale": ["Language", "Langue"],
         "about": ["About", "À propos"]
     },
+    "about": {
+        "message": [
+            "Acknowledgments:\n\n- the PKSM project documentation for save file offsets corresponding to the active day counters of the Safari Zone\n\n- projectpokemon.org for information regarding checksums", 
+            "Remerciements à :\n\n- la documentation de PKSM pour l'emplacement' des compteurs de jours du Parc Safari dans les fichiers de sauvegarde\n\n- projectpokemon.org pour le fonctionnement des sommes de contrôle"
+        ]
+    },
     "zones": [
         ["Plains",      "Prairie"],
         ["Meadow",      "Champ de Fleurs"],
