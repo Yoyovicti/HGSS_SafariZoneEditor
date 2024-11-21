@@ -47,6 +47,25 @@ else()
     set(RESOURCE_FILES)
 endif()
 
+set(ASSET_FILES
+    assets/safari_icons/Desert.png
+    assets/safari_icons/Forest.png
+    assets/safari_icons/Marshland.png
+    assets/safari_icons/Meadow.png
+    assets/safari_icons/Mountain.png
+    assets/safari_icons/Peak.png
+    assets/safari_icons/Plains.png
+    "assets/safari_icons/Rocky Beach.png"
+    assets/safari_icons/Savannah.png
+    assets/safari_icons/Swamp.png
+    assets/safari_icons/Wasteland.png
+    assets/safari_icons/Wetland.png
+)
+
+set(DATA_FILES
+    data/locale.json
+)
+
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(${PROJECT_NAME}
         MANUAL_FINALIZATION
@@ -54,8 +73,9 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         include/locale_manager.hpp
         include/config_manager.hpp
         include/save_file_manager.hpp
-        data/locale.json
         ${RESOURCE_FILES}
+        ${ASSET_FILES}
+        ${DATA_FILES}
     )
 else()
     add_executable(${PROJECT_NAME}
