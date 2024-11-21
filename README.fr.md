@@ -37,3 +37,6 @@ make
 Si une des librairies nécessaires n'est pas détectée, assurez-vous qu'elle est correctement installée sur votre système et que la variable ```CMAKE_PREFIX_PATH``` inclut le chemin vers la librairie correspondante.
 
 3. Le fichier exécutable compilé devrait se trouver dans le dossier ```build```. Si vous souhaitez modifier l'emplacement du fichier exécutable, assurez-vous de déplacer le dossier ```data``` au même endroit.
+
+## Licence
+Le code source de ce projet est disponible sous licence MIT. Toutes les informations concernant la licence de ce projet et des bibliothèques utilisées se trouvent ici : [LICENSE](LICENSE)
