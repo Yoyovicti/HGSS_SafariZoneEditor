@@ -10,8 +10,8 @@ DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line
 
         QLabel* label = &labels_[i];
 
-        layout_.addWidget(label, i / 3, 2 * (i % 3), 1, 1);
-        layout_.addWidget(line_edit, i / 3, 2 * (i % 3) + 1, 1, 1);
+        layout_.addWidget(label, i, 0, 1, 1);
+        layout_.addWidget(line_edit, i, 1, 1, 1);
     }
 
     this->setLayout(&layout_);

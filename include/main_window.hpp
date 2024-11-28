@@ -3,6 +3,7 @@
 
 #include "file_menu.hpp"
 #include "options_menu.hpp"
+#include "area_view.hpp"
 #include "day_counters.hpp"
 #include "locale_manager.hpp"
 #include "config_manager.hpp"
@@ -26,6 +27,8 @@ private:
     FileMenu file_menu_;
     OptionsMenu options_menu_;
     QLabel file_label_;
+
+    AreaView area_view_;
     DayCounters day_counters_;
 
     std::vector<unsigned char> contents_;

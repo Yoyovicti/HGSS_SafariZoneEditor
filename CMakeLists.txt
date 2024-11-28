@@ -28,12 +28,14 @@ set(PROJECT_SOURCES
     src/lang_menu.cpp
     src/options_menu.cpp
     src/about_message_box.cpp
+    src/area_view.cpp
     src/day_counters.cpp
     include/main_window.hpp
     include/file_menu.hpp
     include/lang_menu.hpp
     include/options_menu.hpp
     include/about_message_box.hpp
+    include/area_view.hpp
     include/day_counters.hpp
 )
 
@@ -105,7 +107,7 @@ install(TARGETS ${PROJECT_NAME}
 )
 
 file(
-    COPY data
+    COPY data assets
     DESTINATION .
 )
 
