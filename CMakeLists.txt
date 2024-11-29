@@ -30,6 +30,8 @@ set(PROJECT_SOURCES
     src/about_message_box.cpp
     src/area_view.cpp
     src/day_counters.cpp
+    src/hover_label.cpp
+    src/block_popup.cpp
     include/main_window.hpp
     include/file_menu.hpp
     include/lang_menu.hpp
@@ -37,6 +39,8 @@ set(PROJECT_SOURCES
     include/about_message_box.hpp
     include/area_view.hpp
     include/day_counters.hpp
+    include/hover_label.hpp
+    include/block_popup.hpp
 )
 
 include_directories(
