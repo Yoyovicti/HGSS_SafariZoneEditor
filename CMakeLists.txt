@@ -62,6 +62,18 @@ set(ASSET_FILES
     assets/safari_icons/Swamp.png
     assets/safari_icons/Wasteland.png
     assets/safari_icons/Wetland.png
+    "assets/safari_blocks/Big Rock.png"
+    assets/safari_blocks/Branches.png
+    assets/safari_blocks/Fountain.png
+    "assets/safari_blocks/Mossy Rock.png"
+    assets/safari_blocks/Puddle.png
+    "assets/safari_blocks/Red Flower.png"
+    assets/safari_blocks/Shrubbery.png
+    "assets/safari_blocks/Small Rock.png"
+    assets/safari_blocks/Stump.png
+    assets/safari_blocks/Tree.png
+    "assets/safari_blocks/Water Hole.png"
+    "assets/safari_blocks/White Flower.png"
 )
 
 set(DATA_FILES
