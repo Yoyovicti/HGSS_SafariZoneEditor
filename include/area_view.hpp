@@ -2,6 +2,7 @@
 #define AREA_VIEW_HPP
 
 #include "locale_manager.hpp"
+#include "config_manager.hpp"
 #include "hover_label.hpp"
 #include "block_popup.hpp"
 
@@ -16,6 +17,7 @@
 #include <iostream>
 
 class AreaView : public QWidget {
+    Q_OBJECT
 private:
     static constexpr std::size_t SAFARI_OFFSET = 0xc13c;
     static constexpr std::size_t SLOT_SIZE = 0x7a;
@@ -25,11 +27,19 @@ private:
 
     std::array<QImage, 12> areas_images_;
     std::array<HoverLabel, 6> image_labels_;
+    std::array<uint8_t, 6> area_types_;
     std::array<std::array<uint8_t, 12>, 6> block_counts_;
+
+    bool data_loaded_;
+
 public:
     AreaView(QWidget* parent = nullptr);
 
     void loadData(const std::vector<unsigned char>& data);
+
+signals:
+    void areaHovered(uint8_t& index);
+    void areaLeaveHover(uint8_t& index);
 
 private slots:
     void labelEnterHover(size_t index);

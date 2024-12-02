@@ -32,6 +32,10 @@ public:
     void fillCounters(const std::vector<unsigned char>& data);
     void retrieveCounters(std::vector<unsigned char>& data);
     void updateLanguage(const uint8_t& language);
+
+public slots:
+    void highlightCounter(uint8_t& index);
+    void resetHighlight(uint8_t& index);
 };
 
 #endif

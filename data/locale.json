@@ -37,5 +37,19 @@
         ["Wasteland",   "Terre Aride"],
         ["Mountain",    "Montagne"],
         ["Desert",      "Désert"]
+    ],
+    "blocks": [
+        ["Shrubbery",       "Bosquet"],
+        ["Red Flower",      "Fleur rouge"],
+        ["White Flower",    "Fleur rose"],
+        ["Tree",            "Arbre"],
+        ["Stump",           "Souche"],
+        ["Branches",        "Branches"],
+        ["Small Rock",      "Petit rocher"],
+        ["Big Rock",        "Gros rocher"],
+        ["Mossy Rock",      "Roc moussu"],
+        ["Puddle",          "Flaque"],
+        ["Fountain",        "Geyser"],
+        ["Water Hole",      "Point d'eau"]
     ]
 }

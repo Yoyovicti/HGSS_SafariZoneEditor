@@ -59,3 +59,11 @@ void DayCounters::updateLanguage(const uint8_t& language) {
         labels_[i].setText(QString::fromStdString(table[i][language]));
     }
 }
+
+void DayCounters::highlightCounter(uint8_t& index) {
+    line_edits_[index].setStyleSheet("QLineEdit { background-color: rgba(100, 100, 255, 80); }");
+}
+
+void DayCounters::resetHighlight(uint8_t& index) {
+    line_edits_[index].setStyleSheet("");
+}

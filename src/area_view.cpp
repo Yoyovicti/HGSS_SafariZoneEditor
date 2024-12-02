@@ -1,6 +1,6 @@
 #include "area_view.hpp"
 
-AreaView::AreaView(QWidget* parent) : QWidget(parent), layout_(this) {
+AreaView::AreaView(QWidget* parent) : QWidget(parent), layout_(this), data_loaded_(false) {
     std::filesystem::path areas_dir("assets");
     areas_dir.append("safari_icons");
 
@@ -22,6 +22,7 @@ AreaView::AreaView(QWidget* parent) : QWidget(parent), layout_(this) {
     for(size_t i = 0; i < 6; i++) {
         block_counts_[i].fill(0);
         image_labels_[i].setPixmap(QPixmap::fromImage(areas_images_[i]));
+        image_labels_[i].setEnabled(false);
         layout_.addWidget(&image_labels_[i], (i / 3) * 6, (i % 3) * 6, 6, 6);
 
         QObject::connect(&image_labels_[i], &HoverLabel::enterHover, this, [this, i](){labelEnterHover(i);});
@@ -31,11 +32,9 @@ AreaView::AreaView(QWidget* parent) : QWidget(parent), layout_(this) {
 
 void AreaView::loadData(const std::vector<unsigned char>& data) {
     for(uint8_t i = 0; i < 6; i++) {
-        unsigned char area_type = data[SAFARI_OFFSET + i * SLOT_SIZE];
-        image_labels_[i].setPixmap(QPixmap::fromImage(areas_images_[area_type]));
-
-        std::cout << std::hex << SAFARI_OFFSET + i * SLOT_SIZE << std::endl;
-        std::cout << std::dec << static_cast<int>(data[SAFARI_OFFSET + i * SLOT_SIZE + 1]) << std::endl;
+        area_types_[i] = data[SAFARI_OFFSET + i * SLOT_SIZE];
+        image_labels_[i].setPixmap(QPixmap::fromImage(areas_images_[area_types_[i]]));
+        image_labels_[i].setEnabled(true);
 
         block_counts_[i].fill(0);
         uint8_t block_count = data[SAFARI_OFFSET + i * SLOT_SIZE + 1];
@@ -46,22 +45,43 @@ void AreaView::loadData(const std::vector<unsigned char>& data) {
             }
         }
     }
+
+    data_loaded_ = true;
 }
 
 void AreaView::labelEnterHover(size_t index) {
+    if(!data_loaded_)
+        return;
+
     std::array<uint8_t, 12> area_block_counts = block_counts_[index];
     std::array<uint8_t, 4> type_counts;
     for(uint8_t i = 0; i < 4; i++) {
-        type_counts[i] = std::accumulate(area_block_counts.begin() + 3 * i, area_block_counts.begin() + 3 * i + 3, 0);
+        auto it = area_block_counts.begin() + 3 * i;
+        type_counts[i] = std::accumulate(it, it + 3, 0);
     }
 
-    HoverLabel selected_label = &image_labels_[index];
-    QPoint popup_pos = selected_label.mapToGlobal(QPoint(selected_label.width(), 0));
+    LocaleManager& locale_manager = LocaleManager::getInstance();
+    json zone_table;
+    if(!locale_manager.getTable(&zone_table, "zones")) {
+        std::cerr << "Unable to load zones table" << std::endl;
+        return;
+    }
+
+    ConfigManager& config_manager = ConfigManager::getInstance();
+    uint8_t locale = config_manager.getLocale();
+
+    emit areaHovered(area_types_[index]);
     popup_.setCounters(type_counts);
+    popup_.setAreaLabel(zone_table[area_types_[index]][locale]);
+    QPoint popup_pos = image_labels_[index].mapToGlobal(QPoint(0, 0));
     popup_.move(popup_pos);
     popup_.show();
 }
 
 void AreaView::labelLeaveHover(size_t index) {
+    if(!data_loaded_)
+        return;
+
+    emit areaLeaveHover(area_types_[index]);
     popup_.hide();
 }

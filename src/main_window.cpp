@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&file_menu_, &FileMenu::openFileClicked, this, &MainWindow::openFileDialog);
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
     QObject::connect(&options_menu_, &OptionsMenu::languageChangeClicked, this, &MainWindow::updateLanguage);
+    QObject::connect(&area_view_, &AreaView::areaHovered, &day_counters_, &DayCounters::highlightCounter);
+    QObject::connect(&area_view_, &AreaView::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
 
     day_counters_.updateLanguage(locale);
 }
