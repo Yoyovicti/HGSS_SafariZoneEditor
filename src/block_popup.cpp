@@ -1,8 +1,8 @@
 #include "block_popup.hpp"
 
 BlockPopup::BlockPopup(QWidget* parent) : QWidget(parent), area_label_(this) {
-    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
-    
+    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowTransparentForInput);
+
     layout_ = new QGridLayout(this);
     this->setLayout(layout_);
 

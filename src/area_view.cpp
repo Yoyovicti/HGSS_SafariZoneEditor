@@ -75,6 +75,8 @@ void AreaView::labelEnterHover(size_t index) {
     popup_.setAreaLabel(zone_table[area_types_[index]][locale]);
     QPoint popup_pos = image_labels_[index].mapToGlobal(QPoint(0, 0));
     popup_.move(popup_pos);
+    // Force size to adapt to contents (seems required when using Qt::WindowTransparentForInput with X11)
+    popup_.setFixedSize(popup_.sizeHint());
     popup_.show();
 }
 
