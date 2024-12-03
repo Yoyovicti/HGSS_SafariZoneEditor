@@ -39,4 +39,10 @@ If any of the required libraries cannot be found, ensure they are correctly inst
 3. The built executable will be available in the ```build``` directory. Ensure the ```data``` directory remains with the executable file if you want to move it elsewhere.
 
 ## License
-The source code of this project is licensed under the MIT License. All information regarding the licensing of this project and additional libraries can be found here: [LICENSE](LICENSE)
+The source code of this project is licensed under the [MIT License](LICENSE.MIT).
+
+Copyright © 2024 Yoyovicti
+
+Additional libraries:
+- This project uses nlohmann/json which is licensed under the [MIT License](LICENSE.MIT). Copyright © 2013-2024 Niels Lohmann
+- This project uses the Qt Library which is licensed under [GNU LGPLv3](LICENSE.LGPL). Copyright © 2017 The Qt Company Ltd.

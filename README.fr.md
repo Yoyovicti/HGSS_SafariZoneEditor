@@ -37,3 +37,12 @@ make
 Si une des librairies nécessaires n'est pas détectée, assurez-vous qu'elle est correctement installée sur votre système et que la variable ```CMAKE_PREFIX_PATH``` inclut le chemin vers la librairie correspondante.
 
 3. Le fichier exécutable compilé devrait se trouver dans le dossier ```build```. Si vous souhaitez modifier l'emplacement du fichier exécutable, assurez-vous de déplacer le dossier ```data``` au même endroit.
+
+## Licence
+Le code source de ce projet est disponible sous [licence MIT](LICENSE.MIT).
+
+Copyright © 2024 Yoyovicti
+
+Librairies utilisées:
+- Ce projet utilise [nlohmann/json](https://github.com/nlohmann/json) disponible sous [licence MIT](LICENSE.MIT). Copyright © 2013-2024 Niels Lohmann
+- Ce projet utilise [Qt](https://www.qt.io/) distribué sous licence [GNU LGPLv3](LICENSE.LGPL). Copyright © 2017 The Qt Company Ltd.
