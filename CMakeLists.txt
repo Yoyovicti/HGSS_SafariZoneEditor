@@ -11,8 +11,7 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(nlohmann_json REQUIRED)
 
 add_compile_definitions(
@@ -84,27 +83,20 @@ set(DATA_FILES
     data/locale.json
 )
 
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    qt_add_executable(${PROJECT_NAME}
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-        include/locale_manager.hpp
-        include/config_manager.hpp
-        include/save_file_manager.hpp
-        ${RESOURCE_FILES}
-        ${ASSET_FILES}
-        ${DATA_FILES}
-    )
-else()
-    add_executable(${PROJECT_NAME}
-        ${PROJECT_SOURCES}
-        ${RESOURCE_FILES}
-    )
-endif()
+qt_add_executable(${PROJECT_NAME}
+    MANUAL_FINALIZATION
+    ${PROJECT_SOURCES}
+    include/locale_manager.hpp
+    include/config_manager.hpp
+    include/save_file_manager.hpp
+    ${RESOURCE_FILES}
+    ${ASSET_FILES}
+    ${DATA_FILES}
+)
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
 
-if(${QT_VERSION} VERSION_LESS 6.1.0)
+if(Qt6 VERSION_LESS 6.1.0)
   set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.yoyovicti.${PROJECT_NAME})
 endif()
 set_target_properties(${PROJECT_NAME} PROPERTIES

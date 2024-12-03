@@ -4,7 +4,7 @@ HoverLabel::HoverLabel(QWidget* parent) : QLabel(parent) {
     setAttribute(Qt::WA_Hover);
 }
 
-void HoverLabel::enterEvent(QEvent *event) {
+void HoverLabel::enterEvent(QEnterEvent *event) {
     emit enterHover();
     QLabel::enterEvent(event);
 }
