@@ -22,7 +22,7 @@ Ce projet est compilé avec CMake.
 
 ### Pré-requis
 - [CMake](https://cmake.org/) (version 3.5 ou plus)
-- [Qt](https://www.qt.io/) (version 5 ou 6)
+- [Qt](https://www.qt.io/) (version 6)
 - [nlohmann/json](https://github.com/nlohmann/json) (testé avec la version 3.11.3)
 
 ### Build instructions

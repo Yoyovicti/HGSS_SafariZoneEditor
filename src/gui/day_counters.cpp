@@ -1,4 +1,4 @@
-#include "day_counters.hpp"
+#include "gui/day_counters.hpp"
 
 DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line_edits_() {
 
@@ -10,8 +10,8 @@ DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line
 
         QLabel* label = &labels_[i];
 
-        layout_.addWidget(label, i / 3, 2 * (i % 3), 1, 1);
-        layout_.addWidget(line_edit, i / 3, 2 * (i % 3) + 1, 1, 1);
+        layout_.addWidget(label, i, 0, 1, 1);
+        layout_.addWidget(line_edit, i, 1, 1, 1);
     }
 
     this->setLayout(&layout_);
@@ -58,4 +58,12 @@ void DayCounters::updateLanguage(const uint8_t& language) {
     for(uint8_t i = 0; i < SaveFileManager::COUNTER_SIZE; i++){
         labels_[i].setText(QString::fromStdString(table[i][language]));
     }
+}
+
+void DayCounters::highlightCounter(uint8_t& index) {
+    line_edits_[index].setStyleSheet("QLineEdit { background-color: rgba(100, 100, 255, 80); }");
+}
+
+void DayCounters::resetHighlight(uint8_t& index) {
+    line_edits_[index].setStyleSheet("");
 }

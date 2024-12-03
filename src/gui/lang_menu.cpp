@@ -1,4 +1,4 @@
-#include "lang_menu.hpp"
+#include "gui/lang_menu.hpp"
 
 LangMenu::LangMenu(QWidget *parent) : QMenu(parent), action_group_(this) {
     ConfigManager& config_manager = ConfigManager::getInstance();

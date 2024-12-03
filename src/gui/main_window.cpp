@@ -1,6 +1,6 @@
-#include "main_window.hpp"
+#include "gui/main_window.hpp"
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), day_counters_(this) {
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), day_counters_(this) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
@@ -17,13 +17,16 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     file_label_.setText(QString::fromStdString(table["file_label"][locale]));
 
     layout_.setMenuBar(&menu_bar_);
-    layout_.addWidget(&file_label_);
-    layout_.addWidget(&day_counters_);
+    layout_.addWidget(&file_label_, 0, 0, 1, 20);
+    layout_.addWidget(&area_view_, 1, 0, 12, 18);
+    layout_.addWidget(&day_counters_, 1, 18, 12, 2);
     this->setLayout(&layout_);
 
     QObject::connect(&file_menu_, &FileMenu::openFileClicked, this, &MainWindow::openFileDialog);
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
     QObject::connect(&options_menu_, &OptionsMenu::languageChangeClicked, this, &MainWindow::updateLanguage);
+    QObject::connect(&area_view_, &AreaView::areaHovered, &day_counters_, &DayCounters::highlightCounter);
+    QObject::connect(&area_view_, &AreaView::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
 
     day_counters_.updateLanguage(locale);
 }
@@ -54,6 +57,7 @@ void MainWindow::openFileDialog(){
     std::cout << "File selected: " << selected_file << " (" << contents_.size() << " bytes)" << std::endl;
 
     day_counters_.fillCounters(contents_);
+    area_view_.loadData(contents_);
 }
 
 void MainWindow::saveFileDialog() {

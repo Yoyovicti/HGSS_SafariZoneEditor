@@ -1,8 +1,8 @@
 #ifndef FILE_MENU_HPP
 #define FILE_MENU_HPP
 
-#include "locale_manager.hpp"
-#include "config_manager.hpp"
+#include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
 
 #include <QMenu>
 

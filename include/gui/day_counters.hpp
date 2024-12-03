@@ -1,8 +1,8 @@
 #ifndef DAY_COUNTERS_HPP
 #define DAY_COUNTERS_HPP
 
-#include "locale_manager.hpp"
-#include "save_file_manager.hpp"
+#include "manager/locale_manager.hpp"
+#include "manager/save_file_manager.hpp"
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
@@ -17,7 +17,6 @@ using json = nlohmann::json;
 #include <string>
 
 class DayCounters : public QWidget {
-    Q_OBJECT
 private:
     const std::string JSON_KEY = "zones";
 
@@ -32,6 +31,10 @@ public:
     void fillCounters(const std::vector<unsigned char>& data);
     void retrieveCounters(std::vector<unsigned char>& data);
     void updateLanguage(const uint8_t& language);
+
+public slots:
+    void highlightCounter(uint8_t& index);
+    void resetHighlight(uint8_t& index);
 };
 
 #endif
