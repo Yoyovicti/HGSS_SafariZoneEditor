@@ -1,7 +1,7 @@
 #ifndef BLOCK_POPUP_HPP
 #define BLOCK_POPUP_HPP
 
-#include "locale_manager.hpp"
+#include "manager/locale_manager.hpp"
 
 #include <QWidget>
 #include <QGridLayout>
@@ -13,7 +13,6 @@
 #include <filesystem>
 
 class BlockPopup : public QWidget {
-    Q_OBJECT
 private:
     const std::string JSON_KEY = "blocks";
 

@@ -1,4 +1,4 @@
-#include "hover_label.hpp"
+#include "gui/hover_label.hpp"
 
 HoverLabel::HoverLabel(QWidget* parent) : QLabel(parent) {
     setAttribute(Qt::WA_Hover);

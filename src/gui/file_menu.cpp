@@ -1,4 +1,4 @@
-#include "file_menu.hpp"
+#include "gui/file_menu.hpp"
 
 FileMenu::FileMenu(QWidget* parent) : QMenu(parent) {
     ConfigManager& config_manager = ConfigManager::getInstance();

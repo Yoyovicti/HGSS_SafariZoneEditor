@@ -1,8 +1,8 @@
 #ifndef LANG_MENU_HPP
 #define LANG_MENU_HPP
 
-#include "locale_manager.hpp"
-#include "config_manager.hpp"
+#include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
 
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;

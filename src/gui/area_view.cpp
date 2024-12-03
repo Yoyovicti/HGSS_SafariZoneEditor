@@ -1,4 +1,4 @@
-#include "area_view.hpp"
+#include "gui/area_view.hpp"
 
 AreaView::AreaView(QWidget* parent) : QWidget(parent), layout_(this), data_loaded_(false) {
     std::filesystem::path areas_dir("assets");

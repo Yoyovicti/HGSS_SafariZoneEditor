@@ -7,6 +7,7 @@
 
 class HoverLabel : public QLabel {
     Q_OBJECT
+
 public:
     HoverLabel(QWidget* parent = nullptr);
 

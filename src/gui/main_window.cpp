@@ -1,4 +1,4 @@
-#include "main_window.hpp"
+#include "gui/main_window.hpp"
 
 MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), day_counters_(this) {
     menu_bar_.addMenu(&file_menu_);

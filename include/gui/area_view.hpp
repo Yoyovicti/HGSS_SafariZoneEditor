@@ -1,10 +1,10 @@
 #ifndef AREA_VIEW_HPP
 #define AREA_VIEW_HPP
 
-#include "locale_manager.hpp"
-#include "config_manager.hpp"
-#include "hover_label.hpp"
-#include "block_popup.hpp"
+#include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
+#include "gui/hover_label.hpp"
+#include "gui/block_popup.hpp"
 
 #include <QWidget>
 #include <QGridLayout>
@@ -18,6 +18,7 @@
 
 class AreaView : public QWidget {
     Q_OBJECT
+
 private:
     static constexpr std::size_t SAFARI_OFFSET = 0xc13c;
     static constexpr std::size_t SLOT_SIZE = 0x7a;

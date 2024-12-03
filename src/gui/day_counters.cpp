@@ -1,4 +1,4 @@
-#include "day_counters.hpp"
+#include "gui/day_counters.hpp"
 
 DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line_edits_() {
 
