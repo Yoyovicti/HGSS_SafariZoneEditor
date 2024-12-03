@@ -11,7 +11,7 @@ public:
     HoverLabel(QWidget* parent = nullptr);
 
 private:
-    void enterEvent(QEnterEvent *event) override;
+    void enterEvent(QEvent *event) override;
     void leaveEvent(QEvent *event) override;
 
 signals:

@@ -1,10 +1,8 @@
 #include "block_popup.hpp"
 
-#include <QLabel>
-#include <QStyle>
-#include <iostream>
-
 BlockPopup::BlockPopup(QWidget* parent) : QWidget(parent), area_label_(this) {
+    setWindowFlags(Qt::Tool | Qt::FramelessWindowHint);
+    
     layout_ = new QGridLayout(this);
     this->setLayout(layout_);
 
@@ -14,9 +12,6 @@ BlockPopup::BlockPopup(QWidget* parent) : QWidget(parent), area_label_(this) {
         std::cerr << "Unable to load blocks table" << std::endl;
         return;
     }
-
-    setWindowFlags(Qt::Window | Qt::WindowStaysOnTopHint | Qt::WindowTransparentForInput | Qt::FramelessWindowHint);
-    setAttribute(Qt::WA_ShowWithoutActivating);
 
     QFont font = area_label_.font();
     font.setBold(true);

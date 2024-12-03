@@ -6,6 +6,8 @@
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
+#include <QStyle>
+#include <QSizePolicy>
 
 #include <array>
 #include <filesystem>
