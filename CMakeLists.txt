@@ -11,8 +11,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL OpenGLWidgets)
 find_package(nlohmann_json REQUIRED)
+find_package(assimp 5 REQUIRED)
+
+message(STATUS "assimp_FOUND: ${assimp_FOUND}")
+message(STATUS "assimp_DIR: ${assimp_DIR}")
 
 add_compile_definitions(
     VERSION_MAJOR=${hgss_safari_zone_editor_VERSION_MAJOR}
@@ -21,6 +25,8 @@ add_compile_definitions(
 
 set(PROJECT_SOURCES
     src/main.cpp
+    src/geometryengine.cpp
+
 
     # GUI
     src/gui/main_window.cpp
@@ -33,17 +39,22 @@ set(PROJECT_SOURCES
     include/gui/options_menu.hpp
     include/gui/lang_menu.hpp
     # Main elements
+    src/gui/safari_layout_view.cpp
     src/gui/area_view.cpp
+    src/gui/widget_3dview.cpp
     src/gui/day_counters.cpp
-    src/gui/hover_label.cpp
+    src/gui/area_label.cpp
     src/gui/block_popup.cpp
-    include/gui/area_view.hpp
-    include/gui/hover_label.hpp
+    include/gui/safari_layout_view.hpp
+    include/gui/area_label.hpp
 )
 
 include_directories(
     include/
 )
+
+message(ASSIMP_INCLUDE_DIRS="${ASSIMP_INCLUDE_DIRS}")
+message(ASSIMP_LIBRARIES="${ASSIMP_LIBRARIES}")
 
 if(WIN32)
     set(RESOURCE_FILES assets/resource.rc)
@@ -56,7 +67,12 @@ add_executable(${PROJECT_NAME}
     ${RESOURCE_FILES}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt6::Widgets
+    Qt6::OpenGL
+    Qt6::OpenGLWidgets
+    assimp::assimp
+)
 
 # Properties for MacOS are auto-generated and not tested
 if(Qt6 VERSION_LESS 6.1.0)
@@ -71,6 +87,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 file(
-    COPY data assets
+    COPY
+        data
+        assets
     DESTINATION .
 )

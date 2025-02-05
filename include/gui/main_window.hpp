@@ -1,13 +1,13 @@
 #ifndef MAIN_WINDOW_HPP
 #define MAIN_WINDOW_HPP
 
-#include "manager/locale_manager.hpp"
-#include "manager/config_manager.hpp"
-#include "manager/save_file_manager.hpp"
 #include "gui/file_menu.hpp"
 #include "gui/options_menu.hpp"
+#include "gui/safari_layout_view.hpp"
 #include "gui/area_view.hpp"
+#include "gui/widget_3dview.hpp"
 #include "gui/day_counters.hpp"
+#include "manager/save_data_manager.hpp"
 
 #include <QWidget>
 #include <QGridLayout>
@@ -16,9 +16,12 @@
 #include <QFileDialog>
 
 #include <string>
-#include <filesystem>
 
 class MainWindow : public QWidget {
+public:
+    MainWindow(QWidget* parent = nullptr);
+    ~MainWindow();
+
 private:
     QGridLayout layout_;
     QMenuBar menu_bar_;
@@ -26,23 +29,23 @@ private:
     OptionsMenu options_menu_;
     QLabel file_label_;
 
+    SafariLayoutView layout_view_;
     AreaView area_view_;
     DayCounters day_counters_;
 
-    std::vector<unsigned char> contents_;
+    // TODO remove
+    Widget3DView area_view_old_;
+
+    SaveDataManager save_data_manager_;
 
     const std::string JSON_KEY = "main_window";
 
-public:
-    MainWindow(QWidget* parent = nullptr);
-    ~MainWindow();
-
-private:
     void loadFileData();
 
 private slots:
     void openFileDialog();
     void saveFileDialog();
     void updateLanguage(uint8_t locale);
+    void enterAreaViewer(size_t index);
 };
 #endif // MAIN_WINDOW_HPP

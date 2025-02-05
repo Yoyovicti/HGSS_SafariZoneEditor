@@ -1,5 +1,7 @@
 #include "gui/day_counters.hpp"
 
+#include "manager/locale_manager.hpp"
+
 DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line_edits_() {
 
     for(size_t i = 0; i < line_edits_.size(); i++) {
@@ -19,32 +21,19 @@ DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line
 
 DayCounters::~DayCounters() {}
 
-void DayCounters::fillCounters(const std::vector<unsigned char>& data) {
-    size_t file_size = data.size();
-
-    if(file_size <= SaveFileManager::SAFARI_OFFSET + SaveFileManager::COUNTER_SIZE) {
-        std::cerr << "Invalid file size: " << file_size << std::endl;
-        return;
-    }
-
-    for(uint8_t i = 0; i < SaveFileManager::COUNTER_SIZE; i++) {
-        line_edits_[i].setText(QString::number(data[i + SaveFileManager::SAFARI_OFFSET]));
+void DayCounters::fillCounters(const std::array<uint8_t, SaveDataManager::N_DAY_COUNTERS>& counters) {
+    for(uint8_t i = 0; i < counters.size(); i++) {
+        line_edits_[i].setText(QString::number(counters[i]));
         line_edits_[i].setEnabled(true);
     }
 }
 
-void DayCounters::retrieveCounters(std::vector<unsigned char>& data) {
-
-    size_t file_size = data.size();
-
-    if(file_size <= SaveFileManager::SAFARI_OFFSET + SaveFileManager::COUNTER_SIZE) {
-        std::cerr << "Invalid file size: " << file_size << std::endl;
-        return;
+std::array<uint8_t, SaveDataManager::N_DAY_COUNTERS> DayCounters::retrieveCounters() {
+    std::array<uint8_t, SaveDataManager::N_DAY_COUNTERS> counters;
+    for(uint32_t i = 0; i < counters.size(); i++) {
+        counters[i] = std::min(255U, line_edits_[i].text().toUInt());
     }
-
-    for(uint32_t i = 0; i < SaveFileManager::COUNTER_SIZE; i++) {
-        data[i + SaveFileManager::SAFARI_OFFSET] = std::min(255U, line_edits_[i].text().toUInt());
-    }
+    return counters;
 }
 
 void DayCounters::updateLanguage(const uint8_t& language) {
@@ -55,7 +44,7 @@ void DayCounters::updateLanguage(const uint8_t& language) {
         return;
     }
 
-    for(uint8_t i = 0; i < SaveFileManager::COUNTER_SIZE; i++){
+    for(uint8_t i = 0; i < SaveDataManager::N_DAY_COUNTERS; i++){
         labels_[i].setText(QString::fromStdString(table[i][language]));
     }
 }

@@ -17,9 +17,6 @@ private:
         std::ifstream file(CONFIG_PATH);
         if(!file.is_open()) {
             std::cout << "Unable to find " << CONFIG_PATH << " file. Default configuration will be used." << std::endl;
-            data_["locale"] = 0;
-            data_["default_path"] = ".";
-            return;
         }
 
         data_ = json::parse(file);
