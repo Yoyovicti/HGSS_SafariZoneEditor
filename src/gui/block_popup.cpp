@@ -19,7 +19,7 @@ BlockPopup::BlockPopup(QWidget* parent) : QWidget(parent), area_label_(this) {
     layout_->addWidget(&area_label_, 0, 0, 1, 8);
 
     std::filesystem::path blocks_dir("assets");
-    blocks_dir.append("safari_blocks");
+    blocks_dir.append("objects");
 
     for(uint8_t i = 0; i < 12; i++) {
         std::string block_name = blocks_table[i][0];
