@@ -5,20 +5,28 @@
 
 #include <QWidget>
 #include <QGridLayout>
-#include <QLabel>
+#include <QPushButton>
 
 #include <filesystem>
 
 class AreaView : public QWidget {
+    Q_OBJECT
+public:
+    AreaView(QWidget *parent = nullptr);
+
+    void setModelDir(const std::filesystem::path& model_dir) {view_3d_.setModelDir(model_dir);}
+
 private:
     QGridLayout layout_;
 
+    QPushButton back_button_;
     Widget3DView view_3d_;
 
     // QLabel area_img_;
 
-public:
-    AreaView(QWidget *parent = nullptr);
+signals:
+    void backButtonReleased();
+
 };
 
 #endif // AREA_VIEW_HPP

@@ -20,7 +20,7 @@ public:
     Widget3DView(/*std::filesystem::path& model_path, */QWidget* parent = nullptr);
     ~Widget3DView();
 
-    void setModelPath(std::filesystem::path& model_path);
+    void setModelDir(const std::filesystem::path& model_dir);
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;

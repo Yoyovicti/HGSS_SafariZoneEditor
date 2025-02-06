@@ -3,12 +3,12 @@
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), area_view_old_(this), layout_view_(this), day_counters_(this) {
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), /*area_view_old_(this), */layout_view_(this), day_counters_(this) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
     area_view_.hide();
-    area_view_old_.hide();
+    // area_view_old_.hide();
 
     LocaleManager& locale_manager = LocaleManager::getInstance();
     json table;
@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     layout_.addWidget(&file_label_, 0, 0, 1, 20);
     layout_.addWidget(&layout_view_, 1, 0, 12, 18);
     layout_.addWidget(&area_view_, 1, 0, 1, 1);
-    layout_.addWidget(&area_view_old_, 1, 0, 1, 1);
+    // layout_.addWidget(&area_view_old_, 1, 0, 1, 1);
     layout_.addWidget(&day_counters_, 1, 18, 12, 2);
     this->setLayout(&layout_);
 
@@ -36,6 +36,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&layout_view_, &SafariLayoutView::areaHovered, &day_counters_, &DayCounters::highlightCounter);
     QObject::connect(&layout_view_, &SafariLayoutView::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
     QObject::connect(&layout_view_, &SafariLayoutView::areaClicked, this, &MainWindow::enterAreaViewer);
+    QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
 
     day_counters_.updateLanguage(locale);
 }
@@ -110,6 +111,7 @@ void MainWindow::updateLanguage(uint8_t locale) {
 }
 
 void MainWindow::enterAreaViewer(size_t index) {
+    file_label_.hide();
     layout_view_.hide();
     day_counters_.hide();
 
@@ -128,7 +130,8 @@ void MainWindow::enterAreaViewer(size_t index) {
     std::cout << "Loading area: " << map_path << std::endl;
 
     // std::filesystem::path model_path = "assets/maps/Forest/m_saf07_00_00c.dae";
-    area_view_old_.setModelPath(map_path);
+    area_view_.setModelDir(map_path);
+    // area_view_old_.setModelPath(map_path);
 
 
     uint32_t offset = 0;
@@ -171,6 +174,13 @@ void MainWindow::enterAreaViewer(size_t index) {
 
     // layout_.addWidget(area_view_, 1, 0, 1, 1);
     // area_view_.hide();
+    area_view_.show();
+    // area_view_old_.show();
+}
 
-    area_view_old_.show();
+void MainWindow::exitAreaViewer() {
+    area_view_.hide();
+    file_label_.show();
+    layout_view_.show();
+    day_counters_.show();
 }

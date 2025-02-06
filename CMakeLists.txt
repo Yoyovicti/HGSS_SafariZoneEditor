@@ -46,6 +46,7 @@ set(PROJECT_SOURCES
     src/gui/area_label.cpp
     src/gui/block_popup.cpp
     include/gui/safari_layout_view.hpp
+    include/gui/area_view.hpp
     include/gui/area_label.hpp
 )
 

@@ -24,17 +24,16 @@ public:
 
 private:
     QGridLayout layout_;
+
     QMenuBar menu_bar_;
     FileMenu file_menu_;
     OptionsMenu options_menu_;
-    QLabel file_label_;
 
+    QLabel file_label_;
     SafariLayoutView layout_view_;
-    AreaView area_view_;
     DayCounters day_counters_;
 
-    // TODO remove
-    Widget3DView area_view_old_;
+    AreaView area_view_;
 
     SaveDataManager save_data_manager_;
 
@@ -47,5 +46,6 @@ private slots:
     void saveFileDialog();
     void updateLanguage(uint8_t locale);
     void enterAreaViewer(size_t index);
+    void exitAreaViewer();
 };
 #endif // MAIN_WINDOW_HPP

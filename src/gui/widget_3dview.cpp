@@ -18,9 +18,17 @@ Widget3DView::~Widget3DView()
     doneCurrent();
 }
 
-void Widget3DView::setModelPath(std::filesystem::path& model_dir)
-{
+void Widget3DView::setModelDir(const std::filesystem::path& model_dir) {
     model_dir_ = model_dir;
+    if(geometries) {
+        makeCurrent();
+        delete geometries;
+        geometries = new GeometryEngine();
+        geometries->setDirectory(model_dir_);
+        doneCurrent();
+
+        update();
+    }
 }
 
 //! [0]
@@ -115,7 +123,7 @@ void Widget3DView::resizeGL(int w, int h)
     qreal aspect = qreal(w) / qreal(h ? h : 1);
 
     // Set near plane to 3.0, far plane to 7.0, field of view 45 degrees
-    const qreal zNear = 1.0, zFar = 10.0, fov = 50.0;
+    const qreal zNear = 1.0, zFar = 10.0, fov = 45.0;
 
     // Reset projection
     projection.setToIdentity();
@@ -129,6 +137,8 @@ void Widget3DView::paintGL()
     // Clear color and depth buffer
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    glViewport(0, 15, 400, 415);
+
     // Enable back face culling
 #ifndef DEBUG
     glEnable(GL_CULL_FACE);
@@ -140,12 +150,10 @@ void Widget3DView::paintGL()
     QMatrix4x4 matrix;
     matrix.translate(0.0, 0.0, -3.0);
     matrix.rotate(rotation);
-    matrix.rotate(45, QVector3D(1.0, 0.0, 0.0));
+    matrix.rotate(50, QVector3D(1.0, 0.0, 0.0));
 
     // Set modelview-projection matrix
     program.setUniformValue("mvp_matrix", projection * matrix);
-
-    // Use texture unit 0 which contains cube.png
 
     // Draw model geometry
     geometries->drawModelGeometry(&program, matrix);
