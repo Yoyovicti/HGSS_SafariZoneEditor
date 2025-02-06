@@ -12,10 +12,8 @@ Widget3DView::Widget3DView(QWidget* parent) : QOpenGLWidget(parent) {
 
 Widget3DView::~Widget3DView()
 {
-    // Make sure the context is current when deleting the texture
-    // and the buffers.
+    // Make sure the context is current when deleting textures and buffers.
     makeCurrent();
-    // delete texture;
     delete geometries;
     doneCurrent();
 }
@@ -55,19 +53,21 @@ void Widget3DView::mouseReleaseEvent(QMouseEvent *e)
 //! [1]
 void Widget3DView::timerEvent(QTimerEvent *)
 {
-    // // Decrease angular speed (friction)
-    // angularSpeed *= 0.99;
+#ifdef DEBUG
+    // Decrease angular speed (friction)
+    angularSpeed *= 0.99;
 
-    // // Stop rotation when speed goes below threshold
-    // if (angularSpeed < 0.01) {
-    //     angularSpeed = 0.0;
-    // } else {
-    //     // Update rotation
-    //     rotation = QQuaternion::fromAxisAndAngle(rotationAxis, angularSpeed) * rotation;
+    // Stop rotation when speed goes below threshold
+    if (angularSpeed < 0.01) {
+        angularSpeed = 0.0;
+    } else {
+        // Update rotation
+        rotation = QQuaternion::fromAxisAndAngle(rotationAxis, angularSpeed) * rotation;
 
-    //     // Request an update
-    //     update();
-    // }
+        // Request an update
+        update();
+    }
+#endif
 }
 //! [1]
 
@@ -83,8 +83,10 @@ void Widget3DView::initializeGL()
     geometries = new GeometryEngine();
     geometries->setDirectory(model_dir_);
 
+#ifdef DEBUG
     // Use QBasicTimer because its faster than QTimer
-    // timer.start(12, this);
+    timer.start(12, this);
+#endif
 }
 
 //! [3]
@@ -128,7 +130,9 @@ void Widget3DView::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Enable back face culling
+#ifndef DEBUG
     glEnable(GL_CULL_FACE);
+#endif
 
     program.bind();
 

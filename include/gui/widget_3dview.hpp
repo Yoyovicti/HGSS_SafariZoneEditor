@@ -37,7 +37,9 @@ protected:
 private:
     std::filesystem::path model_dir_;
 
-    // QBasicTimer timer;
+#ifdef DEBUG
+    QBasicTimer timer;
+#endif
     QOpenGLShaderProgram program;
     GeometryEngine *geometries = nullptr;
 
