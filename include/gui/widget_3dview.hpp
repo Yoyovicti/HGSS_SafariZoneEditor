@@ -1,7 +1,8 @@
 #ifndef WIDGET_3DVIEW_HPP
 #define WIDGET_3DVIEW_HPP
 
-#include "geometryengine.h"
+#include "manager/save_data_manager.hpp"
+#include "model.hpp"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -14,13 +15,15 @@
 
 #include <filesystem>
 
+// #define DEBUG
+
 class Widget3DView : public QOpenGLWidget, protected QOpenGLFunctions {
 public:
-    // using QOpenGLWidget::QOpenGLWidget;
-    Widget3DView(/*std::filesystem::path& model_path, */QWidget* parent = nullptr);
+    Widget3DView(QWidget* parent = nullptr);
     ~Widget3DView();
 
     void setModelDir(const std::filesystem::path& model_dir);
+    // void setSlot(const Slot& slot);
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;
@@ -32,25 +35,24 @@ protected:
     void paintGL() override;
 
     void initShaders();
-    // void initTextures();
 
 private:
     std::filesystem::path model_dir_;
 
 #ifdef DEBUG
-    QBasicTimer timer;
+    QBasicTimer timer_;
 #endif
     QOpenGLShaderProgram program;
-    GeometryEngine *geometries = nullptr;
 
-    // QOpenGLTexture *texture = nullptr;
+    Model* area_model_;
 
-    QMatrix4x4 projection;
+    QMatrix4x4 projection_;
+    QVector2D mouse_press_pos_;
+    QVector3D rotation_axis_;
+    qreal angular_speed_ = 0;
+    QQuaternion rotation_;
 
-    QVector2D mousePressPosition;
-    QVector3D rotationAxis;
-    qreal angularSpeed = 0;
-    QQuaternion rotation;
+    Slot slot_;
 };
 
 #endif // WIDGET_3DVIEW_HPP

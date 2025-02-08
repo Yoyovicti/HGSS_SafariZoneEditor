@@ -14,25 +14,25 @@
 #include <vector>
 #include <string>
 
-struct VertexData {
+struct VertexDataOld {
     QVector3D position;
     QVector2D tex_coords;
 };
 
-struct Mesh {
-    Mesh() : index_buf(QOpenGLBuffer::IndexBuffer) {
+struct MeshOld {
+    MeshOld() : index_buf(QOpenGLBuffer::IndexBuffer) {
         // Generate VBOs
         array_buf.create();
         index_buf.create();
     }
 
-    ~Mesh() {
+    ~MeshOld() {
         // Destroy VBOs
         array_buf.destroy();
         index_buf.destroy();
     }
 
-    std::vector<VertexData> vertices;
+    std::vector<VertexDataOld> vertices;
     std::vector<GLuint> indices;
     std::vector<QOpenGLTexture*> textures;
 
@@ -46,21 +46,26 @@ public:
     GeometryEngine();
     virtual ~GeometryEngine();
 
-    void setDirectory(std::filesystem::path& path);
-    void drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4& view_matrix);
+    void setModelDirectory(std::filesystem::path& path);
+    void drawModelGeometry(QOpenGLShaderProgram *program/*, QMatrix4x4& view_matrix*/);
 
 private:
     void initModelGeometry();
+    void initObjectGeometry();
+
     void processNode(aiNode* node, const aiScene* scene);
+    void processObjNode(aiNode* node, const aiScene* scene, const std::filesystem::path& tex_dir, const QVector3D& coords);
     void processMesh(aiMesh* mesh, const aiScene* scene);
-    std::vector<QOpenGLTexture*> loadMaterialTextures(Mesh* mesh, aiMaterial *mat, aiTextureType type, std::string typeName);
+    void processObjMesh(aiMesh* mesh, const aiScene* scene, const std::filesystem::path& tex_dir, const QVector3D& coords);
+    std::vector<QOpenGLTexture*> loadMaterialTextures(MeshOld* mesh, aiMaterial *mat, aiTextureType type, std::string typeName);
+    std::vector<QOpenGLTexture*> loadObjMaterialTextures(MeshOld* mesh, aiMaterial *mat, aiTextureType type, std::string typeName, const std::filesystem::path& tex_dir);
 
     void initTexture();
 
     std::filesystem::path directory_;
 
     // Meshes are stored here
-    std::vector<Mesh*> mesh_;
+    std::vector<MeshOld*> mesh_;
 };
 
 #endif // GEOMETRYENGINE_H

@@ -1,4 +1,4 @@
-#include "geometryengine.h"
+#include "geometry_engine.hpp"
 
 #include <filesystem>
 #include <iostream>
@@ -11,7 +11,7 @@ GeometryEngine::GeometryEngine()
     initializeOpenGLFunctions();
 }
 
-void GeometryEngine::setDirectory(std::filesystem::path& path) {
+void GeometryEngine::setModelDirectory(std::filesystem::path& path) {
     directory_ = path;
 
     initModelGeometry();
@@ -19,7 +19,7 @@ void GeometryEngine::setDirectory(std::filesystem::path& path) {
 
 GeometryEngine::~GeometryEngine()
 {
-    for(Mesh* mesh : mesh_) {
+    for(MeshOld* mesh : mesh_) {
         for(QOpenGLTexture* texture : mesh->textures) {
             delete texture;
         }
@@ -28,7 +28,6 @@ GeometryEngine::~GeometryEngine()
 }
 
 void GeometryEngine::initModelGeometry() {
-
     bool found = false;
     std::filesystem::path m_path;
     for(const auto& entry : std::filesystem::directory_iterator(directory_)) {
@@ -50,19 +49,55 @@ void GeometryEngine::initModelGeometry() {
         return;
     }
 
+    std::cout << "===== process base mesh =====" << std::endl;
     processNode(scene->mRootNode, scene);
+
+    initObjectGeometry();
+}
+
+void GeometryEngine::initObjectGeometry() {
+    bool found = false;
+    std::filesystem::path dir("assets/objects/models/Shrubbery");
+    std::filesystem::path m_path;
+    for(const auto& entry : std::filesystem::directory_iterator(dir)) {
+        if(entry.path().extension() == ".dae") {
+            m_path = entry.path();
+            found = true;
+        }
+    }
+
+    if(!found) return;
+
+    Assimp::Importer importer;
+    // test
+    const aiScene* scene_obj = importer.ReadFile(m_path.string(), aiProcess_Triangulate | aiProcess_FlipUVs);
+    if(!scene_obj || scene_obj->mFlags & AI_SCENE_FLAGS_INCOMPLETE || !scene_obj->mRootNode) {
+        std::cout << "GeometryEngine::initModelGeometry Unable to load Assimp model: " << importer.GetErrorString() << std::endl;
+        return;
+    }
+
+    std::array<QVector3D, 3> coords = {
+        QVector3D(27.0f, 16.0f, 27.0f),
+        QVector3D(26.0f, 16.0f, 27.0f),
+        QVector3D(27.0f, 16.0f, 26.0f)
+    };
+
+    std::cout << "===== process object =====" << std::endl;
+    for(int i = 0; i < 3; i++) {
+        processObjNode(scene_obj->mRootNode, scene_obj, dir, coords[i]);
+    }
 }
 
 void GeometryEngine::processNode(aiNode* node, const aiScene* scene) {
+    // https://learnopengl.com/Model-Loading/Assimp
+
     std::cout << "GeometryEngine::processNode found " << node->mNumMeshes << " meshes." << std::endl;
     std::cout << "GeometryEngine::processNode found " << node->mNumChildren << " children." << std::endl;
 
     // Process each mesh
     for(unsigned int i = 0; i < node->mNumMeshes; i++) {
-        // if(i == 16){
         aiMesh* ai_mesh = scene->mMeshes[node->mMeshes[i]];
         processMesh(ai_mesh, scene);
-        // }
     }
 
     // Process children recursively
@@ -71,9 +106,25 @@ void GeometryEngine::processNode(aiNode* node, const aiScene* scene) {
     }
 }
 
+void GeometryEngine::processObjNode(aiNode* node, const aiScene* scene, const std::filesystem::path& tex_dir, const QVector3D& coords) {
+    std::cout << "GeometryEngine::processNode found " << node->mNumMeshes << " meshes." << std::endl;
+    std::cout << "GeometryEngine::processNode found " << node->mNumChildren << " children." << std::endl;
+
+    // Process each mesh
+    for(unsigned int i = 0; i < node->mNumMeshes; i++) {
+        aiMesh* ai_mesh = scene->mMeshes[node->mMeshes[i]];
+        processObjMesh(ai_mesh, scene, tex_dir, coords);
+    }
+
+    // Process children recursively
+    for(unsigned int i = 0; i < node->mNumChildren; i++) {
+        processObjNode(node->mChildren[i], scene, tex_dir, coords);
+    }
+}
+
 void GeometryEngine::processMesh(aiMesh* ai_mesh, const aiScene* scene) {
     // Store aiMesh elements in custom object
-    Mesh* mesh = new Mesh();
+    MeshOld* mesh = new MeshOld();
 
     // Process mesh vertices
     std::cout << "GeometryEngine::processNode found " << ai_mesh->mNumVertices << " vertices in current mesh." << std::endl;
@@ -104,7 +155,7 @@ void GeometryEngine::processMesh(aiMesh* ai_mesh, const aiScene* scene) {
             };
         }
 
-        VertexData v_data;
+        VertexDataOld v_data;
         v_data.position = position;
         v_data.tex_coords = tex_coords;
         mesh->vertices.push_back(v_data);
@@ -127,8 +178,7 @@ void GeometryEngine::processMesh(aiMesh* ai_mesh, const aiScene* scene) {
         aiMaterial *material = scene->mMaterials[ai_mesh->mMaterialIndex];
 
         std::vector<QOpenGLTexture*> diffuse_maps = loadMaterialTextures(mesh, material, aiTextureType_DIFFUSE, "texture_diffuse");
-        // std::vector<TextureData> specular_maps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");
-
+        // std::vector<QOpenGLTexture*> specular_maps = loadMaterialTextures(mesh, material, aiTextureType_SPECULAR, "texture_specular");
         mesh->textures.insert(mesh->textures.end(), diffuse_maps.begin(), diffuse_maps.end());
         // mesh->textures.insert(mesh->textures.end(), specular_maps.begin(), specular_maps.end());
     }
@@ -136,7 +186,7 @@ void GeometryEngine::processMesh(aiMesh* ai_mesh, const aiScene* scene) {
     //! [1]
     // Transfer vertex data to VBO 0
     mesh->array_buf.bind();
-    mesh->array_buf.allocate(mesh->vertices.data(), mesh->vertices.size() * sizeof(VertexData));
+    mesh->array_buf.allocate(mesh->vertices.data(), mesh->vertices.size() * sizeof(VertexDataOld));
 
     // Transfer index data to VBO 1
     mesh->index_buf.bind();
@@ -146,7 +196,75 @@ void GeometryEngine::processMesh(aiMesh* ai_mesh, const aiScene* scene) {
     mesh_.push_back(mesh);
 }
 
-std::vector<QOpenGLTexture*> GeometryEngine::loadMaterialTextures(Mesh* mesh, aiMaterial *mat, aiTextureType type, std::string typeName) {
+void GeometryEngine::processObjMesh(aiMesh* ai_mesh, const aiScene* scene, const std::filesystem::path& tex_dir, const QVector3D& coords) {
+    // Store aiMesh elements in custom object
+    MeshOld* mesh = new MeshOld();
+
+    // Process mesh vertices
+    std::cout << "GeometryEngine::processNode found " << ai_mesh->mNumVertices << " vertices in current mesh." << std::endl;
+
+    QVector3D offset = {
+        16.0f * (coords.x() - 16) + 8.0f,
+        coords.y(),
+        16.0f * (coords.z() - 16) + 8.0f
+    };
+
+    for(unsigned int j = 0; j < ai_mesh->mNumVertices; j++) {
+        // Vertex coordinates
+        float x = ai_mesh->mVertices[j].x;
+        float y = ai_mesh->mVertices[j].y;
+        float z = ai_mesh->mVertices[j].z;
+        QVector3D position(x, y, z);
+
+        position += offset;
+        position /= 256;
+
+        // Texture coordinates
+        QVector2D tex_coords(0.0f, 0.0f);
+        if(ai_mesh->mTextureCoords[0]) {
+            tex_coords = {
+                ai_mesh->mTextureCoords[0][j].x,
+                ai_mesh->mTextureCoords[0][j].y
+            };
+        }
+
+        VertexDataOld v_data;
+        v_data.position = position;
+        v_data.tex_coords = tex_coords;
+        mesh->vertices.push_back(v_data);
+    }
+
+    // Process mesh indices
+    std::cout << "GeometryEngine::processNode found " << ai_mesh->mNumFaces << " faces in current mesh." << std::endl;
+    for(unsigned int j = 0; j < ai_mesh->mNumFaces; j++) {
+        aiFace face = ai_mesh->mFaces[j];
+        for(unsigned int k = 0; k < face.mNumIndices; k++) {
+            mesh->indices.push_back(face.mIndices[k]);
+        }
+    }
+
+    // Process material
+    if(ai_mesh->mMaterialIndex >= 0) {
+        aiMaterial *material = scene->mMaterials[ai_mesh->mMaterialIndex];
+
+        std::vector<QOpenGLTexture*> diffuse_maps = loadObjMaterialTextures(mesh, material, aiTextureType_DIFFUSE, "texture_diffuse", tex_dir);
+        mesh->textures.insert(mesh->textures.end(), diffuse_maps.begin(), diffuse_maps.end());
+    }
+
+    //! [1]
+    // Transfer vertex data to VBO 0
+    mesh->array_buf.bind();
+    mesh->array_buf.allocate(mesh->vertices.data(), mesh->vertices.size() * sizeof(VertexDataOld));
+
+    // Transfer index data to VBO 1
+    mesh->index_buf.bind();
+    mesh->index_buf.allocate(mesh->indices.data(), mesh->indices.size() * sizeof(GLuint));
+    //! [1]
+
+    mesh_.push_back(mesh);
+}
+
+std::vector<QOpenGLTexture*> GeometryEngine::loadMaterialTextures(MeshOld* mesh, aiMaterial *mat, aiTextureType type, std::string typeName) {
     std::vector<QOpenGLTexture*> textures;
     std::cout << "GeometryEngine::loadMaterialTextures found " << mat->GetTextureCount(type) << " textures of type: " << type << std::endl;
     for(unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
@@ -156,7 +274,7 @@ std::vector<QOpenGLTexture*> GeometryEngine::loadMaterialTextures(Mesh* mesh, ai
         std::filesystem::path tex_path(directory_);
         tex_path /= str.C_Str();
 
-        // std::cout << tex_path << std::endl;
+        std::cout << tex_path << std::endl;
 
         QImage img(tex_path.string().c_str());
         QOpenGLTexture* texture = new QOpenGLTexture(img);
@@ -166,15 +284,31 @@ std::vector<QOpenGLTexture*> GeometryEngine::loadMaterialTextures(Mesh* mesh, ai
     return textures;
 }
 
-void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4& view_matrix)
+std::vector<QOpenGLTexture*> GeometryEngine::loadObjMaterialTextures(MeshOld* mesh, aiMaterial *mat, aiTextureType type, std::string typeName, const std::filesystem::path& tex_dir) {
+    std::vector<QOpenGLTexture*> textures;
+    std::cout << "GeometryEngine::loadMaterialTextures found " << mat->GetTextureCount(type) << " textures of type: " << type << std::endl;
+    for(unsigned int i = 0; i < mat->GetTextureCount(type); i++) {
+        aiString str;
+        mat->GetTexture(type, i, &str);
+
+        std::filesystem::path tex_path = tex_dir;
+        tex_path /= str.C_Str();
+
+        QImage img(tex_path.string().c_str());
+        QOpenGLTexture* texture = new QOpenGLTexture(img);
+        textures.push_back(texture);
+    }
+
+    return textures;
+}
+
+void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program/*, QMatrix4x4& view_matrix*/)
 {
-    // Enable depth buffer
-    glEnable(GL_DEPTH_TEST);
     glDisable(GL_BLEND);
     program->setUniformValue("passtype", 0);
 
     // Draw each mesh
-    for(Mesh* mesh : mesh_) {
+    for(MeshOld* mesh : mesh_) {
         mesh->textures[0]->bind();
 
         // Tell OpenGL which VBOs to use
@@ -187,7 +321,7 @@ void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4
         // Tell OpenGL programmable pipeline how to locate vertex position data
         int vertexLocation = program->attributeLocation("a_position");
         program->enableAttributeArray(vertexLocation);
-        program->setAttributeBuffer(vertexLocation, GL_FLOAT, offset, 3, sizeof(VertexData));
+        program->setAttributeBuffer(vertexLocation, GL_FLOAT, offset, 3, sizeof(VertexDataOld));
 
         // Offset for texture coordinate
         offset += sizeof(QVector3D);
@@ -195,7 +329,7 @@ void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4
         // Tell OpenGL programmable pipeline how to locate vertex texture coordinate data
         int texcoordLocation = program->attributeLocation("a_texcoord");
         program->enableAttributeArray(texcoordLocation);
-        program->setAttributeBuffer(texcoordLocation, GL_FLOAT, offset, 2, sizeof(VertexData));
+        program->setAttributeBuffer(texcoordLocation, GL_FLOAT, offset, 2, sizeof(VertexDataOld));
 
         // Draw cube geometry using indices from VBO 1
         glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, nullptr);
@@ -207,9 +341,9 @@ void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4
     program->setUniformValue("passtype", 1);
 
     // Draw each mesh
-    for(Mesh* mesh : mesh_) {
+    for(MeshOld* mesh : mesh_) {
         mesh->textures[0]->bind();
-        program->setUniformValue("texture", 0);
+        // program->setUniformValue("texture", 0);
 
         // Tell OpenGL which VBOs to use
         mesh->array_buf.bind();
@@ -221,7 +355,7 @@ void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4
         // Tell OpenGL programmable pipeline how to locate vertex position data
         int vertexLocation = program->attributeLocation("a_position");
         program->enableAttributeArray(vertexLocation);
-        program->setAttributeBuffer(vertexLocation, GL_FLOAT, offset, 3, sizeof(VertexData));
+        program->setAttributeBuffer(vertexLocation, GL_FLOAT, offset, 3, sizeof(VertexDataOld));
 
         // Offset for texture coordinate
         offset += sizeof(QVector3D);
@@ -229,7 +363,7 @@ void GeometryEngine::drawModelGeometry(QOpenGLShaderProgram *program, QMatrix4x4
         // Tell OpenGL programmable pipeline how to locate vertex texture coordinate data
         int texcoordLocation = program->attributeLocation("a_texcoord");
         program->enableAttributeArray(texcoordLocation);
-        program->setAttributeBuffer(texcoordLocation, GL_FLOAT, offset, 2, sizeof(VertexData));
+        program->setAttributeBuffer(texcoordLocation, GL_FLOAT, offset, 2, sizeof(VertexDataOld));
 
         // Draw cube geometry using indices from VBO 1
         glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, nullptr);
