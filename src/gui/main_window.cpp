@@ -122,7 +122,7 @@ void MainWindow::enterAreaViewer(size_t index) {
         std::cerr << "Unable to load zones table" << std::endl;
         return;
     }
-    std::string area = zone_table[index][0];
+    std::string area = zone_table[slot.area_type_][0];
 
     std::filesystem::path assets_path = "assets";
     std::filesystem::path map_path = assets_path / "maps" / area;

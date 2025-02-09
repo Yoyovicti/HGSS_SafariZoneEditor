@@ -46,4 +46,4 @@ public:
     }
 };
 
-#endif
+#endif // LOCALE_MANAGER_HPP

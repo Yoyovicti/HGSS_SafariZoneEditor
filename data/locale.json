@@ -38,7 +38,7 @@
         ["Mountain",    "Montagne"],
         ["Desert",      "Désert"]
     ],
-    "blocks": [
+    "objects": [
         ["Shrubbery",       "Bosquet"],
         ["Red Flower",      "Fleur rouge"],
         ["White Flower",    "Fleur rose"],

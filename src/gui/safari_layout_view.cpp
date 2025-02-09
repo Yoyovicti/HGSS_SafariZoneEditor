@@ -93,5 +93,5 @@ void SafariLayoutView::labelLeaveHover(size_t index) {
 }
 
 void SafariLayoutView::labelClicked(size_t index) {
-    emit areaClicked(area_types_[index]);
+    emit areaClicked(index);
 }

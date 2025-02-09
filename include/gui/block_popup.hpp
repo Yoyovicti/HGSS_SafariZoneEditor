@@ -14,7 +14,7 @@
 
 class BlockPopup : public QWidget {
 private:
-    const std::string JSON_KEY = "blocks";
+    const std::string JSON_KEY = "objects";
 
     QGridLayout* layout_;
 
