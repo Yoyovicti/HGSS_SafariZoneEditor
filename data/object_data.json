@@ -1,0 +1,50 @@
+{
+    "Shrubbery": {
+        "width":    1,
+        "height":   1
+    },
+    "Red Flower": {
+        "width":    1,
+        "height":   1
+    },
+    "White Flower": {
+        "width":    1,
+        "height":   1
+    },
+    "Tree": {
+        "width":    2,
+        "height":   2
+    },
+    "Stump": {
+        "width":    2,
+        "height":   2
+    },
+    "Branches": {
+        "width":    2,
+        "height":   2
+    },
+    "Small Rock": {
+        "width":    1,
+        "height":   1
+    },
+    "Big Rock": {
+        "width":    2,
+        "height":   2
+    },
+    "Mossy Rock": {
+        "width":    2,
+        "height":   2
+    },
+    "Puddle": {
+        "width":    2,
+        "height":   2
+    },
+    "Fountain": {
+        "width":    2,
+        "height":   2
+    },
+    "Water Hole": {
+        "width":    2,
+        "height":   2
+    }
+}

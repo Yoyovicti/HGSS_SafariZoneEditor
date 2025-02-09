@@ -25,11 +25,13 @@ add_compile_definitions(
 
 set(PROJECT_SOURCES
     src/main.cpp
-    src/geometryengine.cpp
+    src/geometry_engine.cpp
+    src/model.cpp
+    src/mesh.cpp
 
-
-    # GUI
+    ### GUI
     src/gui/main_window.cpp
+
     # Top bar elements
     src/gui/file_menu.cpp
     src/gui/options_menu.cpp
@@ -38,16 +40,23 @@ set(PROJECT_SOURCES
     include/gui/file_menu.hpp
     include/gui/options_menu.hpp
     include/gui/lang_menu.hpp
-    # Main elements
+
+    # Main window elements
+    src/gui/day_counters.cpp
     src/gui/safari_layout_view.cpp
     src/gui/area_view.cpp
-    src/gui/widget_3dview.cpp
-    src/gui/day_counters.cpp
-    src/gui/area_label.cpp
-    src/gui/block_popup.cpp
     include/gui/safari_layout_view.hpp
     include/gui/area_view.hpp
+
+    # Safari layout view
+    src/gui/area_label.cpp
     include/gui/area_label.hpp
+
+    # Area view
+    src/gui/widget_3dview.cpp
+    src/gui/block_popup.cpp
+    src/gui/object_view.cpp
+    src/gui/object_item.cpp
 )
 
 include_directories(
