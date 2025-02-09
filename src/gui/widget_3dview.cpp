@@ -1,5 +1,8 @@
 #include "gui/widget_3dview.hpp"
 
+#include "manager/locale_manager.hpp"
+#include "manager/object_data_manager.hpp"
+
 #include <QMouseEvent>
 
 #include <cmath>
@@ -15,6 +18,9 @@ Widget3DView::~Widget3DView()
     // Make sure the context is current when deleting textures and buffers.
     makeCurrent();
     if(area_model_) delete area_model_;
+    for(Model* model : object_models_) {
+        if(model) delete model;
+    }
     doneCurrent();
 }
 
@@ -28,20 +34,48 @@ void Widget3DView::setModelDir(const std::filesystem::path& model_dir) {
     update();
 }
 
-// void Widget3DView::setSlot(const Slot& slot) {
-//     slot_ = slot;
+void Widget3DView::setObjects(const Slot& slot) {
+    makeCurrent();
+    for(Model* model : object_models_) {
+        if(model) delete model;
+    }
+    object_models_.clear();
 
-//     // TODO fix geometries are drawn 2 times
-//     if(geometries_) {
-//         makeCurrent();
-//         delete geometries_;
-//         geometries_ = new GeometryEngine();
-//         geometries_->setObjectDirectory(model_dir_);
-//         doneCurrent();
+    LocaleManager& locale_manager = LocaleManager::getInstance();
+    json object_table;
+    if(!locale_manager.getTable(&object_table, JSON_KEY)) {
+        std::cerr << "Unable to load blocks table" << std::endl;
+        return;
+    }
 
-//         update();
-//     }
-// }
+    ObjectDataManager& obj_manager = ObjectDataManager::getInstance();
+
+    const std::filesystem::path global_obj_dir("assets/objects/models");
+    for(uint8_t i = 0; i < slot.object_count_; i++) {
+        Object obj = slot.objects_[i];
+        std::string en_name = object_table[obj.id_][0];
+        std::filesystem::path obj_dir(global_obj_dir / en_name);
+
+        json obj_data_table;
+        if(!obj_manager.getTable(&obj_data_table, en_name)) {
+            std::cerr << "Unknown object data key: " << en_name << std::endl;
+            continue;
+        }
+        uint8_t width = obj_data_table["width"];
+        uint8_t height = obj_data_table["height"];
+
+        std::cout << en_name << " " << float(width) << " " << float(height) << std::endl;
+        // TODO Fix for large objects
+        QVector3D offset(
+            16.0f * (obj.x_ - (16.0f - float(width) * 0.5f)),
+            obj.y_,
+            16.0f * (obj.z_ - (15.0f + float(height) * 0.5f))
+        );
+
+        Model* model = new Model(obj_dir, offset);
+        object_models_.push_back(model);
+    }
+}
 
 void Widget3DView::mousePressEvent(QMouseEvent *e)
 {
@@ -166,4 +200,9 @@ void Widget3DView::paintGL()
     // Draw model in 2 passes : first with only opaque fragments, second with only transparent fragments
     area_model_->drawModel(&program, 0);
     area_model_->drawModel(&program, 1);
+
+    for(Model* model : object_models_) {
+        model->drawModel(&program, 0);
+        model->drawModel(&program, 1);
+    }
 }

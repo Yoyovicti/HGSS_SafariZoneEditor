@@ -23,7 +23,7 @@ public:
     ~Widget3DView();
 
     void setModelDir(const std::filesystem::path& model_dir);
-    // void setSlot(const Slot& slot);
+    void setObjects(const Slot& slot);
 
 protected:
     void mousePressEvent(QMouseEvent *e) override;
@@ -37,6 +37,8 @@ protected:
     void initShaders();
 
 private:
+    const std::string JSON_KEY = "objects";
+
     std::filesystem::path model_dir_;
 
 #ifdef DEBUG
@@ -45,6 +47,7 @@ private:
     QOpenGLShaderProgram program;
 
     Model* area_model_;
+    std::vector<Model*> object_models_;
 
     QMatrix4x4 projection_;
     QVector2D mouse_press_pos_;
