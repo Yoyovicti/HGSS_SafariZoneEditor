@@ -13,7 +13,6 @@
 
 #include <filesystem>
 
-
 class Model : protected QOpenGLFunctions {
 public:
     Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset);
@@ -27,10 +26,13 @@ public:
 
     void drawModel(QOpenGLShaderProgram* program, uint8_t pass_type);
 
+    QVector3D xyz_offset_;
+
+    BBox bbox_;
 private:
     std::vector<Mesh*> meshes_;
     std::filesystem::path model_dir_;
-    QVector3D xyz_offset_;
+
 
     void processNode(const aiNode* node, const aiScene* scene);
     void processMesh(const aiMesh* ai_mesh, const aiScene* scene);

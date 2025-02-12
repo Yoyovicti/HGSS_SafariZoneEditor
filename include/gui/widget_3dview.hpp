@@ -15,7 +15,7 @@
 
 #include <filesystem>
 
-// #define DEBUG
+#define DEBUG
 
 class Widget3DView : public QOpenGLWidget, protected QOpenGLFunctions {
 public:
@@ -44,7 +44,8 @@ private:
 #ifdef DEBUG
     QBasicTimer timer_;
 #endif
-    QOpenGLShaderProgram program;
+    QOpenGLShaderProgram program_;
+    QOpenGLShaderProgram outline_program_;
 
     Model* area_model_;
     std::vector<Model*> object_models_;

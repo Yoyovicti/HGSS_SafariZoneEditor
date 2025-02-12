@@ -134,25 +134,40 @@ void Widget3DView::initializeGL()
 #ifdef DEBUG
     timer_.start(12, this);
 #endif
+
+    // Offset viewport for centering model
+    glViewport(0, 15, 400, 415);
 }
 
 void Widget3DView::initShaders()
 {
+    // Base shader program
     // Compile vertex shader
-    if (!program.addShaderFromSourceFile(QOpenGLShader::Vertex, "assets/shaders/vshader.glsl"))
+    if (!program_.addShaderFromSourceFile(QOpenGLShader::Vertex, "assets/shaders/vshader.glsl"))
         close();
 
     // Compile fragment shader
-    if (!program.addShaderFromSourceFile(QOpenGLShader::Fragment, "assets/shaders/fshader.glsl"))
+    if (!program_.addShaderFromSourceFile(QOpenGLShader::Fragment, "assets/shaders/fshader.glsl"))
         close();
 
     // Link shader pipeline
-    if (!program.link())
+    if (!program_.link())
         close();
 
     // Bind shader pipeline for use
-    if (!program.bind())
+    if (!program_.bind())
         close();
+
+    // Outline program
+    if (!outline_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, "assets/shaders/vshader.glsl"))
+        close();
+    if(!outline_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, "assets/shaders/foutline.glsl"))
+        close();
+    if(!outline_program_.link())
+        close();
+    if(!outline_program_.bind())
+        close();
+
 }
 
 void Widget3DView::resizeGL(int w, int h)
@@ -172,18 +187,24 @@ void Widget3DView::resizeGL(int w, int h)
 
 void Widget3DView::paintGL()
 {
-    // Clear color and depth buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    // Enable depth buffer
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
-    // Offset viewport for centering model
-    glViewport(0, 15, 400, 415);
+    // Stencil test
+    glEnable(GL_STENCIL_TEST);
+    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
 #ifndef DEBUG
     // Enable back face culling
     glEnable(GL_CULL_FACE);
 #endif
 
-    program.bind();
+    // Clear color and depth buffer
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+    outline_program_.bind();
 
     // Calculate model view transformation
     QMatrix4x4 matrix;
@@ -192,17 +213,66 @@ void Widget3DView::paintGL()
     matrix.rotate(50, QVector3D(1.0, 0.0, 0.0));
 
     // Set modelview-projection matrix
-    program.setUniformValue("mvp_matrix", projection_ * matrix);
+    outline_program_.setUniformValue("mvp_matrix", projection_ * matrix);
 
-    // Enable depth buffer
-    glEnable(GL_DEPTH_TEST);
+    program_.bind();
+    program_.setUniformValue("mvp_matrix", projection_ * matrix);
 
+    glStencilMask(0x00);
+
+    // draw non-outlined models (aka floor), do not write stencil buffer
     // Draw model in 2 passes : first with only opaque fragments, second with only transparent fragments
-    area_model_->drawModel(&program, 0);
-    area_model_->drawModel(&program, 1);
+    area_model_->drawModel(&program_, 0);
+    // area_model_->drawModel(&program, 1);
+
+    // First pass, draw objects as normal and write stencil buffer
+    glStencilFunc(GL_ALWAYS, 1, 0xFF);
+    glStencilMask(0xFF);
 
     for(Model* model : object_models_) {
-        model->drawModel(&program, 0);
-        model->drawModel(&program, 1);
+        model->drawModel(&program_, 0);
+        // model->drawModel(&program, 1);
     }
+
+    // Second pass : Draw scaled version of objects, do not write stencil buffer
+    // Stencil buffer is filled with 1's from objects, which are not drawn this time.
+    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+    glStencilMask(0x00);
+    glDisable(GL_DEPTH_TEST);
+
+    outline_program_.bind();
+    float scale = 2.0f;
+
+    // TODO fix this mess: Compute bounding box of model and retrieve center, then translate to origin, then translate back
+    for(Model* model : object_models_) {
+        QVector3D centroid(
+            (model->bbox_.max_.x() + model->bbox_.min_.x()) / 2,
+            (model->bbox_.max_.y() + model->bbox_.min_.y()) / 2,
+            (model->bbox_.max_.z() + model->bbox_.min_.z()) / 2
+        );
+        // centroid
+        std::cout << centroid.x() << " " << centroid.y() << " " << centroid.z() << std::endl;
+        // std::cout << model->bbox_.min_.x() << " " << model->bbox_.min_.y() << " " << model->bbox_.min_.z() << std::endl;
+        // std::cout << model->bbox_.max_.x() << " " << model->bbox_.max_.y() << " " << model->bbox_.max_.z() << std::endl;
+        // Calculate model view transformation
+        QMatrix4x4 matrix2;
+
+        matrix2.translate(-centroid);
+        matrix2.scale(scale);
+        matrix2.translate(centroid);
+        matrix2.translate(0.0, 0.0, -3.0);
+        matrix2.rotate(rotation_);
+        matrix2.rotate(50, QVector3D(1.0, 0.0, 0.0));
+
+        // Set modelview-projection matrix
+        outline_program_.setUniformValue("mvp_matrix", projection_ * matrix2);
+
+        model->drawModel(&outline_program_, 0);
+        // model->drawModel(&program, 1);
+    }
+
+    glStencilMask(0xFF);
+    glStencilFunc(GL_ALWAYS, 0, 0xFF);
+    glEnable(GL_DEPTH_TEST);
+
 }
