@@ -5,20 +5,22 @@
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>
-#include <QGridLayout>
+#include <QVBoxLayout>
 #include <QLabel>
 
 class ObjectView : public QWidget {
 public:
     ObjectView(QWidget* parent = nullptr);
 
+    int getWidth() {return obj_items_[0].sizeHint().width();}
+
     void setSlot(const Slot& slot);
 
 private:
     const std::string JSON_KEY = "objects";
 
-    QGridLayout layout_;
-    std::array<ObjectItem, 30> obj_labels_;
+    QVBoxLayout layout_;
+    std::array<ObjectItem, 30> obj_items_;
 
     Slot slot_;
 };
