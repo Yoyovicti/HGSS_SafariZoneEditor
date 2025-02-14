@@ -105,8 +105,7 @@ public:
     const std::array<uint8_t, N_DAY_COUNTERS>& getCounters() {return day_counters_;}
     bool isLoaded() {return is_loaded_;}
 
-    void setCounters(const std::array<uint8_t, N_DAY_COUNTERS>& counters) {day_counters_ = counters;}
-
+    void setCounter(uint8_t area_id, uint8_t value) {day_counters_[area_id] = value;}
 
 private:
     std::array<Slot, N_SLOTS> slots_;

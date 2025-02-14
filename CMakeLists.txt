@@ -32,6 +32,8 @@ set(PROJECT_SOURCES
     ### GUI
     src/gui/main_window.cpp
 
+    include/gui/day_counter_edit.hpp
+
     # Top bar elements
     src/gui/file_menu.cpp
     src/gui/options_menu.cpp
@@ -45,6 +47,7 @@ set(PROJECT_SOURCES
     src/gui/day_counters.cpp
     src/gui/safari_layout_view.cpp
     src/gui/area_view.cpp
+    include/gui/day_counters.hpp
     include/gui/safari_layout_view.hpp
     include/gui/area_view.hpp
 

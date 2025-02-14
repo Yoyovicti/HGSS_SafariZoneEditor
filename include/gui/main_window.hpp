@@ -47,5 +47,6 @@ private slots:
     void updateLanguage(uint8_t locale);
     void enterAreaViewer(size_t index);
     void exitAreaViewer();
+    void updateCounters(uint8_t area_id, uint8_t value);
 };
 #endif // MAIN_WINDOW_HPP

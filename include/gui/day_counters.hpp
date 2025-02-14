@@ -1,6 +1,7 @@
 #ifndef DAY_COUNTERS_HPP
 #define DAY_COUNTERS_HPP
 
+#include "gui/day_counter_edit.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <nlohmann/json.hpp>
@@ -8,19 +9,19 @@ using json = nlohmann::json;
 
 #include <QWidget>
 #include <QGridLayout>
-#include <QLineEdit>
 #include <QLabel>
 
 #include <array>
 #include <string>
 
 class DayCounters : public QWidget {
+    Q_OBJECT
 private:
     const std::string JSON_KEY = "zones";
 
     QGridLayout layout_;
     std::array<QLabel, SaveDataManager::N_DAY_COUNTERS> labels_;
-    std::array<QLineEdit, SaveDataManager::N_DAY_COUNTERS> line_edits_;
+    std::array<DayCounterEdit, SaveDataManager::N_DAY_COUNTERS> line_edits_;
 
 public:
     DayCounters(QWidget* parent = nullptr);
@@ -33,6 +34,10 @@ public:
 public slots:
     void highlightCounter(uint8_t& index);
     void resetHighlight(uint8_t& index);
+
+signals:
+    void counterChanged(uint8_t c_id, uint8_t value);
+
 };
 
 #endif

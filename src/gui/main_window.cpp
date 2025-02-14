@@ -37,6 +37,8 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&layout_view_, &SafariLayoutView::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
     QObject::connect(&layout_view_, &SafariLayoutView::areaClicked, this, &MainWindow::enterAreaViewer);
     QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
+    QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
+    QObject::connect(&area_view_, &AreaView::counterChanged, this, &MainWindow::updateCounters);
 
     day_counters_.updateLanguage(locale);
 }
@@ -77,9 +79,6 @@ void MainWindow::saveFileDialog() {
 
     ConfigManager& config_manager = ConfigManager::getInstance();
     std::string default_path = config_manager.getDefaultPath();
-
-    std::array<uint8_t, SaveDataManager::N_DAY_COUNTERS> counters = day_counters_.retrieveCounters();
-    save_data_manager_.setCounters(counters);
 
     std::filesystem::path file_name = QFileDialog::getSaveFileName(this, "Save file as", QString::fromStdString(default_path), "HGSS save files (*.sav)").toStdString();
     if(!save_data_manager_.writeData(file_name)) {
@@ -130,6 +129,7 @@ void MainWindow::enterAreaViewer(size_t index) {
 
     std::cout << "Loading area: " << map_path << std::endl;
 
+    area_view_.setDayCount(save_data_manager_.getCounters()[slot.area_type_]);
     area_view_.setSlot(slot);
     area_view_.setModelDir(map_path);
     area_view_.show();
@@ -139,5 +139,11 @@ void MainWindow::exitAreaViewer() {
     area_view_.hide();
     file_label_.show();
     layout_view_.show();
+    day_counters_.fillCounters(save_data_manager_.getCounters());
     day_counters_.show();
+}
+
+void MainWindow::updateCounters(uint8_t area_id, uint8_t value) {
+    std::cout << int(area_id) << " " << int(value) << std::endl;
+    save_data_manager_.setCounter(area_id, value);
 }

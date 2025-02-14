@@ -1,6 +1,7 @@
 #ifndef AREA_VIEW_HPP
 #define AREA_VIEW_HPP
 
+#include "gui/day_counter_edit.hpp"
 #include "gui/widget_3dview.hpp"
 #include "gui/object_view.hpp"
 #include "manager/save_data_manager.hpp"
@@ -20,6 +21,7 @@ class AreaView : public QWidget {
 public:
     AreaView(QWidget *parent = nullptr);
 
+    void setDayCount(uint8_t count) {day_edit_.setText(QString::number(count));}
     void setSlot(const Slot& slot);
     void setModelDir(const std::filesystem::path& model_dir) {view_3d_.setModelDir(model_dir);}
 
@@ -27,6 +29,9 @@ private:
     QGridLayout layout_;
 
     QPushButton back_button_;
+    QLabel day_label_;
+    DayCounterEdit day_edit_;
+
     QLabel objects_label_;
 
     Widget3DView view_3d_;
@@ -41,6 +46,7 @@ private:
 
 signals:
     void backButtonReleased();
+    void counterChanged(uint8_t c_id, uint8_t value);
 
 };
 

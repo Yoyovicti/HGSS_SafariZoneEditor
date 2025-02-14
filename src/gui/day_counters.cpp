@@ -4,16 +4,20 @@
 
 DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line_edits_() {
 
-    for(size_t i = 0; i < line_edits_.size(); i++) {
+    for(uint8_t i = 0; i < line_edits_.size(); i++) {
 
-        QLineEdit* line_edit = &line_edits_[i];
-        line_edit->setFixedWidth(50);
-        line_edit->setDisabled(true);
+        DayCounterEdit* line_edit = &line_edits_[i];
+        // line_edit->setFixedWidth(50);
+        // line_edit->setDisabled(true);
 
         QLabel* label = &labels_[i];
 
         layout_.addWidget(label, i, 0, 1, 1);
         layout_.addWidget(line_edit, i, 1, 1, 1);
+
+        QObject::connect(line_edit, &DayCounterEdit::dayCountChanged, this, [&](uint8_t count) {
+            emit counterChanged(i, count);
+        });
     }
 
     this->setLayout(&layout_);
