@@ -5,7 +5,7 @@
 
 #include <iostream>
 
-Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset) : model_dir_(model_dir), xyz_offset_(xyz_offset) {
+Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset) : model_dir_(model_dir), xyz_offset_(xyz_offset), highlight_(false) {
     initializeOpenGLFunctions();
 
     bbox_.max_ = std::numeric_limits<QVector3D>::min();
@@ -80,6 +80,7 @@ void Model::drawModel(QOpenGLShaderProgram* program, uint8_t pass_type) {
         return;
     }
 
+    program->setUniformValue("highlight", highlight_ ? 1 : 0);
     program->setUniformValue("pass_type", pass_type);
     for(Mesh* mesh : meshes_) {
         mesh->drawMesh(program);

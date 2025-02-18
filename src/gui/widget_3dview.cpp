@@ -4,6 +4,7 @@
 #include "manager/object_data_manager.hpp"
 
 #include <QMouseEvent>
+#include <QDateTime>
 
 #include <cmath>
 #include <iostream>
@@ -114,11 +115,11 @@ void Widget3DView::timerEvent(QTimerEvent *)
     } else {
         // Update rotation
         rotation_ = QQuaternion::fromAxisAndAngle(rotation_axis_, angular_speed_) * rotation_;
+    }
+#endif
 
         // Request an update
         update();
-    }
-#endif
 }
 
 void Widget3DView::initializeGL()
@@ -131,9 +132,7 @@ void Widget3DView::initializeGL()
 
     initShaders();
 
-#ifdef DEBUG
     timer_.start(12, this);
-#endif
 
     // Offset viewport for centering model
     glViewport(0, 15, 400, 415);
@@ -187,6 +186,9 @@ void Widget3DView::resizeGL(int w, int h)
 
 void Widget3DView::paintGL()
 {
+    double curr_time = QDateTime::currentMSecsSinceEpoch();
+    float elapsed_time = (curr_time - start_time_) / 1000;
+
     // Enable depth buffer
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
@@ -241,6 +243,7 @@ void Widget3DView::paintGL()
     glDisable(GL_DEPTH_TEST);
 
     outline_program_.bind();
+    outline_program_.setUniformValue("time", elapsed_time);
     float scale = 2.0f;
 
     // TODO fix this mess: Compute bounding box of model and retrieve center, then translate to origin, then translate back
@@ -275,4 +278,14 @@ void Widget3DView::paintGL()
     glStencilFunc(GL_ALWAYS, 0, 0xFF);
     glEnable(GL_DEPTH_TEST);
 
+}
+
+void Widget3DView::startHighlightModel(uint8_t i) {
+    object_models_[i]->setHighlight(true);
+    update();
+}
+
+void Widget3DView::stopHighlightModel(uint8_t i) {
+    object_models_[i]->setHighlight(false);
+    update();
 }

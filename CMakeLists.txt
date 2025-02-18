@@ -60,6 +60,8 @@ set(PROJECT_SOURCES
     src/gui/block_popup.cpp
     src/gui/object_view.cpp
     src/gui/object_item.cpp
+    include/gui/object_view.hpp
+    include/gui/object_item.hpp
 )
 
 include_directories(

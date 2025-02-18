@@ -11,6 +11,7 @@
 #include <QIcon>
 
 class ObjectItem : public QWidget {
+    Q_OBJECT
 public:
     ObjectItem(QWidget *parent = nullptr);
 
@@ -19,7 +20,7 @@ public:
 
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
+    // void mousePressEvent(QMouseEvent *event) override;
 
 private:
     QGridLayout layout_;
@@ -38,6 +39,10 @@ private:
     // QGraphicsColorizeEffect color_effect_;
 
     QIcon loadAndRecolorIcon(const QString& img_path, const QColor& color);
+
+signals:
+    void enterHover();
+    void leaveHover();
 };
 
 #endif // OBJECT_ITEM_HPP

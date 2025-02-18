@@ -6,7 +6,9 @@ ObjectView::ObjectView(QWidget* parent) : QWidget(parent), layout_(this) {
     for(uint8_t i = 0; i < obj_items_.size(); i++) {
         obj_items_[i].hide();
         layout_.addWidget(&obj_items_[i]);
-        // layout_.addWidget(&obj_labels_[i], i, 0, 1, 1);
+
+        QObject::connect(&obj_items_[i], &ObjectItem::enterHover, this, [&, i]() {emit enterItemHover(i);});
+        QObject::connect(&obj_items_[i], &ObjectItem::leaveHover, this, [&, i]() {emit leaveItemHover(i);});
     }
 
     // adjustSize();

@@ -107,15 +107,18 @@ void ObjectItem::setObject(const Object& object) {
 void ObjectItem::enterEvent(QEnterEvent *event) {
     setStyleSheet("QWidget { background-color: rgba(100, 100, 255, 60); }"
                   "QLabel { background: transparent; }");
+    emit enterHover();
+
 }
 
 void ObjectItem::leaveEvent(QEvent *event) {
     setStyleSheet("");
+    emit leaveHover();
 }
 
-void ObjectItem::mousePressEvent(QMouseEvent *event) {
+// void ObjectItem::mousePressEvent(QMouseEvent *event) {
 
-}
+// }
 
 QIcon ObjectItem::loadAndRecolorIcon(const QString& img_path, const QColor& color) {
     QPixmap pixmap(img_path);

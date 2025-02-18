@@ -9,6 +9,7 @@
 #include <QLabel>
 
 class ObjectView : public QWidget {
+    Q_OBJECT
 public:
     ObjectView(QWidget* parent = nullptr);
 
@@ -23,6 +24,10 @@ private:
     std::array<ObjectItem, 30> obj_items_;
 
     Slot slot_;
+
+signals:
+    void enterItemHover(uint8_t i);
+    void leaveItemHover(uint8_t i);
 };
 
 #endif // OBJECT_VIEW_HPP
