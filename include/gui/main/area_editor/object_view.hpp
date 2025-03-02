@@ -8,7 +8,7 @@ class ObjectView : public QWidget {
     Q_OBJECT
 
 public:
-    ObjectView(QWidget* parent = nullptr) {
+    ObjectView(QWidget* parent = nullptr) : QWidget(parent), layout_(this) {
         for(uint8_t i = 0; i < obj_items_.size(); i++) {
             obj_items_[i].hide();
             layout_.addWidget(&obj_items_[i]);
