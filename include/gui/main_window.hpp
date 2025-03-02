@@ -7,6 +7,7 @@
 #include "gui/area_view.hpp"
 #include "gui/widget_3dview.hpp"
 #include "gui/day_counters.hpp"
+#include "gui/area_selector.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>
@@ -14,6 +15,7 @@
 #include <QMenuBar>
 #include <QLabel>
 #include <QFileDialog>
+#include <QPushButton>
 
 #include <string>
 
@@ -32,21 +34,29 @@ private:
     QLabel file_label_;
     SafariLayoutView layout_view_;
     DayCounters day_counters_;
-
     AreaView area_view_;
+
+    QPushButton edit_button_;
+    QScrollArea area_scroll_;
+    AreaSelector area_selector_;
 
     SaveDataManager save_data_manager_;
 
     const std::string JSON_KEY = "main_window";
 
+    bool edit_mode_;
+
     void loadFileData();
+
+    void enterAreaViewer(size_t index);
 
 private slots:
     void openFileDialog();
     void saveFileDialog();
-    void updateLanguage(uint8_t locale);
-    void enterAreaViewer(size_t index);
+    void areaClicked(size_t index);
     void exitAreaViewer();
+    void updateLanguage(uint8_t locale);
     void updateCounters(uint8_t area_id, uint8_t value);
+    void editButtonReleased();
 };
 #endif // MAIN_WINDOW_HPP

@@ -3,12 +3,22 @@
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), /*area_view_old_(this), */layout_view_(this), day_counters_(this) {
+#include <QScrollBar>
+
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), layout_view_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), edit_mode_(false) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
     area_view_.hide();
-    // area_view_old_.hide();
+    area_scroll_.hide();
+
+    area_scroll_.setWidget(&area_selector_);
+    // Disable horizontal scrollbar
+    area_scroll_.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    area_scroll_.horizontalScrollBar()->setEnabled(false);
+
+    edit_button_.setText("Éditer");
+    edit_button_.setEnabled(false);
 
     LocaleManager& locale_manager = LocaleManager::getInstance();
     json table;
@@ -23,19 +33,20 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     file_label_.setText(QString::fromStdString(table["file_label"][locale]));
 
     layout_.setMenuBar(&menu_bar_);
-    layout_.addWidget(&file_label_, 0, 0, 1, 20);
+    layout_.addWidget(&file_label_, 0, 0, 1, 17);
     layout_.addWidget(&layout_view_, 1, 0, 12, 18);
     layout_.addWidget(&area_view_, 1, 0, 1, 1);
-    // layout_.addWidget(&area_view_old_, 1, 0, 1, 1);
     layout_.addWidget(&day_counters_, 1, 18, 12, 2);
-    this->setLayout(&layout_);
+    layout_.addWidget(&edit_button_, 0, 17, 1, 1);
+    layout_.addWidget(&area_scroll_, 1, 20, 12, 1);
 
     QObject::connect(&file_menu_, &FileMenu::openFileClicked, this, &MainWindow::openFileDialog);
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
     QObject::connect(&options_menu_, &OptionsMenu::languageChangeClicked, this, &MainWindow::updateLanguage);
+    QObject::connect(&edit_button_, &QPushButton::released, this, &MainWindow::editButtonReleased);
     QObject::connect(&layout_view_, &SafariLayoutView::areaHovered, &day_counters_, &DayCounters::highlightCounter);
     QObject::connect(&layout_view_, &SafariLayoutView::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
-    QObject::connect(&layout_view_, &SafariLayoutView::areaClicked, this, &MainWindow::enterAreaViewer);
+    QObject::connect(&layout_view_, &SafariLayoutView::areaClicked, this, &MainWindow::areaClicked);
     QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
     QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
     QObject::connect(&area_view_, &AreaView::counterChanged, this, &MainWindow::updateCounters);
@@ -69,6 +80,7 @@ void MainWindow::openFileDialog(){
 
     day_counters_.fillCounters(save_data_manager_.getCounters());
     layout_view_.loadData(save_data_manager_.getSlots());
+    edit_button_.setEnabled(true);
 }
 
 void MainWindow::saveFileDialog() {
@@ -109,10 +121,19 @@ void MainWindow::updateLanguage(uint8_t locale) {
     file_menu_.updateLanguage(locale);
 }
 
+void MainWindow::areaClicked(size_t index) {
+    if(edit_mode_) {
+        return;
+    }
+
+    enterAreaViewer(index);
+}
+
 void MainWindow::enterAreaViewer(size_t index) {
     file_label_.hide();
     layout_view_.hide();
     day_counters_.hide();
+    edit_button_.hide();
 
     const Slot& slot = save_data_manager_.getSlots()[index];
 
@@ -133,6 +154,7 @@ void MainWindow::enterAreaViewer(size_t index) {
     area_view_.setSlot(slot);
     area_view_.setModelDir(map_path);
     area_view_.show();
+    adjustSize();
 }
 
 void MainWindow::exitAreaViewer() {
@@ -141,9 +163,23 @@ void MainWindow::exitAreaViewer() {
     layout_view_.show();
     day_counters_.fillCounters(save_data_manager_.getCounters());
     day_counters_.show();
+    edit_button_.show();
+    adjustSize();
 }
 
 void MainWindow::updateCounters(uint8_t area_id, uint8_t value) {
-    std::cout << int(area_id) << " " << int(value) << std::endl;
     save_data_manager_.setCounter(area_id, value);
+}
+
+void MainWindow::editButtonReleased() {
+    edit_mode_ = !edit_mode_;
+
+    if(edit_mode_) {
+        day_counters_.hide();
+        area_scroll_.show();
+    } else {
+        area_scroll_.hide();
+        day_counters_.show();
+    }
+    adjustSize();
 }

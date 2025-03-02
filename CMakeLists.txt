@@ -47,9 +47,12 @@ set(PROJECT_SOURCES
     src/gui/day_counters.cpp
     src/gui/safari_layout_view.cpp
     src/gui/area_view.cpp
+    src/gui/area_selector.cpp
+    src/gui/area_item.cpp
     include/gui/day_counters.hpp
     include/gui/safari_layout_view.hpp
     include/gui/area_view.hpp
+    include/gui/area_item.hpp
 
     # Safari layout view
     src/gui/area_label.cpp
