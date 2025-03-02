@@ -1,12 +1,7 @@
 #ifndef ABOUT_MESSAGE_BOX_HPP
 #define ABOUT_MESSAGE_BOX_HPP
 
-#include "manager/config_manager.hpp"
-#include "manager/locale_manager.hpp"
-
 #include <QMessageBox>
-
-#include <string>
 
 class AboutMessageBox : public QMessageBox {
 private:

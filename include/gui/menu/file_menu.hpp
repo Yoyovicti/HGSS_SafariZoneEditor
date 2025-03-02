@@ -1,12 +1,7 @@
 #ifndef FILE_MENU_HPP
 #define FILE_MENU_HPP
 
-#include "manager/locale_manager.hpp"
-#include "manager/config_manager.hpp"
-
 #include <QMenu>
-
-#include <iostream>
 
 class FileMenu : public QMenu {
     Q_OBJECT

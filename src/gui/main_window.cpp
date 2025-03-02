@@ -1,4 +1,4 @@
-#include "gui/main_window.hpp"
+#include "main_window.hpp"
 
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"

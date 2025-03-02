@@ -1,4 +1,4 @@
-#include "main/safari_layout.hpp"
+#include "safari_layout.hpp"
 
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"

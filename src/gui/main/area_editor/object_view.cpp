@@ -1,6 +1,4 @@
-#include "area_editor/object_view.hpp"
-
-// #include "manager/locale_manager.hpp"
+#include "object_view.hpp"
 
 ObjectView::ObjectView(QWidget* parent) : QWidget(parent), layout_(this) {
     for(uint8_t i = 0; i < obj_items_.size(); i++) {

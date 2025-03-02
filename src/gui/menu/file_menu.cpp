@@ -1,4 +1,7 @@
-#include "menu/file_menu.hpp"
+#include "file_menu.hpp"
+
+#include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
 
 FileMenu::FileMenu(QWidget* parent) : QMenu(parent) {
     ConfigManager& config_manager = ConfigManager::getInstance();

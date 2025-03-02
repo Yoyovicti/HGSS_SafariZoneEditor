@@ -6,7 +6,6 @@
 #include <fstream>
 #include <iostream>
 #include <vector>
-#include <stdint.h>
 
 struct Object {
     uint8_t id_;

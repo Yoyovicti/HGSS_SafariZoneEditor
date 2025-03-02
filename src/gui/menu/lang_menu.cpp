@@ -1,4 +1,10 @@
-#include "menu/lang_menu.hpp"
+#include "lang_menu.hpp"
+
+#include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
+
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
 
 LangMenu::LangMenu(QWidget *parent) : QMenu(parent), action_group_(this) {
     ConfigManager& config_manager = ConfigManager::getInstance();

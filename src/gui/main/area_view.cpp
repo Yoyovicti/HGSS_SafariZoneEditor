@@ -1,4 +1,4 @@
-#include "main/area_view.hpp"
+#include "area_view.hpp"
 
 #include <QScrollBar>
 

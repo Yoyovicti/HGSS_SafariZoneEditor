@@ -1,7 +1,7 @@
 #ifndef AREA_SELECTOR_HPP
 #define AREA_SELECTOR_HPP
 
-#include "main/area_item.hpp"
+#include "area_item.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>

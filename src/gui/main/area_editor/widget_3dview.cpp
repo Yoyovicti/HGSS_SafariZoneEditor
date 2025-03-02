@@ -1,4 +1,4 @@
-#include "area_editor/widget_3dview.hpp"
+#include "widget_3dview.hpp"
 
 #include "manager/locale_manager.hpp"
 #include "manager/object_data_manager.hpp"

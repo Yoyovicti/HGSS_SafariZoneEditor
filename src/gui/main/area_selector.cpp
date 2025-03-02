@@ -1,4 +1,4 @@
-#include "main/area_selector.hpp"
+#include "area_selector.hpp"
 
 AreaSelector::AreaSelector(QWidget *parent) : QWidget(parent), layout_(this) {
     for(uint8_t i = 0; i < area_items_.size(); i++) {

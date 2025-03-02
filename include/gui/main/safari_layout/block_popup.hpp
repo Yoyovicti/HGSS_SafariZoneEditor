@@ -1,8 +1,6 @@
 #ifndef BLOCK_POPUP_HPP
 #define BLOCK_POPUP_HPP
 
-#include "manager/locale_manager.hpp"
-
 #include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
@@ -10,7 +8,6 @@
 #include <QSizePolicy>
 
 #include <array>
-#include <filesystem>
 
 class BlockPopup : public QWidget {
 private:

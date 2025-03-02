@@ -1,8 +1,8 @@
 #ifndef OPTIONS_MENU_H
 #define OPTIONS_MENU_H
 
-#include "menu/lang_menu.hpp"
-#include "menu/about_message_box.hpp"
+#include "lang_menu.hpp"
+#include "about_message_box.hpp"
 
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;

@@ -1,7 +1,7 @@
 #ifndef OBJECT_VIEW_HPP
 #define OBJECT_VIEW_HPP
 
-#include "area_editor/object_item.hpp"
+#include "object_item.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>

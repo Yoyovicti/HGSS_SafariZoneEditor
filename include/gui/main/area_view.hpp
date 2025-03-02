@@ -1,7 +1,7 @@
 #ifndef AREA_VIEW_HPP
 #define AREA_VIEW_HPP
 
-#include "main/day_counter_edit.hpp"
+#include "day_counter_edit.hpp"
 #include "area_editor/widget_3dview.hpp"
 #include "area_editor/object_view.hpp"
 #include "manager/save_data_manager.hpp"

@@ -1,4 +1,4 @@
-#include "safari_layout/area_label.hpp"
+#include "area_label.hpp"
 
 AreaLabel::AreaLabel(QWidget* parent) : QLabel(parent), selected_(false) {
     setObjectName("area_label");

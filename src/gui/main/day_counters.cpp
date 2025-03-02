@@ -1,4 +1,4 @@
-#include "main/day_counters.hpp"
+#include "day_counters.hpp"
 
 #include "manager/locale_manager.hpp"
 

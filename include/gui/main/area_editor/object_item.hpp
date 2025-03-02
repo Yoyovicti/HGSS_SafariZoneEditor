@@ -7,7 +7,6 @@
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-// #include <QGraphicsColorizeEffect>
 #include <QIcon>
 
 class ObjectItem : public QWidget {
@@ -16,7 +15,6 @@ public:
     ObjectItem(QWidget *parent = nullptr);
 
     void setObject(const Object& object);
-    // void setXYZ(const QString& text){xyz_.setText(text);}
 
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
@@ -35,8 +33,6 @@ private:
 
     QPushButton move_button_;
     QPushButton delete_button_;
-
-    // QGraphicsColorizeEffect color_effect_;
 
     QIcon loadAndRecolorIcon(const QString& img_path, const QColor& color);
 

@@ -1,4 +1,4 @@
-#include "main/area_item.hpp"
+#include "area_item.hpp"
 
 #include "manager/locale_manager.hpp"
 

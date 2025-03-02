@@ -1,7 +1,6 @@
 #ifndef SAFARI_LAYOUT_VIEW_HPP
 #define SAFARI_LAYOUT_VIEW_HPP
 
-// #include "manager/save_file_manager.hpp"
 #include "safari_layout/area_label.hpp"
 #include "safari_layout/block_popup.hpp"
 #include "manager/save_data_manager.hpp"

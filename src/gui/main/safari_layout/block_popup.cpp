@@ -1,4 +1,6 @@
-#include "safari_layout/block_popup.hpp"
+#include "block_popup.hpp"
+
+#include "manager/locale_manager.hpp"
 
 BlockPopup::BlockPopup(QWidget* parent) : QWidget(parent), area_label_(this) {
     setWindowFlags(Qt::Tool | Qt::FramelessWindowHint | Qt::WindowTransparentForInput);
