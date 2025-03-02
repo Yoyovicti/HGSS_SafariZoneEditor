@@ -12,9 +12,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 
-#include <array>
 #include <filesystem>
-#include <sstream>
 
 class AreaView : public QWidget {
     Q_OBJECT
@@ -33,16 +31,13 @@ private:
     DayCounterEdit day_edit_;
 
     QLabel objects_label_;
+    QPushButton obj_add_button_;
 
     Widget3DView view_3d_;
 
-    // QWidget scroll_container_;
-    // QGridLayout scroll_layout_;
     QGridLayout* scroll_layout_;
     QScrollArea obj_area_;
     ObjectView object_view_;
-
-    // QLabel area_img_;
 
 signals:
     void backButtonReleased();

@@ -9,7 +9,7 @@
 #include <cmath>
 #include <iostream>
 
-Widget3DView::Widget3DView(QWidget* parent) : QOpenGLWidget(parent) {
+Widget3DView::Widget3DView(QWidget* parent) : QOpenGLWidget(parent), start_time_(QDateTime::currentMSecsSinceEpoch()) {
     setFixedSize(400, 400);
     area_model_ = nullptr;
 }
@@ -65,8 +65,6 @@ void Widget3DView::setObjects(const Slot& slot) {
         uint8_t width = obj_data_table["width"];
         uint8_t height = obj_data_table["height"];
 
-        std::cout << en_name << " " << float(width) << " " << float(height) << std::endl;
-        // TODO Fix for large objects
         QVector3D offset(
             16.0f * (obj.x_ - (16.0f - float(width) * 0.5f)),
             obj.y_,
@@ -118,8 +116,8 @@ void Widget3DView::timerEvent(QTimerEvent *)
     }
 #endif
 
-        // Request an update
-        update();
+    // Request an update
+    update();
 }
 
 void Widget3DView::initializeGL()
@@ -253,10 +251,7 @@ void Widget3DView::paintGL()
             (model->bbox_.max_.y() + model->bbox_.min_.y()) / 2,
             (model->bbox_.max_.z() + model->bbox_.min_.z()) / 2
         );
-        // centroid
-        std::cout << centroid.x() << " " << centroid.y() << " " << centroid.z() << std::endl;
-        // std::cout << model->bbox_.min_.x() << " " << model->bbox_.min_.y() << " " << model->bbox_.min_.z() << std::endl;
-        // std::cout << model->bbox_.max_.x() << " " << model->bbox_.max_.y() << " " << model->bbox_.max_.z() << std::endl;
+        
         // Calculate model view transformation
         QMatrix4x4 matrix2;
 
