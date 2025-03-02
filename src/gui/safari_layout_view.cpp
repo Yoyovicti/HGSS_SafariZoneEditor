@@ -3,7 +3,7 @@
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"
 
-SafariLayoutView::SafariLayoutView(QWidget* parent) : QWidget(parent), layout_(this), data_loaded_(false) {
+SafariLayoutView::SafariLayoutView(QWidget* parent) : QWidget(parent), layout_(this), highlighted_slot_(-1), data_loaded_(false) {
     std::filesystem::path areas_dir("assets");
     areas_dir.append("icons");
 
@@ -15,14 +15,14 @@ SafariLayoutView::SafariLayoutView(QWidget* parent) : QWidget(parent), layout_(t
     }
 
     std::filesystem::path area_path(areas_dir);
-    for(size_t i = 0; i < zone_table.size(); i++) {
+    for(uint8_t i = 0; i < zone_table.size(); i++) {
         std::string area = zone_table[i][0];
         std::filesystem::path area_path = areas_dir / (area + ".png");
         QImage area_image(area_path.string().c_str());
         areas_images_[i] = area_image.scaled(area_image.size() * 2);
     }
 
-    for(size_t i = 0; i < 6; i++) {
+    for(uint8_t i = 0; i < 6; i++) {
         block_counts_[i].fill(0);
         image_labels_[i].setPixmap(QPixmap::fromImage(areas_images_[i]));
         image_labels_[i].setEnabled(false);
@@ -53,6 +53,21 @@ void SafariLayoutView::loadData(const std::array<Slot, SaveDataManager::N_SLOTS>
     data_loaded_ = true;
 }
 
+void SafariLayoutView::updateSlot(uint8_t area_slot, uint8_t area_type) {
+    area_types_[area_slot] = area_type;
+    image_labels_[area_slot].setPixmap(QPixmap::fromImage(areas_images_[area_type]));
+    block_counts_[area_slot].fill(0);
+}
+
+void SafariLayoutView::highlightSlot(uint8_t area_slot) {
+    if(highlighted_slot_ < image_labels_.size())
+        image_labels_[highlighted_slot_].setSelected(false);
+    if(area_slot >= image_labels_.size()) return;
+
+    image_labels_[area_slot].setSelected(true);
+    highlighted_slot_ = area_slot;
+}
+
 void SafariLayoutView::labelEnterHover(size_t index) {
     if(!data_loaded_)
         return;
@@ -79,6 +94,7 @@ void SafariLayoutView::labelEnterHover(size_t index) {
     popup_.setAreaLabel(zone_table[area_types_[index]][locale]);
     QPoint popup_pos = image_labels_[index].mapToGlobal(QPoint(0, 0));
     popup_.move(popup_pos);
+
     // Force size to adapt to contents (seems required when using Qt::WindowTransparentForInput with X11)
     popup_.setFixedSize(popup_.sizeHint());
     popup_.show();

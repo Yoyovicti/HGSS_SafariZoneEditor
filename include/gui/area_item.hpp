@@ -14,6 +14,7 @@ public:
 
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 private:
     QLabel area_img_;
@@ -24,6 +25,7 @@ private:
 signals:
     void enterHover();
     void leaveHover();
+    void clicked();
 };
 
 #endif // AREA_ITEM_HPP

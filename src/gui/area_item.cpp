@@ -45,3 +45,8 @@ void AreaItem::leaveEvent(QEvent *event) {
     setStyleSheet("");
     emit leaveHover();
 }
+
+void AreaItem::mouseReleaseEvent(QMouseEvent *event) {
+    emit clicked();
+    QWidget::mouseReleaseEvent(event);
+}

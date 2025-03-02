@@ -53,6 +53,7 @@ set(PROJECT_SOURCES
     include/gui/safari_layout_view.hpp
     include/gui/area_view.hpp
     include/gui/area_item.hpp
+    include/gui/area_selector.hpp
 
     # Safari layout view
     src/gui/area_label.cpp

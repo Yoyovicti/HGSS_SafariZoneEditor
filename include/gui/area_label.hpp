@@ -11,10 +11,15 @@ class AreaLabel : public QLabel {
 public:
     AreaLabel(QWidget* parent = nullptr);
 
+    void setHighlight(bool enabled = true);
+    void setSelected(bool selected);
+
 private:
+    bool selected_;
+
     void enterEvent(QEnterEvent *event) override;
     void leaveEvent(QEvent *event) override;
-    void mousePressEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
 
 signals:
     void enterHover();

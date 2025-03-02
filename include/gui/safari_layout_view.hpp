@@ -17,6 +17,13 @@
 class SafariLayoutView : public QWidget {
     Q_OBJECT
 
+public:
+    SafariLayoutView(QWidget* parent = nullptr);
+
+    void loadData(const std::array<Slot, SaveDataManager::N_SLOTS>& slot_data);
+    void updateSlot(uint8_t area_slot, uint8_t area_type);
+    void highlightSlot(uint8_t area_slot);
+
 private:
     QGridLayout layout_;
     BlockPopup popup_;
@@ -26,17 +33,13 @@ private:
     std::array<uint8_t, SaveDataManager::N_SLOTS> area_types_;
     std::array<std::array<uint8_t, SaveDataManager::BLOCK_TYPES>, SaveDataManager::N_SLOTS> block_counts_;
 
+    uint8_t highlighted_slot_;
     bool data_loaded_;
-
-public:
-    SafariLayoutView(QWidget* parent = nullptr);
-
-    void loadData(const std::array<Slot, SaveDataManager::N_SLOTS>& slot_data);
 
 signals:
     void areaHovered(uint8_t& index);
     void areaLeaveHover(uint8_t& index);
-    void areaClicked(size_t index);
+    void areaClicked(uint8_t index);
 
 private slots:
     void labelEnterHover(size_t index);

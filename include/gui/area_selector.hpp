@@ -10,6 +10,7 @@
 #include <array>
 
 class AreaSelector : public QWidget {
+    Q_OBJECT
 public:
     AreaSelector(QWidget *parent = nullptr);
 
@@ -17,6 +18,8 @@ private:
     std::array<AreaItem, SaveDataManager::N_DAY_COUNTERS> area_items_;
     QVBoxLayout layout_;
 
+signals:
+    void areaItemClicked(size_t index);
 };
 
 #endif // AREA_SELECTOR_HPP

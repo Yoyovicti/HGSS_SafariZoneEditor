@@ -5,7 +5,7 @@
 
 #include <QScrollBar>
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), layout_view_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), edit_mode_(false) {
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), layout_view_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     layout_.addWidget(&area_view_, 1, 0, 1, 1);
     layout_.addWidget(&day_counters_, 1, 18, 12, 2);
     layout_.addWidget(&edit_button_, 0, 17, 1, 1);
-    layout_.addWidget(&area_scroll_, 1, 20, 12, 1);
+    layout_.addWidget(&area_scroll_, 1, 18, 12, 1);
 
     QObject::connect(&file_menu_, &FileMenu::openFileClicked, this, &MainWindow::openFileDialog);
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
@@ -50,6 +50,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
     QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
     QObject::connect(&area_view_, &AreaView::counterChanged, this, &MainWindow::updateCounters);
+    QObject::connect(&area_selector_, &AreaSelector::areaItemClicked, this, &MainWindow::updateSelectedArea);
 
     day_counters_.updateLanguage(locale);
 }
@@ -99,7 +100,7 @@ void MainWindow::saveFileDialog() {
     }
     config_manager.setDefaultPath(file_name.parent_path().string());
 
-    // std::cout << "File saved successfully: " << file_name << std::endl;
+    std::cout << "File saved successfully: " << file_name << std::endl;
 }
 
 void MainWindow::updateLanguage(uint8_t locale) {
@@ -121,15 +122,17 @@ void MainWindow::updateLanguage(uint8_t locale) {
     file_menu_.updateLanguage(locale);
 }
 
-void MainWindow::areaClicked(size_t index) {
+void MainWindow::areaClicked(uint8_t index) {
     if(edit_mode_) {
+        selected_area_ = index;
+        layout_view_.highlightSlot(index);
         return;
     }
 
     enterAreaViewer(index);
 }
 
-void MainWindow::enterAreaViewer(size_t index) {
+void MainWindow::enterAreaViewer(uint8_t index) {
     file_label_.hide();
     layout_view_.hide();
     day_counters_.hide();
@@ -173,6 +176,8 @@ void MainWindow::updateCounters(uint8_t area_id, uint8_t value) {
 
 void MainWindow::editButtonReleased() {
     edit_mode_ = !edit_mode_;
+    selected_area_ = -1;
+    layout_view_.highlightSlot(-1);
 
     if(edit_mode_) {
         day_counters_.hide();
@@ -182,4 +187,14 @@ void MainWindow::editButtonReleased() {
         day_counters_.show();
     }
     adjustSize();
+}
+
+void MainWindow::updateSelectedArea(uint8_t index) {
+    std::cout << "update selected area: " << int(selected_area_) << " with area type: " << int(index) << std::endl;
+    if(selected_area_ >= SaveDataManager::N_SLOTS)
+        return;
+
+    save_data_manager_.setAreaSlot(selected_area_, index);
+    layout_view_.updateSlot(selected_area_, index);
+    emit editButtonReleased();
 }

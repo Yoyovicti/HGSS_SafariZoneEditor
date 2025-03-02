@@ -97,7 +97,6 @@ public:
 
         out_file.write(reinterpret_cast<const char*>(raw_data_.data()), raw_data_.size());
 
-        std::cout << "SaveDataManager > writeData: File written successfully: " << path << std::endl;
         return true;
     }
 
@@ -106,6 +105,10 @@ public:
     bool isLoaded() {return is_loaded_;}
 
     void setCounter(uint8_t area_id, uint8_t value) {day_counters_[area_id] = value;}
+    void setAreaSlot(uint8_t area_slot, uint8_t area_id) {
+        slots_[area_slot].area_type_ = area_id;
+        slots_[area_slot].object_count_ = 0;
+    }
 
 private:
     std::array<Slot, N_SLOTS> slots_;

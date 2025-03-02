@@ -44,19 +44,21 @@ private:
 
     const std::string JSON_KEY = "main_window";
 
+    uint8_t selected_area_;
     bool edit_mode_;
 
     void loadFileData();
 
-    void enterAreaViewer(size_t index);
+    void enterAreaViewer(uint8_t index);
 
 private slots:
     void openFileDialog();
     void saveFileDialog();
-    void areaClicked(size_t index);
+    void areaClicked(uint8_t index);
     void exitAreaViewer();
     void updateLanguage(uint8_t locale);
     void updateCounters(uint8_t area_id, uint8_t value);
     void editButtonReleased();
+    void updateSelectedArea(uint8_t index);
 };
 #endif // MAIN_WINDOW_HPP
