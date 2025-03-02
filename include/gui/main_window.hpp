@@ -1,13 +1,12 @@
 #ifndef MAIN_WINDOW_HPP
 #define MAIN_WINDOW_HPP
 
-#include "gui/file_menu.hpp"
-#include "gui/options_menu.hpp"
-#include "gui/safari_layout_view.hpp"
-#include "gui/area_view.hpp"
-#include "gui/widget_3dview.hpp"
-#include "gui/day_counters.hpp"
-#include "gui/area_selector.hpp"
+#include "menu/file_menu.hpp"
+#include "menu/options_menu.hpp"
+#include "main/safari_layout.hpp"
+#include "main/area_view.hpp"
+#include "main/day_counters.hpp"
+#include "main/area_selector.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>
@@ -32,7 +31,7 @@ private:
     OptionsMenu options_menu_;
 
     QLabel file_label_;
-    SafariLayoutView layout_view_;
+    SafariLayout safari_layout_;
     DayCounters day_counters_;
     AreaView area_view_;
 

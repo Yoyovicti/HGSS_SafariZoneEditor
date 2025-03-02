@@ -1,9 +1,9 @@
-#include "gui/safari_layout_view.hpp"
+#include "main/safari_layout.hpp"
 
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"
 
-SafariLayoutView::SafariLayoutView(QWidget* parent) : QWidget(parent), layout_(this), highlighted_slot_(-1), data_loaded_(false) {
+SafariLayout::SafariLayout(QWidget* parent) : QWidget(parent), layout_(this), highlighted_slot_(-1), data_loaded_(false) {
     std::filesystem::path areas_dir("assets");
     areas_dir.append("icons");
 
@@ -34,7 +34,7 @@ SafariLayoutView::SafariLayoutView(QWidget* parent) : QWidget(parent), layout_(t
     }
 }
 
-void SafariLayoutView::loadData(const std::array<Slot, SaveDataManager::N_SLOTS>& slot_data) {
+void SafariLayout::loadData(const std::array<Slot, SaveDataManager::N_SLOTS>& slot_data) {
     for(uint8_t i = 0; i < slot_data.size(); i++) {
         area_types_[i] = slot_data[i].area_type_;
         image_labels_[i].setPixmap(QPixmap::fromImage(areas_images_[area_types_[i]]));
@@ -53,13 +53,13 @@ void SafariLayoutView::loadData(const std::array<Slot, SaveDataManager::N_SLOTS>
     data_loaded_ = true;
 }
 
-void SafariLayoutView::updateSlot(uint8_t area_slot, uint8_t area_type) {
+void SafariLayout::updateSlot(uint8_t area_slot, uint8_t area_type) {
     area_types_[area_slot] = area_type;
     image_labels_[area_slot].setPixmap(QPixmap::fromImage(areas_images_[area_type]));
     block_counts_[area_slot].fill(0);
 }
 
-void SafariLayoutView::highlightSlot(uint8_t area_slot) {
+void SafariLayout::highlightSlot(uint8_t area_slot) {
     if(highlighted_slot_ < image_labels_.size())
         image_labels_[highlighted_slot_].setSelected(false);
     if(area_slot >= image_labels_.size()) return;
@@ -68,7 +68,7 @@ void SafariLayoutView::highlightSlot(uint8_t area_slot) {
     highlighted_slot_ = area_slot;
 }
 
-void SafariLayoutView::labelEnterHover(size_t index) {
+void SafariLayout::labelEnterHover(size_t index) {
     if(!data_loaded_)
         return;
 
@@ -100,7 +100,7 @@ void SafariLayoutView::labelEnterHover(size_t index) {
     popup_.show();
 }
 
-void SafariLayoutView::labelLeaveHover(size_t index) {
+void SafariLayout::labelLeaveHover(size_t index) {
     if(!data_loaded_)
         return;
 
@@ -108,6 +108,6 @@ void SafariLayoutView::labelLeaveHover(size_t index) {
     popup_.hide();
 }
 
-void SafariLayoutView::labelClicked(size_t index) {
+void SafariLayout::labelClicked(size_t index) {
     emit areaClicked(index);
 }

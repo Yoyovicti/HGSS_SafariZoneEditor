@@ -2,7 +2,7 @@
 #define WIDGET_3DVIEW_HPP
 
 #include "manager/save_data_manager.hpp"
-#include "model.hpp"
+#include "render/model.hpp"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>

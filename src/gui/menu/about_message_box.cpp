@@ -1,4 +1,4 @@
-#include "gui/about_message_box.hpp"
+#include "menu/about_message_box.hpp"
 
 AboutMessageBox::AboutMessageBox(QWidget* parent) : QMessageBox(parent) {
     ConfigManager& config_manager = ConfigManager::getInstance();

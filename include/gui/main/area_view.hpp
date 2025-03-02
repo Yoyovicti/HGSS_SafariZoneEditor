@@ -1,9 +1,9 @@
 #ifndef AREA_VIEW_HPP
 #define AREA_VIEW_HPP
 
-#include "gui/day_counter_edit.hpp"
-#include "gui/widget_3dview.hpp"
-#include "gui/object_view.hpp"
+#include "main/day_counter_edit.hpp"
+#include "area_editor/widget_3dview.hpp"
+#include "area_editor/object_view.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>
@@ -12,9 +12,7 @@
 #include <QPushButton>
 #include <QScrollArea>
 
-#include <array>
 #include <filesystem>
-#include <sstream>
 
 class AreaView : public QWidget {
     Q_OBJECT

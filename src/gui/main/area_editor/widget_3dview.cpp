@@ -1,4 +1,4 @@
-#include "gui/widget_3dview.hpp"
+#include "area_editor/widget_3dview.hpp"
 
 #include "manager/locale_manager.hpp"
 #include "manager/object_data_manager.hpp"
@@ -246,20 +246,15 @@ void Widget3DView::paintGL()
     outline_program_.setUniformValue("time", elapsed_time);
     float scale = 2.0f;
 
-    // TODO fix this mess: Compute bounding box of model and retrieve center, then translate to origin, then translate back
     for(Model* model : object_models_) {
         QVector3D centroid(
             (model->bbox_.max_.x() + model->bbox_.min_.x()) / 2,
             (model->bbox_.max_.y() + model->bbox_.min_.y()) / 2,
             (model->bbox_.max_.z() + model->bbox_.min_.z()) / 2
         );
-        // centroid
-        std::cout << centroid.x() << " " << centroid.y() << " " << centroid.z() << std::endl;
-        // std::cout << model->bbox_.min_.x() << " " << model->bbox_.min_.y() << " " << model->bbox_.min_.z() << std::endl;
-        // std::cout << model->bbox_.max_.x() << " " << model->bbox_.max_.y() << " " << model->bbox_.max_.z() << std::endl;
+
         // Calculate model view transformation
         QMatrix4x4 matrix2;
-
         matrix2.translate(-centroid);
         matrix2.scale(scale);
         matrix2.translate(centroid);

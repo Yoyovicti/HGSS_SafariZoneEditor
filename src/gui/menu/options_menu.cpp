@@ -1,4 +1,4 @@
-#include "gui/options_menu.hpp"
+#include "menu/options_menu.hpp"
 
 OptionsMenu::OptionsMenu(QWidget* parent) : QMenu(parent), lang_menu_(this), about_message_box_(this) {
     ConfigManager& config_manager = ConfigManager::getInstance();

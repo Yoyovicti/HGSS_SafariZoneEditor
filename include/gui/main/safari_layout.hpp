@@ -2,8 +2,8 @@
 #define SAFARI_LAYOUT_VIEW_HPP
 
 // #include "manager/save_file_manager.hpp"
-#include "gui/area_label.hpp"
-#include "gui/block_popup.hpp"
+#include "safari_layout/area_label.hpp"
+#include "safari_layout/block_popup.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>
@@ -14,11 +14,11 @@
 
 #include <array>
 
-class SafariLayoutView : public QWidget {
+class SafariLayout : public QWidget {
     Q_OBJECT
 
 public:
-    SafariLayoutView(QWidget* parent = nullptr);
+    SafariLayout(QWidget* parent = nullptr);
 
     void loadData(const std::array<Slot, SaveDataManager::N_SLOTS>& slot_data);
     void updateSlot(uint8_t area_slot, uint8_t area_type);

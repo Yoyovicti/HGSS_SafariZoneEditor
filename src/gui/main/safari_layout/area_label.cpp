@@ -1,12 +1,10 @@
-#include "gui/area_label.hpp"
+#include "safari_layout/area_label.hpp"
 
 AreaLabel::AreaLabel(QWidget* parent) : QLabel(parent), selected_(false) {
     setObjectName("area_label");
     setAttribute(Qt::WA_StyledBackground, true);
 
     setAlignment(Qt::AlignCenter);
-
-    // setAttribute(Qt::WA_Hover);
 }
 
 void AreaLabel::setSelected(bool selected) {

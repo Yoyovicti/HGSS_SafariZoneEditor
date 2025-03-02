@@ -5,7 +5,7 @@
 
 #include <QScrollBar>
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), layout_view_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), safari_layout_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
 
     layout_.setMenuBar(&menu_bar_);
     layout_.addWidget(&file_label_, 0, 0, 1, 17);
-    layout_.addWidget(&layout_view_, 1, 0, 12, 18);
+    layout_.addWidget(&safari_layout_, 1, 0, 12, 18);
     layout_.addWidget(&area_view_, 1, 0, 1, 1);
     layout_.addWidget(&day_counters_, 1, 18, 12, 2);
     layout_.addWidget(&edit_button_, 0, 17, 1, 1);
@@ -44,9 +44,9 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
     QObject::connect(&options_menu_, &OptionsMenu::languageChangeClicked, this, &MainWindow::updateLanguage);
     QObject::connect(&edit_button_, &QPushButton::released, this, &MainWindow::editButtonReleased);
-    QObject::connect(&layout_view_, &SafariLayoutView::areaHovered, &day_counters_, &DayCounters::highlightCounter);
-    QObject::connect(&layout_view_, &SafariLayoutView::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
-    QObject::connect(&layout_view_, &SafariLayoutView::areaClicked, this, &MainWindow::areaClicked);
+    QObject::connect(&safari_layout_, &SafariLayout::areaHovered, &day_counters_, &DayCounters::highlightCounter);
+    QObject::connect(&safari_layout_, &SafariLayout::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
+    QObject::connect(&safari_layout_, &SafariLayout::areaClicked, this, &MainWindow::areaClicked);
     QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
     QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
     QObject::connect(&area_view_, &AreaView::counterChanged, this, &MainWindow::updateCounters);
@@ -80,7 +80,7 @@ void MainWindow::openFileDialog(){
     save_data_manager_.readData(selected_file);
 
     day_counters_.fillCounters(save_data_manager_.getCounters());
-    layout_view_.loadData(save_data_manager_.getSlots());
+    safari_layout_.loadData(save_data_manager_.getSlots());
     edit_button_.setEnabled(true);
 }
 
@@ -125,7 +125,7 @@ void MainWindow::updateLanguage(uint8_t locale) {
 void MainWindow::areaClicked(uint8_t index) {
     if(edit_mode_) {
         selected_area_ = index;
-        layout_view_.highlightSlot(index);
+        safari_layout_.highlightSlot(index);
         return;
     }
 
@@ -134,7 +134,7 @@ void MainWindow::areaClicked(uint8_t index) {
 
 void MainWindow::enterAreaViewer(uint8_t index) {
     file_label_.hide();
-    layout_view_.hide();
+    safari_layout_.hide();
     day_counters_.hide();
     edit_button_.hide();
 
@@ -163,7 +163,7 @@ void MainWindow::enterAreaViewer(uint8_t index) {
 void MainWindow::exitAreaViewer() {
     area_view_.hide();
     file_label_.show();
-    layout_view_.show();
+    safari_layout_.show();
     day_counters_.fillCounters(save_data_manager_.getCounters());
     day_counters_.show();
     edit_button_.show();
@@ -177,7 +177,7 @@ void MainWindow::updateCounters(uint8_t area_id, uint8_t value) {
 void MainWindow::editButtonReleased() {
     edit_mode_ = !edit_mode_;
     selected_area_ = -1;
-    layout_view_.highlightSlot(-1);
+    safari_layout_.highlightSlot(-1);
 
     if(edit_mode_) {
         day_counters_.hide();
@@ -190,11 +190,10 @@ void MainWindow::editButtonReleased() {
 }
 
 void MainWindow::updateSelectedArea(uint8_t index) {
-    std::cout << "update selected area: " << int(selected_area_) << " with area type: " << int(index) << std::endl;
     if(selected_area_ >= SaveDataManager::N_SLOTS)
         return;
 
     save_data_manager_.setAreaSlot(selected_area_, index);
-    layout_view_.updateSlot(selected_area_, index);
+    safari_layout_.updateSlot(selected_area_, index);
     emit editButtonReleased();
 }

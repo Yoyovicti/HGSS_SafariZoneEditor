@@ -1,4 +1,4 @@
-#include "model.hpp"
+#include "render/model.hpp"
 
 #include <assimp/Importer.hpp>
 #include <assimp/postprocess.h>

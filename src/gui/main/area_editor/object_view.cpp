@@ -1,4 +1,4 @@
-#include "gui/object_view.hpp"
+#include "area_editor/object_view.hpp"
 
 // #include "manager/locale_manager.hpp"
 

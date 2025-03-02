@@ -1,7 +1,7 @@
 #ifndef DAY_COUNTERS_HPP
 #define DAY_COUNTERS_HPP
 
-#include "gui/day_counter_edit.hpp"
+#include "main/day_counter_edit.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <nlohmann/json.hpp>
