@@ -1,6 +1,7 @@
 #ifndef OBJECT_ITEM_HPP
 #define OBJECT_ITEM_HPP
 
+#include "gui/qselectitem.hpp"
 #include "manager/save_data_manager.hpp"
 
 #include <QWidget>
@@ -9,16 +10,11 @@
 #include <QPushButton>
 #include <QIcon>
 
-class ObjectItem : public QWidget {
-    Q_OBJECT
+class ObjectItem : public QSelectItem {
 public:
     ObjectItem(QWidget *parent = nullptr);
 
     void setObject(const Object& object);
-
-    void enterEvent(QEnterEvent *event) override;
-    void leaveEvent(QEvent *event) override;
-    // void mousePressEvent(QMouseEvent *event) override;
 
 private:
     QGridLayout layout_;
@@ -35,10 +31,6 @@ private:
     QPushButton delete_button_;
 
     QIcon loadAndRecolorIcon(const QString& img_path, const QColor& color);
-
-signals:
-    void enterHover();
-    void leaveHover();
 };
 
 #endif // OBJECT_ITEM_HPP

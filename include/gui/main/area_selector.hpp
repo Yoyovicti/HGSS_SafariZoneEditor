@@ -12,7 +12,13 @@
 class AreaSelector : public QWidget {
     Q_OBJECT
 public:
-    AreaSelector(QWidget *parent = nullptr);
+    AreaSelector(QWidget *parent = nullptr) : QWidget(parent), layout_(this) {
+        for(uint8_t i = 0; i < area_items_.size(); i++) {
+            area_items_[i].setArea(i);
+            layout_.addWidget(&area_items_[i]);
+            QObject::connect(&area_items_[i], &AreaItem::clicked, this, [this, i](){emit areaItemClicked(i);});
+        }
+    }
 
 private:
     std::array<AreaItem, SaveDataManager::N_DAY_COUNTERS> area_items_;

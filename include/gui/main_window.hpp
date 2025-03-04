@@ -58,6 +58,7 @@ private slots:
     void updateLanguage(uint8_t locale);
     void updateCounters(uint8_t area_id, uint8_t value);
     void editButtonReleased();
+    void highlightCounter(uint8_t& index, bool highlight);
     void updateSelectedArea(uint8_t index);
 };
 #endif // MAIN_WINDOW_HPP

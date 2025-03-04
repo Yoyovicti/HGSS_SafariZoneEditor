@@ -36,14 +36,14 @@ private:
     bool data_loaded_;
 
 signals:
-    void areaHovered(uint8_t& index);
-    void areaLeaveHover(uint8_t& index);
+    void areaEnterHover(uint8_t index);
+    void areaLeaveHover(uint8_t index);
     void areaClicked(uint8_t index);
 
 private slots:
-    void labelEnterHover(size_t index);
-    void labelLeaveHover(size_t index);
-    void labelClicked(size_t index);
+    void labelEnterHover(uint8_t index);
+    void labelLeaveHover(uint8_t index);
+    void labelClicked(uint8_t index);
 };
 
 #endif // AREA_VIEW_HPP

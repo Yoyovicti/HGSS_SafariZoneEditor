@@ -56,6 +56,7 @@ void SafariLayout::loadData(const std::array<Slot, SaveDataManager::N_SLOTS>& sl
 void SafariLayout::updateSlot(uint8_t area_slot, uint8_t area_type) {
     area_types_[area_slot] = area_type;
     image_labels_[area_slot].setPixmap(QPixmap::fromImage(areas_images_[area_type]));
+    popup_.hide();
     block_counts_[area_slot].fill(0);
 }
 
@@ -68,7 +69,7 @@ void SafariLayout::highlightSlot(uint8_t area_slot) {
     highlighted_slot_ = area_slot;
 }
 
-void SafariLayout::labelEnterHover(size_t index) {
+void SafariLayout::labelEnterHover(uint8_t index) {
     if(!data_loaded_)
         return;
 
@@ -89,7 +90,7 @@ void SafariLayout::labelEnterHover(size_t index) {
     ConfigManager& config_manager = ConfigManager::getInstance();
     uint8_t locale = config_manager.getLocale();
 
-    emit areaHovered(area_types_[index]);
+    emit areaEnterHover(area_types_[index]);
     popup_.setCounters(type_counts);
     popup_.setAreaLabel(zone_table[area_types_[index]][locale]);
     QPoint popup_pos = image_labels_[index].mapToGlobal(QPoint(0, 0));
@@ -100,7 +101,7 @@ void SafariLayout::labelEnterHover(size_t index) {
     popup_.show();
 }
 
-void SafariLayout::labelLeaveHover(size_t index) {
+void SafariLayout::labelLeaveHover(uint8_t index) {
     if(!data_loaded_)
         return;
 
@@ -108,6 +109,6 @@ void SafariLayout::labelLeaveHover(size_t index) {
     popup_.hide();
 }
 
-void SafariLayout::labelClicked(size_t index) {
+void SafariLayout::labelClicked(uint8_t index) {
     emit areaClicked(index);
 }

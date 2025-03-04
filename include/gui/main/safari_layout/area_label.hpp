@@ -1,30 +1,29 @@
 #ifndef AREA_LABEL_HPP
 #define AREA_LABEL_HPP
 
+#include "gui/qselectitem.hpp"
+
 #include <QLabel>
+#include <QVBoxLayout>
 #include <QEvent>
 #include <QEnterEvent>
 
-class AreaLabel : public QLabel {
-    Q_OBJECT
-
+class AreaLabel : public QSelectItem {
 public:
-    AreaLabel(QWidget* parent = nullptr);
+    AreaLabel(QWidget* parent = nullptr) : QSelectItem("area_label", parent), img_label_(this), layout_(this) {
+        setFixedSize(150, 150);
+        img_label_.setAlignment(Qt::AlignCenter);
 
-    void setHighlight(bool enabled = true);
-    void setSelected(bool selected);
+        layout_.addWidget(&img_label_);
+    }
+
+    void setPixmap(const QPixmap& pixmap) {
+        img_label_.setPixmap(pixmap);
+    }
 
 private:
-    bool selected_;
-
-    void enterEvent(QEnterEvent *event) override;
-    void leaveEvent(QEvent *event) override;
-    void mouseReleaseEvent(QMouseEvent *event) override;
-
-signals:
-    void enterHover();
-    void leaveHover();
-    void clicked();
+    QLabel img_label_;
+    QVBoxLayout layout_;
 };
 
 #endif // HOVER_LABEL_HPP

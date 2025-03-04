@@ -44,8 +44,8 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
     QObject::connect(&options_menu_, &OptionsMenu::languageChangeClicked, this, &MainWindow::updateLanguage);
     QObject::connect(&edit_button_, &QPushButton::released, this, &MainWindow::editButtonReleased);
-    QObject::connect(&safari_layout_, &SafariLayout::areaHovered, &day_counters_, &DayCounters::highlightCounter);
-    QObject::connect(&safari_layout_, &SafariLayout::areaLeaveHover, &day_counters_, &DayCounters::resetHighlight);
+    QObject::connect(&safari_layout_, &SafariLayout::areaEnterHover, this, [&](uint8_t index){highlightCounter(index, true);});
+    QObject::connect(&safari_layout_, &SafariLayout::areaLeaveHover, this, [&](uint8_t index){highlightCounter(index, false);});
     QObject::connect(&safari_layout_, &SafariLayout::areaClicked, this, &MainWindow::areaClicked);
     QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
     QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
@@ -187,6 +187,12 @@ void MainWindow::editButtonReleased() {
         day_counters_.show();
     }
     adjustSize();
+}
+
+void MainWindow::highlightCounter(uint8_t& index, bool highlight) {
+    if(edit_mode_) return;
+
+    day_counters_.highlightCounter(index, highlight);
 }
 
 void MainWindow::updateSelectedArea(uint8_t index) {
