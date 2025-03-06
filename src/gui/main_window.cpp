@@ -17,9 +17,6 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     area_scroll_.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     area_scroll_.horizontalScrollBar()->setEnabled(false);
 
-    edit_button_.setText("Éditer");
-    edit_button_.setEnabled(false);
-
     LocaleManager& locale_manager = LocaleManager::getInstance();
     json table;
     if(!locale_manager.getTable(&table, JSON_KEY)) {
@@ -29,6 +26,9 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
 
     ConfigManager& config_manager = ConfigManager::getInstance();
     uint8_t locale = config_manager.getLocale();
+
+    edit_button_.setText(QString::fromStdString(table["edit_button"][locale]));
+    edit_button_.setEnabled(false);
 
     file_label_.setText(QString::fromStdString(table["file_label"][locale]));
 
@@ -107,17 +107,17 @@ void MainWindow::updateLanguage(uint8_t locale) {
     ConfigManager& config_manager = ConfigManager::getInstance();
     config_manager.setLocale(locale);
 
-    if(!save_data_manager_.isLoaded()) {
-        LocaleManager& locale_manager = LocaleManager::getInstance();
-        json table;
-        if(!locale_manager.getTable(&table, JSON_KEY)) {
-            std::cerr << "Unable to load main_window table" << std::endl;
-            return;
-        }
-
-        file_label_.setText(QString::fromStdString(table["file_label"][locale]));
+    LocaleManager& locale_manager = LocaleManager::getInstance();
+    json table;
+    if(!locale_manager.getTable(&table, JSON_KEY)) {
+        std::cerr << "Unable to load main_window table" << std::endl;
+        return;
     }
 
+    if(!save_data_manager_.isLoaded())
+        file_label_.setText(QString::fromStdString(table["file_label"][locale]));
+    edit_button_.setText(QString::fromStdString(table["edit_button"][locale]));
+    area_selector_.updateLanguage(locale);
     day_counters_.updateLanguage(locale);
     file_menu_.updateLanguage(locale);
 }

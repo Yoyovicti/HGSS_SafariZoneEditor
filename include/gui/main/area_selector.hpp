@@ -20,6 +20,12 @@ public:
         }
     }
 
+    void updateLanguage(uint8_t locale) {
+        for(uint8_t i = 0; i < area_items_.size(); i++) {
+            area_items_[i].updateLanguage(i, locale);
+        }
+    }
+
 private:
     std::array<AreaItem, SaveDataManager::N_DAY_COUNTERS> area_items_;
     QVBoxLayout layout_;
