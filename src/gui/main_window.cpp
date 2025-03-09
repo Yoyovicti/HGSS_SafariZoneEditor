@@ -4,6 +4,7 @@
 #include "manager/config_manager.hpp"
 
 #include <QScrollBar>
+#include <QFileDialog>
 
 MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), safari_layout_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
     menu_bar_.addMenu(&file_menu_);
@@ -44,8 +45,8 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&file_menu_, &FileMenu::saveAsFileClicked, this, &MainWindow::saveFileDialog);
     QObject::connect(&options_menu_, &OptionsMenu::languageChangeClicked, this, &MainWindow::updateLanguage);
     QObject::connect(&edit_button_, &QPushButton::released, this, &MainWindow::editButtonReleased);
-    QObject::connect(&safari_layout_, &SafariLayout::areaEnterHover, this, [&](uint8_t index){highlightCounter(index, true);});
-    QObject::connect(&safari_layout_, &SafariLayout::areaLeaveHover, this, [&](uint8_t index){highlightCounter(index, false);});
+    QObject::connect(&safari_layout_, &SafariLayout::areaEnterHover, this, [this](uint8_t index){highlightCounter(index, true);});
+    QObject::connect(&safari_layout_, &SafariLayout::areaLeaveHover, this, [this](uint8_t index){highlightCounter(index, false);});
     QObject::connect(&safari_layout_, &SafariLayout::areaClicked, this, &MainWindow::areaClicked);
     QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
     QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
@@ -129,7 +130,7 @@ void MainWindow::areaClicked(uint8_t index) {
         return;
     }
 
-    enterAreaViewer(index);
+    // enterAreaViewer(index);
 }
 
 void MainWindow::enterAreaViewer(uint8_t index) {

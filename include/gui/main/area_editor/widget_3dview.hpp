@@ -25,22 +25,10 @@ public:
     void setModelDir(const std::filesystem::path& model_dir);
     void setObjects(const Slot& slot);
 
-protected:
-    void mousePressEvent(QMouseEvent *e) override;
-    void mouseReleaseEvent(QMouseEvent *e) override;
-    void timerEvent(QTimerEvent *e) override;
-
-    void initializeGL() override;
-    void resizeGL(int w, int h) override;
-    void paintGL() override;
-
-    void initShaders();
-
 private:
     const std::string JSON_KEY = "objects";
 
     std::filesystem::path model_dir_;
-
 
     QOpenGLShaderProgram program_;
     QOpenGLShaderProgram outline_program_;
@@ -57,6 +45,16 @@ private:
     QBasicTimer timer_;
     Slot slot_;
     double start_time_;
+
+    void mousePressEvent(QMouseEvent *e) override;
+    void mouseReleaseEvent(QMouseEvent *e) override;
+    void timerEvent(QTimerEvent *e) override;
+
+    void initializeGL() override;
+    void resizeGL(int w, int h) override;
+    void paintGL() override;
+
+    void initShaders();
 
 public slots:
     void startHighlightModel(uint8_t i);

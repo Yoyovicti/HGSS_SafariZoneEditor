@@ -1,13 +1,14 @@
 #ifndef DAY_COUNTER_EDIT_HPP
 #define DAY_COUNTER_EDIT_HPP
 
-#include <QIntValidator>
 #include <QLineEdit>
+#include <QIntValidator>
 
 class DayCounterEdit : public QLineEdit {
     Q_OBJECT
+
 public:
-    explicit DayCounterEdit(QWidget* parent = nullptr) : QLineEdit(parent) {
+    DayCounterEdit(QWidget* parent = nullptr) : QLineEdit(parent) {
         setFixedWidth(50);
         setEnabled(false);
         setValidator(new QIntValidator(0, 9999, this));

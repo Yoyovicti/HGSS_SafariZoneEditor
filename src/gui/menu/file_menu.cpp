@@ -20,8 +20,8 @@ FileMenu::FileMenu(QWidget* parent) : QMenu(parent) {
         return;
     }
 
-    addAction(QString::fromStdString(file_table["open"][locale]), [&](){emit openFileClicked();});
-    addAction(QString::fromStdString(file_table["save_as"][locale]), [&](){emit saveAsFileClicked();});
+    addAction(QString::fromStdString(file_table["open"][locale]), [this](){emit openFileClicked();});
+    addAction(QString::fromStdString(file_table["save_as"][locale]), [this](){emit saveAsFileClicked();});
     this->setTitle(QString::fromStdString(menubar_table[JSON_KEY][locale]));
 }
 

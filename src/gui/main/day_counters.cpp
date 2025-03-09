@@ -3,19 +3,14 @@
 #include "manager/locale_manager.hpp"
 
 DayCounters::DayCounters(QWidget* parent) : QWidget(parent), layout_(this), line_edits_() {
-
     for(uint8_t i = 0; i < line_edits_.size(); i++) {
-
-        DayCounterEdit* line_edit = &line_edits_[i];
-        // line_edit->setFixedWidth(50);
-        // line_edit->setDisabled(true);
-
         QLabel* label = &labels_[i];
+        DayCounterEdit* line_edit = &line_edits_[i];
 
         layout_.addWidget(label, i, 0, 1, 1);
         layout_.addWidget(line_edit, i, 1, 1, 1);
 
-        QObject::connect(line_edit, &DayCounterEdit::dayCountChanged, this, [&](uint8_t count) {
+        QObject::connect(line_edit, &DayCounterEdit::dayCountChanged, this, [this, i](uint8_t count) {
             emit counterChanged(i, count);
         });
     }

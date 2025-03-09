@@ -1,9 +1,9 @@
 #include "object_item.hpp"
 
 #include "manager/locale_manager.hpp"
+#include "utils.hpp"
 
 #include <QFontDatabase>
-#include <QPainter>
 
 ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), layout_(this) {
     int max_icon_size = 50;
@@ -64,13 +64,4 @@ void ObjectItem::setObject(const Object& object) {
 
     cx_label_.setText(QString::number(object.x_));
     cy_label_.setText(QString::number(object.y_));
-}
-
-QIcon ObjectItem::loadAndRecolorIcon(const QString& img_path, const QColor& color) {
-    QPixmap pixmap(img_path);
-    QPainter painter(&pixmap);
-    painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-    painter.fillRect(pixmap.rect(), color);
-    painter.end();
-    return QIcon(pixmap);
 }

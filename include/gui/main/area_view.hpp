@@ -6,16 +6,11 @@
 #include "area_editor/object_view.hpp"
 #include "manager/save_data_manager.hpp"
 
-#include <QWidget>
-#include <QGridLayout>
-#include <QLabel>
-#include <QPushButton>
 #include <QScrollArea>
-
-#include <filesystem>
 
 class AreaView : public QWidget {
     Q_OBJECT
+
 public:
     AreaView(QWidget *parent = nullptr);
 
@@ -34,18 +29,13 @@ private:
 
     Widget3DView view_3d_;
 
-    // QWidget scroll_container_;
-    // QGridLayout scroll_layout_;
     QGridLayout* scroll_layout_;
     QScrollArea obj_area_;
     ObjectView object_view_;
 
-    // QLabel area_img_;
-
 signals:
     void backButtonReleased();
     void counterChanged(uint8_t c_id, uint8_t value);
-
 };
 
 #endif // AREA_VIEW_HPP

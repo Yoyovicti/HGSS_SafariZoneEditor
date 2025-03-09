@@ -2,12 +2,10 @@
 #define QSELECTITEM_HPP
 
 #include <QWidget>
-#include <QStyle>
-
-#include <iostream>
 
 class QSelectItem : public QWidget {
     Q_OBJECT
+
 public:
     QSelectItem(const QString& obj_name, QWidget *parent = nullptr) : QWidget(parent), obj_name_(obj_name), selected_(false) {
         setObjectName(obj_name);

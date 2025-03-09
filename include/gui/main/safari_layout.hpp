@@ -5,14 +5,6 @@
 #include "safari_layout/block_popup.hpp"
 #include "manager/save_data_manager.hpp"
 
-#include <QWidget>
-#include <QGridLayout>
-#include <QLabel>
-#include <QImage>
-#include <QPixmap>
-
-#include <array>
-
 class SafariLayout : public QWidget {
     Q_OBJECT
 
@@ -43,7 +35,6 @@ signals:
 private slots:
     void labelEnterHover(uint8_t index);
     void labelLeaveHover(uint8_t index);
-    void labelClicked(uint8_t index);
 };
 
 #endif // AREA_VIEW_HPP

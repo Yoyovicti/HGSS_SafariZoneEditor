@@ -30,7 +30,7 @@ SafariLayout::SafariLayout(QWidget* parent) : QWidget(parent), layout_(this), hi
 
         QObject::connect(&image_labels_[i], &AreaLabel::enterHover, this, [this, i](){labelEnterHover(i);});
         QObject::connect(&image_labels_[i], &AreaLabel::leaveHover, this, [this, i](){labelLeaveHover(i);});
-        QObject::connect(&image_labels_[i], &AreaLabel::clicked, this, [this, i](){labelClicked(i);});
+        QObject::connect(&image_labels_[i], &AreaLabel::clicked, this, [this, i](){emit areaClicked(i);});
     }
 }
 
@@ -107,8 +107,4 @@ void SafariLayout::labelLeaveHover(uint8_t index) {
 
     emit areaLeaveHover(area_types_[index]);
     popup_.hide();
-}
-
-void SafariLayout::labelClicked(uint8_t index) {
-    emit areaClicked(index);
 }

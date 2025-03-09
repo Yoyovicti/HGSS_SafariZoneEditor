@@ -23,12 +23,11 @@ AreaView::AreaView(QWidget *parent) : QWidget(parent), layout_(this), back_butto
 
     layout_.addWidget(&obj_area_, 1, 5, 5, 2);
 
-    QObject::connect(&back_button_, &QPushButton::released, this, [&](){emit backButtonReleased();});
+    QObject::connect(&back_button_, &QPushButton::released, this, [this](){emit backButtonReleased();});
 }
 
 void AreaView::setSlot(const Slot& slot) {
-
-    QObject::connect(&day_edit_, &DayCounterEdit::dayCountChanged, this, [&](uint8_t count) {
+    QObject::connect(&day_edit_, &DayCounterEdit::dayCountChanged, this, [this, slot](uint8_t count) {
         emit counterChanged(slot.area_type_, count);
     });
 

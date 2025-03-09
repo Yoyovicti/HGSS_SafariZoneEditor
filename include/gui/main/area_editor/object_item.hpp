@@ -4,11 +4,9 @@
 #include "gui/qselectitem.hpp"
 #include "manager/save_data_manager.hpp"
 
-#include <QWidget>
 #include <QGridLayout>
 #include <QLabel>
 #include <QPushButton>
-#include <QIcon>
 
 class ObjectItem : public QSelectItem {
 public:
@@ -29,8 +27,6 @@ private:
 
     QPushButton move_button_;
     QPushButton delete_button_;
-
-    QIcon loadAndRecolorIcon(const QString& img_path, const QColor& color);
 };
 
 #endif // OBJECT_ITEM_HPP

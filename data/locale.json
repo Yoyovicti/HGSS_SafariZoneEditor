@@ -4,7 +4,8 @@
         ["French", "Français"]
     ],
     "main_window": {
-        "file_label": ["Open save file to edit", "Ouvrir une sauvegarde à modifier"]
+        "file_label": ["Open save file to edit", "Ouvrir une sauvegarde à modifier"],
+        "edit_button": ["Edit", "Éditer"]
     },
     "menubar": {
         "file": ["File", "Fichier"],

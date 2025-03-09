@@ -9,17 +9,12 @@
 #include "main/area_selector.hpp"
 #include "manager/save_data_manager.hpp"
 
-#include <QWidget>
-#include <QGridLayout>
 #include <QMenuBar>
-#include <QLabel>
-#include <QFileDialog>
-#include <QPushButton>
-
-#include <string>
 
 class MainWindow : public QWidget {
 public:
+    inline static const std::string JSON_KEY = "main_window";
+
     MainWindow(QWidget* parent = nullptr);
     ~MainWindow();
 
@@ -41,13 +36,10 @@ private:
 
     SaveDataManager save_data_manager_;
 
-    const std::string JSON_KEY = "main_window";
-
     uint8_t selected_area_;
     bool edit_mode_;
 
     void loadFileData();
-
     void enterAreaViewer(uint8_t index);
 
 private slots:

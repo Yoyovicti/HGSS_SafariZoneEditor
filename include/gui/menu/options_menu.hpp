@@ -7,19 +7,17 @@
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
 
-#include <QMenu>
-
 class OptionsMenu : public QMenu {
     Q_OBJECT
+
+public:
+    inline static const std::string JSON_KEY = "options";
+
+    OptionsMenu(QWidget* parent = nullptr);
 
 private:
     LangMenu lang_menu_;
     AboutMessageBox about_message_box_;
-
-    const std::string JSON_KEY = "options";
-
-public:
-    OptionsMenu(QWidget* parent = nullptr);
 
 signals:
     void languageChangeClicked(uint8_t locale);

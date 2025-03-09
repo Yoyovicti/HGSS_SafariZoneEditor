@@ -6,10 +6,9 @@
 class FileMenu : public QMenu {
     Q_OBJECT
 
-private:
-    const std::string JSON_KEY = "file";
-
 public:
+    inline static const std::string JSON_KEY = "file";
+
     FileMenu(QWidget *parent = nullptr);
     ~FileMenu();
 

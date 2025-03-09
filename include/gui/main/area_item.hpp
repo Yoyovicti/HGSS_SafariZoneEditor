@@ -5,15 +5,12 @@
 #include "manager/locale_manager.hpp"
 #include "manager/config_manager.hpp"
 
-#include <QWidget>
-#include <QLabel>
 #include <QHBoxLayout>
+#include <QLabel>
 
 class AreaItem : public QSelectItem {
 public:
     AreaItem(QWidget *parent = nullptr) : QSelectItem("area_item", parent), area_name_(this), layout_(this) {
-        area_name_.setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-
         layout_.addWidget(&area_img_);
         layout_.addWidget(&area_name_);
     }
@@ -45,15 +42,13 @@ public:
             return;
         }
 
-        std::cout << area_id << " " << locale << std::endl;
         area_name_.setText(QString::fromStdString(zone_table[area_id][locale]));
     }
 
 private:
+    QHBoxLayout layout_;
     QLabel area_img_;
     QLabel area_name_;
-
-    QHBoxLayout layout_;
 };
 
 #endif // AREA_ITEM_HPP

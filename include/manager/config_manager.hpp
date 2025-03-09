@@ -8,23 +8,6 @@ using json = nlohmann::json;
 #include <iostream>
 
 class ConfigManager {
-private:
-    json data_;
-
-    const std::string CONFIG_PATH = "config.json";
-
-    ConfigManager() {
-        std::ifstream file(CONFIG_PATH);
-        if(!file.is_open()) {
-            std::cout << "Unable to find " << CONFIG_PATH << " file. Default configuration will be used." << std::endl;
-            data_["locale"] = 0;
-            data_["default_path"] = ".";
-            return;
-        }
-
-        data_ = json::parse(file);
-    }
-
 public:
     // Prevent copy and assignment
     ConfigManager(const ConfigManager&) = delete;
@@ -60,6 +43,23 @@ public:
 
     void setDefaultPath(const std::string& path) {
         data_["default_path"] = path;
+    }
+
+private:
+    json data_;
+
+    inline static const std::string CONFIG_PATH = "config.json";
+
+    ConfigManager() {
+        std::ifstream file(CONFIG_PATH);
+        if(!file.is_open()) {
+            std::cout << "Unable to find " << CONFIG_PATH << " file. Default configuration will be used." << std::endl;
+            data_["locale"] = 0;
+            data_["default_path"] = ".";
+            return;
+        }
+
+        data_ = json::parse(file);
     }
 };
 
