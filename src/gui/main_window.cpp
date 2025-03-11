@@ -6,14 +6,12 @@
 #include <QScrollBar>
 #include <QFileDialog>
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), safari_layout_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), safari_layout_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
-    area_view_.hide();
-    area_scroll_.hide();
-
     area_scroll_.setWidget(&area_selector_);
+    area_scroll_.hide();
     // Disable horizontal scrollbar
     area_scroll_.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     area_scroll_.horizontalScrollBar()->setEnabled(false);
@@ -43,7 +41,6 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     layout_.addWidget(&edit_area_label0_, 0, 0, 1, 17);
     layout_.addWidget(&edit_area_label1_, 0, 0, 1, 17);
     layout_.addWidget(&safari_layout_, 1, 0, 12, 18);
-    layout_.addWidget(&area_view_, 1, 0, 1, 1);
     layout_.addWidget(&day_counters_, 1, 18, 12, 2);
     layout_.addWidget(&edit_button_, 0, 17, 1, 1);
     layout_.addWidget(&area_scroll_, 1, 18, 12, 1);
@@ -55,9 +52,7 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
     QObject::connect(&safari_layout_, &SafariLayout::areaEnterHover, this, [this](uint8_t index){highlightCounter(index, true);});
     QObject::connect(&safari_layout_, &SafariLayout::areaLeaveHover, this, [this](uint8_t index){highlightCounter(index, false);});
     QObject::connect(&safari_layout_, &SafariLayout::areaClicked, this, &MainWindow::areaClicked);
-    QObject::connect(&area_view_, &AreaView::backButtonReleased, this, &MainWindow::exitAreaViewer);
     QObject::connect(&day_counters_, &DayCounters::counterChanged, this, &MainWindow::updateCounters);
-    QObject::connect(&area_view_, &AreaView::counterChanged, this, &MainWindow::updateCounters);
     QObject::connect(&area_selector_, &AreaSelector::areaItemClicked, this, &MainWindow::updateSelectedArea);
 
     day_counters_.updateLanguage(locale);
@@ -141,46 +136,6 @@ void MainWindow::areaClicked(uint8_t index) {
         safari_layout_.highlightSlot(index);
         return;
     }
-
-    // enterAreaViewer(index);
-}
-
-void MainWindow::enterAreaViewer(uint8_t index) {
-    file_label_.hide();
-    safari_layout_.hide();
-    day_counters_.hide();
-    edit_button_.hide();
-
-    const Slot& slot = save_data_manager_.getSlots()[index];
-
-    LocaleManager& locale_manager = LocaleManager::getInstance();
-    json zone_table;
-    if(!locale_manager.getTable(&zone_table, "zones")) {
-        std::cerr << "Unable to load zones table" << std::endl;
-        return;
-    }
-    std::string area = zone_table[slot.area_type_][0];
-
-    std::filesystem::path assets_path = "assets";
-    std::filesystem::path map_path = assets_path / "maps" / area;
-
-    std::cout << "Loading area: " << map_path << std::endl;
-
-    area_view_.setDayCount(save_data_manager_.getCounters()[slot.area_type_]);
-    area_view_.setSlot(slot);
-    area_view_.setModelDir(map_path);
-    area_view_.show();
-    adjustSize();
-}
-
-void MainWindow::exitAreaViewer() {
-    area_view_.hide();
-    file_label_.show();
-    safari_layout_.show();
-    day_counters_.fillCounters(save_data_manager_.getCounters());
-    day_counters_.show();
-    edit_button_.show();
-    adjustSize();
 }
 
 void MainWindow::updateCounters(uint8_t area_id, uint8_t value) {

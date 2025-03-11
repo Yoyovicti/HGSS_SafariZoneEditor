@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(hgss_safari_zone_editor
-    VERSION 0.3
+    VERSION 0.4
     LANGUAGES CXX
 )
 
@@ -11,21 +11,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets OpenGL OpenGLWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets)
 find_package(nlohmann_json REQUIRED)
-find_package(assimp 5 REQUIRED)
-
-message(STATUS "assimp_FOUND: ${assimp_FOUND}")
-message(STATUS "assimp_DIR: ${assimp_DIR}")
 
 add_compile_definitions(
     VERSION_MAJOR=${hgss_safari_zone_editor_VERSION_MAJOR}
     VERSION_MINOR=${hgss_safari_zone_editor_VERSION_MINOR}
 )
-
-
-message(ASSIMP_INCLUDE_DIRS="${ASSIMP_INCLUDE_DIRS}")
-message(ASSIMP_LIBRARIES="${ASSIMP_LIBRARIES}")
 
 if(WIN32)
     set(RESOURCE_FILES ${CMAKE_SOURCE_DIR}/assets/resource.rc)
@@ -42,9 +34,6 @@ add_subdirectory(src)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE
     Qt6::Widgets
-    Qt6::OpenGL
-    Qt6::OpenGLWidgets
-    assimp::assimp
 )
 
 # Properties for MacOS are auto-generated and not tested
