@@ -5,6 +5,10 @@
     ],
     "main_window": {
         "file_label": ["Open save file to edit", "Ouvrir une sauvegarde à modifier"],
+        "edit_area_label": [
+            ["Select area to replace", "Sélectionner la zone à remplacer"],
+            ["Select new area in list", "Sélectionner la nouvelle zone dans la liste"]
+        ],
         "edit_button": ["Edit", "Éditer"]
     },
     "menubar": {
