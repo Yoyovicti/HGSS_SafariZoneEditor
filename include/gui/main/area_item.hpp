@@ -43,6 +43,7 @@ public:
         }
 
         area_name_.setText(QString::fromStdString(zone_table[area_id][locale]));
+        adjustSize();
     }
 
 private:

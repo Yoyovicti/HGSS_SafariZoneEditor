@@ -20,6 +20,7 @@ public:
         for(uint8_t i = 0; i < area_items_.size(); i++) {
             area_items_[i].updateLanguage(i, locale);
         }
+        adjustSize();
     }
 
 private:

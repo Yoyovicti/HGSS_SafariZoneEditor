@@ -33,8 +33,15 @@ MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_b
 
     file_label_.setText(QString::fromStdString(table["file_label"][locale]));
 
+    edit_area_label0_.setText(QString::fromStdString(table["edit_area_label"][0][locale]));
+    edit_area_label1_.setText(QString::fromStdString(table["edit_area_label"][1][locale]));
+    edit_area_label0_.hide();
+    edit_area_label1_.hide();
+
     layout_.setMenuBar(&menu_bar_);
     layout_.addWidget(&file_label_, 0, 0, 1, 17);
+    layout_.addWidget(&edit_area_label0_, 0, 0, 1, 17);
+    layout_.addWidget(&edit_area_label1_, 0, 0, 1, 17);
     layout_.addWidget(&safari_layout_, 1, 0, 12, 18);
     layout_.addWidget(&area_view_, 1, 0, 1, 1);
     layout_.addWidget(&day_counters_, 1, 18, 12, 2);
@@ -117,6 +124,8 @@ void MainWindow::updateLanguage(uint8_t locale) {
 
     if(!save_data_manager_.isLoaded())
         file_label_.setText(QString::fromStdString(table["file_label"][locale]));
+    edit_area_label0_.setText(QString::fromStdString(table["edit_area_label"][0][locale]));
+    edit_area_label1_.setText(QString::fromStdString(table["edit_area_label"][1][locale]));
     edit_button_.setText(QString::fromStdString(table["edit_button"][locale]));
     area_selector_.updateLanguage(locale);
     day_counters_.updateLanguage(locale);
@@ -125,6 +134,9 @@ void MainWindow::updateLanguage(uint8_t locale) {
 
 void MainWindow::areaClicked(uint8_t index) {
     if(edit_mode_) {
+        edit_area_label0_.hide();
+        edit_area_label1_.show();
+
         selected_area_ = index;
         safari_layout_.highlightSlot(index);
         return;
@@ -181,9 +193,17 @@ void MainWindow::editButtonReleased() {
     safari_layout_.highlightSlot(-1);
 
     if(edit_mode_) {
+        file_label_.hide();
+        edit_area_label0_.show();
+        edit_area_label1_.hide();
+
         day_counters_.hide();
         area_scroll_.show();
     } else {
+        file_label_.show();
+        edit_area_label0_.hide();
+        edit_area_label1_.hide();
+
         area_scroll_.hide();
         day_counters_.show();
     }

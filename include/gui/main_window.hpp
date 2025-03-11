@@ -26,6 +26,8 @@ private:
     OptionsMenu options_menu_;
 
     QLabel file_label_;
+    QLabel edit_area_label0_;
+    QLabel edit_area_label1_;
     SafariLayout safari_layout_;
     DayCounters day_counters_;
     AreaView area_view_;
