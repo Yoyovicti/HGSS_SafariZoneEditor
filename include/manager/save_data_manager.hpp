@@ -88,8 +88,10 @@ public:
         std::ofstream out_file(path, std::ios::out | std::ios::binary);
         if(!out_file.is_open()) return false;
 
-        writeSlots();
-        writeCounters();
+        writeSlots(OFFSET_BASE);
+        writeSlots(OFFSET_BACKUP);
+        writeCounters(OFFSET_BASE);
+        writeCounters(OFFSET_BACKUP);
 
         updateChecksum(OFFSET_BASE);
         updateChecksum(OFFSET_BACKUP);
@@ -137,9 +139,9 @@ private:
         }
     }
 
-    void writeSlots() {
+    void writeSlots(uint32_t block_offset) {
         for(uint8_t i = 0; i < slots_.size(); i++) {
-            uint32_t offset = OFFSET_SLOTS + i * SLOT_SIZE;
+            uint32_t offset = block_offset + OFFSET_SLOTS + i * SLOT_SIZE;
 
             Slot& slot = slots_[i];
             raw_data_[offset++] = slot.area_type_;
@@ -162,9 +164,9 @@ private:
         }
     }
 
-    void writeCounters() {
+    void writeCounters(uint32_t block_offset) {
         for(uint8_t i = 0; i < day_counters_.size(); i++) {
-            uint32_t offset = OFFSET_DAY_COUNTERS + i;
+            uint32_t offset = block_offset + OFFSET_DAY_COUNTERS + i;
             raw_data_[offset] = day_counters_[i];
         }
     }
