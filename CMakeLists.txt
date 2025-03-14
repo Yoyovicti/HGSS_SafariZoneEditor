@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(hgss_safari_zone_editor
-    VERSION 0.3
+    VERSION 0.4
     LANGUAGES CXX
 )
 
@@ -19,44 +19,22 @@ add_compile_definitions(
     VERSION_MINOR=${hgss_safari_zone_editor_VERSION_MINOR}
 )
 
-set(PROJECT_SOURCES
-    src/main.cpp
-
-    # GUI
-    src/gui/main_window.cpp
-    # Top bar elements
-    src/gui/file_menu.cpp
-    src/gui/options_menu.cpp
-    src/gui/lang_menu.cpp
-    src/gui/about_message_box.cpp
-    include/gui/file_menu.hpp
-    include/gui/options_menu.hpp
-    include/gui/lang_menu.hpp
-    # Main elements
-    src/gui/area_view.cpp
-    src/gui/day_counters.cpp
-    src/gui/hover_label.cpp
-    src/gui/block_popup.cpp
-    include/gui/area_view.hpp
-    include/gui/hover_label.hpp
-)
-
-include_directories(
-    include/
-)
-
 if(WIN32)
-    set(RESOURCE_FILES assets/resource.rc)
+    set(RESOURCE_FILES ${CMAKE_SOURCE_DIR}/assets/resource.rc)
 else()
     set(RESOURCE_FILES)
 endif()
 
 add_executable(${PROJECT_NAME}
-    ${PROJECT_SOURCES}
+    src/main.cpp
     ${RESOURCE_FILES}
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Widgets)
+add_subdirectory(src)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    Qt6::Widgets
+)
 
 # Properties for MacOS are auto-generated and not tested
 if(Qt6 VERSION_LESS 6.1.0)
@@ -71,6 +49,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 )
 
 file(
-    COPY data assets
+    COPY
+        data
+        assets
     DESTINATION .
 )

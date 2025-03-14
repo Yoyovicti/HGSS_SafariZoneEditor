@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <created>2025-02-05T05:47:20Z</created>
+    <modified>2025-02-05T05:47:20Z</modified>
+  </asset>
+  <library_images>
+    <image id="image-d22_mizu_b_1">
+      <init_from>d22_mizu_b_1.png</init_from>
+    </image>
+    <image id="image-saf_wo03">
+      <init_from>saf_wo03.png</init_from>
+    </image>
+    <image id="image-h_kage40">
+      <init_from>h_kage40.png</init_from>
+    </image>
+  </library_images>
+  <library_materials>
+    <material id="material0" name="h_kage">
+      <instance_effect url="#effect0"/>
+    </material>
+    <material id="material1" name="w03_b">
+      <instance_effect url="#effect1"/>
+    </material>
+    <material id="material2" name="wo03_a">
+      <instance_effect url="#effect2"/>
+    </material>
+  </library_materials>
+  <library_effects>
+    <effect id="effect0" name="h_kage">
+      <profile_COMMON>
+        <newparam sid="Image-surface">
+          <surface type="2D">
+            <init_from>image-h_kage40</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="Image-sampler">
+          <sampler2D>
+            <source>Image-surface</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+            <minfilter>NEAREST</minfilter>
+            <magfilter>NEAREST</magfilter>
+            <mipfilter>NEAREST</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>1 1 1 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="Image-sampler" texcoord="tc"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+            <transparency>
+              <float>0.29032257</float>
+            </transparency>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="effect1" name="w03_b">
+      <profile_COMMON>
+        <newparam sid="Image-surface">
+          <surface type="2D">
+            <init_from>image-saf_wo03</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="Image-sampler">
+          <sampler2D>
+            <source>Image-surface</source>
+            <wrap_s>WRAP</wrap_s>
+            <wrap_t>WRAP</wrap_t>
+            <minfilter>NEAREST</minfilter>
+            <magfilter>NEAREST</magfilter>
+            <mipfilter>NEAREST</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>1 1 1 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="Image-sampler" texcoord="tc"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+    <effect id="effect2" name="wo03_a">
+      <profile_COMMON>
+        <newparam sid="Image-surface">
+          <surface type="2D">
+            <init_from>image-d22_mizu_b_1</init_from>
+            <format>A8R8G8B8</format>
+          </surface>
+        </newparam>
+        <newparam sid="Image-sampler">
+          <sampler2D>
+            <source>Image-surface</source>
+            <wrap_s>CLAMP</wrap_s>
+            <wrap_t>CLAMP</wrap_t>
+            <minfilter>NEAREST</minfilter>
+            <magfilter>NEAREST</magfilter>
+            <mipfilter>NEAREST</mipfilter>
+          </sampler2D>
+        </newparam>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color>0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color>1 1 1 1</color>
+            </ambient>
+            <diffuse>
+              <texture texture="Image-sampler" texcoord="tc"/>
+            </diffuse>
+            <specular>
+              <color>0 0 0 1</color>
+            </specular>
+            <transparent>
+              <texture texture="Image-sampler" texcoord="tc"/>
+            </transparent>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_geometries>
+    <geometry id="geometry" name="saf_wo03">
+      <mesh>
+        <source id="positions">
+          <float_array id="positions-array" count="228">-7.1992188 32.998047 -6.1015625 -7.1992188 19.283203 1.8164063 7.1992188 19.283203 1.8164063 7.1992188 32.998047 -6.1015625 10.912109 1.3945313 -0.34375 10.912109 1.3945313 11.994141 15.837891 1.3945313 18.414063 15.837891 1.3945313 6.076172 10.912109 1.3945313 11.994141 -10.791016 1.3945313 11.994141 -6.4316406 1.3945313 18.414063 15.837891 1.3945313 18.414063 6.470703 17.611328 5.3476563 6.470703 21.283203 5.3476563 6.470703 17.611328 -2.890625 6.470703 21.283203 -2.890625 -6.470703 17.611328 -2.890625 -6.470703 21.283203 -2.890625 -6.470703 17.611328 5.3476563 -6.470703 21.283203 5.3476563 6.470703 21.283203 5.3476563 9.365234 21.283203 9.123047 6.470703 21.283203 -2.890625 9.365234 21.283203 -7 -6.470703 21.283203 -2.890625 -9.365234 21.283203 -7 -6.470703 21.283203 5.3476563 -9.365234 21.283203 9.123047 -10.791016 1.3945313 -0.34375 -10.791016 1.3945313 11.994141 -10.791016 6.7753906 11.994141 -10.791016 6.7753906 -0.34375 10.912109 1.3945313 11.994141 10.912109 1.3945313 -0.34375 10.912109 6.7753906 -0.34375 10.912109 6.7753906 11.994141 -10.791016 6.7753906 -0.34375 -10.791016 6.7753906 11.994141 10.912109 6.7753906 11.994141 10.912109 6.7753906 -0.34375 10.912109 6.7753906 11.994141 -10.791016 6.7753906 11.994141 -10.791016 1.3945313 11.994141 10.912109 1.3945313 11.994141 -9.365234 17.177734 -7 -9.365234 17.177734 9.123047 -9.365234 21.283203 9.123047 -9.365234 21.283203 -7 9.365234 17.177734 9.123047 9.365234 17.177734 -7 9.365234 21.283203 -7 9.365234 21.283203 9.123047 6.470703 21.283203 5.3476563 -6.470703 21.283203 5.3476563 -9.365234 21.283203 9.123047 9.365234 21.283203 9.123047 9.365234 21.283203 9.123047 -9.365234 21.283203 9.123047 -9.365234 17.177734 9.123047 9.365234 17.177734 9.123047 7.470703 18.611328 -3.890625 -7.470703 18.611328 -3.890625 -7.6367188 18.611328 7.3847656 7.6367188 18.611328 7.3847656 7 17.177734 8 -7 17.177734 8 -8.2578125 4.4335938 9.2421875 8.589844 4.4335938 9.2421875 -8.2578125 4.4335938 -1.6230469 -8.2578125 4.4335938 9.2421875 -7 17.177734 8 -7 17.177734 -1.7597656 8.589844 4.4335938 9.2421875 8.589844 4.4335938 -1.6230469 7 17.177734 -1.7597656 7 17.177734 8 </float_array>
+          <technique_common>
+            <accessor source="#positions-array" count="76" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="texcoords">
+          <float_array id="texcoords-array" count="152">0 1 0 0.0234375 1 0.0234375 1 1 0 0 1 0 1 1 0 1 0 0 1 0 1 1 0 1 0.265625 0.73828125 0.265625 0.73828125 0.265625 0.73828125 0.265625 0.73828125 0.265625 0.73828125 0.265625 0.73828125 0.265625 0.73828125 0.265625 0.73828125 1.25 0.05078125 1.25 0.05078125 1.25 0.08984375 1.25 0.08984375 1.2070313 0.08984375 1.2070313 0.08984375 1.2070313 0.05078125 1.2070313 0.05078125 1.1640625 0.31640625 1.1640625 0.31640625 1.1640625 0.31640625 1.1640625 0.31640625 1.0859375 0.3203125 1.0859375 0.3203125 1.0859375 0.3203125 1.0859375 0.3203125 1.2070313 0.08984375 1.2070313 0.05078125 1.2070313 0.05078125 1.2070313 0.08984375 1.2734375 0.13671875 1.2265625 0.13671875 1.2265625 0.30859375 1.2734375 0.30859375 1.1640625 0.31640625 1.1640625 0.31640625 1.1640625 0.31640625 1.1640625 0.31640625 1.0859375 0.3203125 1.0859375 0.3203125 1.0859375 0.3203125 1.0859375 0.3203125 1.25 0.05078125 1.2070313 0.05078125 1.2070313 0.046875 1.25 0.046875 1.2734375 0.203125 1.2265625 0.203125 1.2265625 0.30078125 1.2734375 0.30078125 0.98828125 1 0.5234375 1 0.5234375 0.59375 0.98828125 0.59375 1.4570313 0.27734375 1.0976563 0.27734375 1.0429688 0.8125 1.4960938 0.8125 1.1367188 0.3046875 1.1367188 0.3046875 1.1367188 0.3046875 1.1367188 0.3046875 1.1367188 0.3046875 1.1367188 0.3046875 1.1367188 0.3046875 1.1367188 0.3046875 </float_array>
+          <technique_common>
+            <accessor source="#texcoords-array" count="76" stride="2">
+              <param name="S" type="float"/>
+              <param name="T" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="colors">
+          <float_array id="colors-array" count="228">1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </float_array>
+          <technique_common>
+            <accessor source="#colors-array" count="76" stride="3">
+              <param name="R" type="float"/>
+              <param name="G" type="float"/>
+              <param name="B" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="normals">
+          <float_array id="normals-array" count="228">0 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 1 0 0 1 0 0 1 0 0 0.70710677 0.70710677 0 0.70710677 0.70710677 0 1 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </float_array>
+          <technique_common>
+            <accessor source="#normals-array" count="76" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="vertices">
+          <input semantic="POSITION" source="#positions"/>
+          <input semantic="TEXCOORD" source="#texcoords"/>
+          <input semantic="COLOR" source="#colors"/>
+          <input semantic="NORMAL" source="#normals"/>
+        </vertices>
+        <polylist material="material2" count="1">
+          <input semantic="VERTEX" source="#vertices" offset="0"/>
+          <vcount>4 </vcount>
+          <p>0 1 2 3 </p>
+        </polylist>
+        <polylist material="material0" count="2">
+          <input semantic="VERTEX" source="#vertices" offset="0"/>
+          <vcount>4 4 </vcount>
+          <p>4 5 6 7 8 9 10 11 </p>
+        </polylist>
+        <polylist material="material1" count="18">
+          <input semantic="VERTEX" source="#vertices" offset="0"/>
+          <vcount>4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 </vcount>
+          <p>12 13 15 14 14 15 17 16 16 17 19 18 20 21 23 22 22 23 25 24 24 25 27 26 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 </p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers>
+    <controller id="controller">
+      <skin source="#geometry">
+        <source id="controller-joints">
+          <Name_array id="controller-joints-array" count="1">joint0 </Name_array>
+          <technique_common>
+            <accessor source="#controller-joints-array" count="1">
+              <param name="JOINT" type="Name"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="controller-bind-poses">
+          <float_array id="controller-bind-poses-array" count="16">1 -0 0 -0 -0 1 -0 0 0 -0 1 -0 -0 0 -0 1 </float_array>
+          <technique_common>
+            <accessor source="#controller-bind-poses-array" count="1" stride="16">
+              <param name="TRANSFORM" type="float4x4"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="controller-weights">
+          <float_array id="controller-weights-array" count="1">1 </float_array>
+          <technique_common>
+            <accessor source="#controller-weights-array" count="1">
+              <param name="WEIGHT" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <joints>
+          <input semantic="JOINT" source="#controller-joints"/>
+          <input semantic="INV_BIND_MATRIX" source="#controller-bind-poses"/>
+        </joints>
+        <vertex_weights count="76">
+          <input semantic="JOINT" source="#controller-joints" offset="0"/>
+          <input semantic="WEIGHT" source="#controller-weights" offset="1"/>
+          <vcount>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 </vcount>
+          <v>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 </v>
+        </vertex_weights>
+      </skin>
+    </controller>
+  </library_controllers>
+  <library_visual_scenes>
+    <visual_scene id="scene0" name="saf_wo03">
+      <node id="joint0" sid="joint0" name="saf_wo03" type="JOINT">
+        <matrix sid="transform">1 0 0 0 0 1 0 0 0 0 1 0 0 0 0 1</matrix>
+      </node>
+      <node id="node" name="saf_wo03" type="NODE">
+        <instance_controller url="#controller">
+          <skeleton>#joint0</skeleton>
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="material0" target="#material0">
+                <bind_vertex_input semantic="tc" input_semantic="TEXCOORD"/>
+              </instance_material>
+              <instance_material symbol="material1" target="#material1">
+                <bind_vertex_input semantic="tc" input_semantic="TEXCOORD"/>
+              </instance_material>
+              <instance_material symbol="material2" target="#material2">
+                <bind_vertex_input semantic="tc" input_semantic="TEXCOORD"/>
+              </instance_material>
+            </technique_common>
+          </bind_material>
+        </instance_controller>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#scene0"/>
+  </scene>
+</COLLADA>
