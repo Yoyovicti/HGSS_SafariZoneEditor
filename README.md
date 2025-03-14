@@ -22,7 +22,7 @@ This project uses CMake as its build system.
 
 ### Prerequisites
 - [CMake](https://cmake.org/) (version 3.5 or later)
-- [Qt](https://www.qt.io/) (versions 6)
+- [Qt](https://www.qt.io/) (version 6)
 - [nlohmann/json](https://github.com/nlohmann/json) (tested with version 3.11.3)
 
 ### Build instructions
