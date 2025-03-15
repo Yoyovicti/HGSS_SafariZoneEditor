@@ -1,0 +1,1974 @@
+{
+    "Bulbasaur": [
+        "Bulbasaur",
+        "Bulbizarre"
+    ],
+    "Ivysaur": [
+        "Ivysaur",
+        "Herbizarre"
+    ],
+    "Venusaur": [
+        "Venusaur",
+        "Florizarre"
+    ],
+    "Charmander": [
+        "Charmander",
+        "Salam\u00e8che"
+    ],
+    "Charmeleon": [
+        "Charmeleon",
+        "Reptincel"
+    ],
+    "Charizard": [
+        "Charizard",
+        "Dracaufeu"
+    ],
+    "Squirtle": [
+        "Squirtle",
+        "Carapuce"
+    ],
+    "Wartortle": [
+        "Wartortle",
+        "Carabaffe"
+    ],
+    "Blastoise": [
+        "Blastoise",
+        "Tortank"
+    ],
+    "Caterpie": [
+        "Caterpie",
+        "Chenipan"
+    ],
+    "Metapod": [
+        "Metapod",
+        "Chrysacier"
+    ],
+    "Butterfree": [
+        "Butterfree",
+        "Papilusion"
+    ],
+    "Weedle": [
+        "Weedle",
+        "Aspicot"
+    ],
+    "Kakuna": [
+        "Kakuna",
+        "Coconfort"
+    ],
+    "Beedrill": [
+        "Beedrill",
+        "Dardargnan"
+    ],
+    "Pidgey": [
+        "Pidgey",
+        "Roucool"
+    ],
+    "Pidgeotto": [
+        "Pidgeotto",
+        "Roucoups"
+    ],
+    "Pidgeot": [
+        "Pidgeot",
+        "Roucarnage"
+    ],
+    "Rattata": [
+        "Rattata",
+        "Rattata"
+    ],
+    "Raticate": [
+        "Raticate",
+        "Rattatac"
+    ],
+    "Spearow": [
+        "Spearow",
+        "Piafabec"
+    ],
+    "Fearow": [
+        "Fearow",
+        "Rapasdepic"
+    ],
+    "Ekans": [
+        "Ekans",
+        "Abo"
+    ],
+    "Arbok": [
+        "Arbok",
+        "Arbok"
+    ],
+    "Pikachu": [
+        "Pikachu",
+        "Pikachu"
+    ],
+    "Raichu": [
+        "Raichu",
+        "Raichu"
+    ],
+    "Sandshrew": [
+        "Sandshrew",
+        "Sabelette"
+    ],
+    "Sandslash": [
+        "Sandslash",
+        "Sablaireau"
+    ],
+    "Nidoran-F": [
+        "Nidoran-F",
+        "Nidoran F"
+    ],
+    "Nidorina": [
+        "Nidorina",
+        "Nidorina"
+    ],
+    "Nidoqueen": [
+        "Nidoqueen",
+        "Nidoqueen"
+    ],
+    "Nidoran-M": [
+        "Nidoran-M",
+        "Nidoran M"
+    ],
+    "Nidorino": [
+        "Nidorino",
+        "Nidorino"
+    ],
+    "Nidoking": [
+        "Nidoking",
+        "Nidoking"
+    ],
+    "Clefairy": [
+        "Clefairy",
+        "M\u00e9lof\u00e9e"
+    ],
+    "Clefable": [
+        "Clefable",
+        "M\u00e9lodelfe"
+    ],
+    "Vulpix": [
+        "Vulpix",
+        "Goupix"
+    ],
+    "Ninetales": [
+        "Ninetales",
+        "Feunard"
+    ],
+    "Jigglypuff": [
+        "Jigglypuff",
+        "Rondoudou"
+    ],
+    "Wigglytuff": [
+        "Wigglytuff",
+        "Grodoudou"
+    ],
+    "Zubat": [
+        "Zubat",
+        "Nosferapti"
+    ],
+    "Golbat": [
+        "Golbat",
+        "Nosferalto"
+    ],
+    "Oddish": [
+        "Oddish",
+        "Mystherbe"
+    ],
+    "Gloom": [
+        "Gloom",
+        "Ortide"
+    ],
+    "Vileplume": [
+        "Vileplume",
+        "Rafflesia"
+    ],
+    "Paras": [
+        "Paras",
+        "Paras"
+    ],
+    "Parasect": [
+        "Parasect",
+        "Parasect"
+    ],
+    "Venonat": [
+        "Venonat",
+        "Mimitoss"
+    ],
+    "Venomoth": [
+        "Venomoth",
+        "A\u00e9romite"
+    ],
+    "Diglett": [
+        "Diglett",
+        "Taupiqueur"
+    ],
+    "Dugtrio": [
+        "Dugtrio",
+        "Triopikeur"
+    ],
+    "Meowth": [
+        "Meowth",
+        "Miaouss"
+    ],
+    "Persian": [
+        "Persian",
+        "Persian"
+    ],
+    "Psyduck": [
+        "Psyduck",
+        "Psykokwak"
+    ],
+    "Golduck": [
+        "Golduck",
+        "Akwakwak"
+    ],
+    "Mankey": [
+        "Mankey",
+        "F\u00e9rosinge"
+    ],
+    "Primeape": [
+        "Primeape",
+        "Colossinge"
+    ],
+    "Growlithe": [
+        "Growlithe",
+        "Caninos"
+    ],
+    "Arcanine": [
+        "Arcanine",
+        "Arcanin"
+    ],
+    "Poliwag": [
+        "Poliwag",
+        "Ptitard"
+    ],
+    "Poliwhirl": [
+        "Poliwhirl",
+        "T\u00eatarte"
+    ],
+    "Poliwrath": [
+        "Poliwrath",
+        "Tartard"
+    ],
+    "Abra": [
+        "Abra",
+        "Abra"
+    ],
+    "Kadabra": [
+        "Kadabra",
+        "Kadabra"
+    ],
+    "Alakazam": [
+        "Alakazam",
+        "Alakazam"
+    ],
+    "Machop": [
+        "Machop",
+        "Machoc"
+    ],
+    "Machoke": [
+        "Machoke",
+        "Machopeur"
+    ],
+    "Machamp": [
+        "Machamp",
+        "Mackogneur"
+    ],
+    "Bellsprout": [
+        "Bellsprout",
+        "Ch\u00e9tiflor"
+    ],
+    "Weepinbell": [
+        "Weepinbell",
+        "Boustiflor"
+    ],
+    "Victreebel": [
+        "Victreebel",
+        "Empiflor"
+    ],
+    "Tentacool": [
+        "Tentacool",
+        "Tentacool"
+    ],
+    "Tentacruel": [
+        "Tentacruel",
+        "Tentacruel"
+    ],
+    "Geodude": [
+        "Geodude",
+        "Racaillou"
+    ],
+    "Graveler": [
+        "Graveler",
+        "Gravalanch"
+    ],
+    "Golem": [
+        "Golem",
+        "Grolem"
+    ],
+    "Ponyta": [
+        "Ponyta",
+        "Ponyta"
+    ],
+    "Rapidash": [
+        "Rapidash",
+        "Galopa"
+    ],
+    "Slowpoke": [
+        "Slowpoke",
+        "Ramoloss"
+    ],
+    "Slowbro": [
+        "Slowbro",
+        "Flagadoss"
+    ],
+    "Magnemite": [
+        "Magnemite",
+        "Magn\u00e9ti"
+    ],
+    "Magneton": [
+        "Magneton",
+        "Magn\u00e9ton"
+    ],
+    "Farfetch'd": [
+        "Farfetch'd",
+        "Canarticho"
+    ],
+    "Doduo": [
+        "Doduo",
+        "Doduo"
+    ],
+    "Dodrio": [
+        "Dodrio",
+        "Dodrio"
+    ],
+    "Seel": [
+        "Seel",
+        "Otaria"
+    ],
+    "Dewgong": [
+        "Dewgong",
+        "Lamantine"
+    ],
+    "Grimer": [
+        "Grimer",
+        "Tadmorv"
+    ],
+    "Muk": [
+        "Muk",
+        "Grotadmorv"
+    ],
+    "Shellder": [
+        "Shellder",
+        "Kokiyas"
+    ],
+    "Cloyster": [
+        "Cloyster",
+        "Crustabri"
+    ],
+    "Gastly": [
+        "Gastly",
+        "Fantominus"
+    ],
+    "Haunter": [
+        "Haunter",
+        "Spectrum"
+    ],
+    "Gengar": [
+        "Gengar",
+        "Ectoplasma"
+    ],
+    "Onix": [
+        "Onix",
+        "Onix"
+    ],
+    "Drowzee": [
+        "Drowzee",
+        "Soporifik"
+    ],
+    "Hypno": [
+        "Hypno",
+        "Hypnomade"
+    ],
+    "Krabby": [
+        "Krabby",
+        "Krabby"
+    ],
+    "Kingler": [
+        "Kingler",
+        "Krabboss"
+    ],
+    "Voltorb": [
+        "Voltorb",
+        "Voltorbe"
+    ],
+    "Electrode": [
+        "Electrode",
+        "\u00c9lectrode"
+    ],
+    "Exeggcute": [
+        "Exeggcute",
+        "Noeunoeuf"
+    ],
+    "Exeggutor": [
+        "Exeggutor",
+        "Noadkoko"
+    ],
+    "Cubone": [
+        "Cubone",
+        "Osselait"
+    ],
+    "Marowak": [
+        "Marowak",
+        "Ossatueur"
+    ],
+    "Hitmonlee": [
+        "Hitmonlee",
+        "Kicklee"
+    ],
+    "Hitmonchan": [
+        "Hitmonchan",
+        "Tygnon"
+    ],
+    "Lickitung": [
+        "Lickitung",
+        "Excelangue"
+    ],
+    "Koffing": [
+        "Koffing",
+        "Smogo"
+    ],
+    "Weezing": [
+        "Weezing",
+        "Smogogo"
+    ],
+    "Rhyhorn": [
+        "Rhyhorn",
+        "Rhinocorne"
+    ],
+    "Rhydon": [
+        "Rhydon",
+        "Rhinof\u00e9ros"
+    ],
+    "Chansey": [
+        "Chansey",
+        "Leveinard"
+    ],
+    "Tangela": [
+        "Tangela",
+        "Saquedeneu"
+    ],
+    "Kangaskhan": [
+        "Kangaskhan",
+        "Kangourex"
+    ],
+    "Horsea": [
+        "Horsea",
+        "Hypotrempe"
+    ],
+    "Seadra": [
+        "Seadra",
+        "Hypoc\u00e9an"
+    ],
+    "Goldeen": [
+        "Goldeen",
+        "Poissir\u00e8ne"
+    ],
+    "Seaking": [
+        "Seaking",
+        "Poissoroy"
+    ],
+    "Staryu": [
+        "Staryu",
+        "Stari"
+    ],
+    "Starmie": [
+        "Starmie",
+        "Staross"
+    ],
+    "Mr. Mime": [
+        "Mr. Mime",
+        "M. Mime"
+    ],
+    "Scyther": [
+        "Scyther",
+        "Ins\u00e9cateur"
+    ],
+    "Jynx": [
+        "Jynx",
+        "Lippoutou"
+    ],
+    "Electabuzz": [
+        "Electabuzz",
+        "\u00c9lektek"
+    ],
+    "Magmar": [
+        "Magmar",
+        "Magmar"
+    ],
+    "Pinsir": [
+        "Pinsir",
+        "Scarabrute"
+    ],
+    "Tauros": [
+        "Tauros",
+        "Tauros"
+    ],
+    "Magikarp": [
+        "Magikarp",
+        "Magicarpe"
+    ],
+    "Gyarados": [
+        "Gyarados",
+        "L\u00e9viator"
+    ],
+    "Lapras": [
+        "Lapras",
+        "Lokhlass"
+    ],
+    "Ditto": [
+        "Ditto",
+        "M\u00e9tamorph"
+    ],
+    "Eevee": [
+        "Eevee",
+        "\u00c9voli"
+    ],
+    "Vaporeon": [
+        "Vaporeon",
+        "Aquali"
+    ],
+    "Jolteon": [
+        "Jolteon",
+        "Voltali"
+    ],
+    "Flareon": [
+        "Flareon",
+        "Pyroli"
+    ],
+    "Porygon": [
+        "Porygon",
+        "Porygon"
+    ],
+    "Omanyte": [
+        "Omanyte",
+        "Amonita"
+    ],
+    "Omastar": [
+        "Omastar",
+        "Amonistar"
+    ],
+    "Kabuto": [
+        "Kabuto",
+        "Kabuto"
+    ],
+    "Kabutops": [
+        "Kabutops",
+        "Kabutops"
+    ],
+    "Aerodactyl": [
+        "Aerodactyl",
+        "Pt\u00e9ra"
+    ],
+    "Snorlax": [
+        "Snorlax",
+        "Ronflex"
+    ],
+    "Articuno": [
+        "Articuno",
+        "Artikodin"
+    ],
+    "Zapdos": [
+        "Zapdos",
+        "\u00c9lecthor"
+    ],
+    "Moltres": [
+        "Moltres",
+        "Sulfura"
+    ],
+    "Dratini": [
+        "Dratini",
+        "Minidraco"
+    ],
+    "Dragonair": [
+        "Dragonair",
+        "Draco"
+    ],
+    "Dragonite": [
+        "Dragonite",
+        "Dracolosse"
+    ],
+    "Mewtwo": [
+        "Mewtwo",
+        "Mewtwo"
+    ],
+    "Mew": [
+        "Mew",
+        "Mew"
+    ],
+    "Chikorita": [
+        "Chikorita",
+        "Germignon"
+    ],
+    "Bayleef": [
+        "Bayleef",
+        "Macronium"
+    ],
+    "Meganium": [
+        "Meganium",
+        "M\u00e9ganium"
+    ],
+    "Cyndaquil": [
+        "Cyndaquil",
+        "H\u00e9ricendre"
+    ],
+    "Quilava": [
+        "Quilava",
+        "Feurisson"
+    ],
+    "Typhlosion": [
+        "Typhlosion",
+        "Typhlosion"
+    ],
+    "Totodile": [
+        "Totodile",
+        "Kaiminus"
+    ],
+    "Croconaw": [
+        "Croconaw",
+        "Crocrodil"
+    ],
+    "Feraligatr": [
+        "Feraligatr",
+        "Aligatueur"
+    ],
+    "Sentret": [
+        "Sentret",
+        "Fouinette"
+    ],
+    "Furret": [
+        "Furret",
+        "Fouinar"
+    ],
+    "Hoothoot": [
+        "Hoothoot",
+        "Hoothoot"
+    ],
+    "Noctowl": [
+        "Noctowl",
+        "Noarfang"
+    ],
+    "Ledyba": [
+        "Ledyba",
+        "Coxy"
+    ],
+    "Ledian": [
+        "Ledian",
+        "Coxyclaque"
+    ],
+    "Spinarak": [
+        "Spinarak",
+        "Mimigal"
+    ],
+    "Ariados": [
+        "Ariados",
+        "Migalos"
+    ],
+    "Crobat": [
+        "Crobat",
+        "Nostenfer"
+    ],
+    "Chinchou": [
+        "Chinchou",
+        "Loupio"
+    ],
+    "Lanturn": [
+        "Lanturn",
+        "Lanturn"
+    ],
+    "Pichu": [
+        "Pichu",
+        "Pichu"
+    ],
+    "Cleffa": [
+        "Cleffa",
+        "M\u00e9lo"
+    ],
+    "Igglybuff": [
+        "Igglybuff",
+        "Toudoudou"
+    ],
+    "Togepi": [
+        "Togepi",
+        "Togepi"
+    ],
+    "Togetic": [
+        "Togetic",
+        "Togetic"
+    ],
+    "Natu": [
+        "Natu",
+        "Natu"
+    ],
+    "Xatu": [
+        "Xatu",
+        "Xatu"
+    ],
+    "Mareep": [
+        "Mareep",
+        "Wattouat"
+    ],
+    "Flaaffy": [
+        "Flaaffy",
+        "Lainergie"
+    ],
+    "Ampharos": [
+        "Ampharos",
+        "Pharamp"
+    ],
+    "Bellossom": [
+        "Bellossom",
+        "Joliflor"
+    ],
+    "Marill": [
+        "Marill",
+        "Marill"
+    ],
+    "Azumarill": [
+        "Azumarill",
+        "Azumarill"
+    ],
+    "Sudowoodo": [
+        "Sudowoodo",
+        "Simularbre"
+    ],
+    "Politoed": [
+        "Politoed",
+        "Tarpaud"
+    ],
+    "Hoppip": [
+        "Hoppip",
+        "Granivol"
+    ],
+    "Skiploom": [
+        "Skiploom",
+        "Floravol"
+    ],
+    "Jumpluff": [
+        "Jumpluff",
+        "Cotovol"
+    ],
+    "Aipom": [
+        "Aipom",
+        "Capumain"
+    ],
+    "Sunkern": [
+        "Sunkern",
+        "Tournegrin"
+    ],
+    "Sunflora": [
+        "Sunflora",
+        "H\u00e9liatronc"
+    ],
+    "Yanma": [
+        "Yanma",
+        "Yanma"
+    ],
+    "Wooper": [
+        "Wooper",
+        "Axoloto"
+    ],
+    "Quagsire": [
+        "Quagsire",
+        "Maraiste"
+    ],
+    "Espeon": [
+        "Espeon",
+        "Mentali"
+    ],
+    "Umbreon": [
+        "Umbreon",
+        "Noctali"
+    ],
+    "Murkrow": [
+        "Murkrow",
+        "Corn\u00e8bre"
+    ],
+    "Slowking": [
+        "Slowking",
+        "Roigada"
+    ],
+    "Misdreavus": [
+        "Misdreavus",
+        "Feufor\u00eave"
+    ],
+    "Unown": [
+        "Unown",
+        "Zarbi"
+    ],
+    "Wobbuffet": [
+        "Wobbuffet",
+        "Qulbutok\u00e9"
+    ],
+    "Girafarig": [
+        "Girafarig",
+        "Girafarig"
+    ],
+    "Pineco": [
+        "Pineco",
+        "Pomdepik"
+    ],
+    "Forretress": [
+        "Forretress",
+        "Foretress"
+    ],
+    "Dunsparce": [
+        "Dunsparce",
+        "Insolourdo"
+    ],
+    "Gligar": [
+        "Gligar",
+        "Scorplane"
+    ],
+    "Steelix": [
+        "Steelix",
+        "Steelix"
+    ],
+    "Snubbull": [
+        "Snubbull",
+        "Snubbull"
+    ],
+    "Granbull": [
+        "Granbull",
+        "Granbull"
+    ],
+    "Qwilfish": [
+        "Qwilfish",
+        "Qwilfish"
+    ],
+    "Scizor": [
+        "Scizor",
+        "Cizayox"
+    ],
+    "Shuckle": [
+        "Shuckle",
+        "Caratroc"
+    ],
+    "Heracross": [
+        "Heracross",
+        "Scarhino"
+    ],
+    "Sneasel": [
+        "Sneasel",
+        "Farfuret"
+    ],
+    "Teddiursa": [
+        "Teddiursa",
+        "Teddiursa"
+    ],
+    "Ursaring": [
+        "Ursaring",
+        "Ursaring"
+    ],
+    "Slugma": [
+        "Slugma",
+        "Limagma"
+    ],
+    "Magcargo": [
+        "Magcargo",
+        "Volcaropod"
+    ],
+    "Swinub": [
+        "Swinub",
+        "Marcacrin"
+    ],
+    "Piloswine": [
+        "Piloswine",
+        "Cochignon"
+    ],
+    "Corsola": [
+        "Corsola",
+        "Corayon"
+    ],
+    "Remoraid": [
+        "Remoraid",
+        "R\u00e9moraid"
+    ],
+    "Octillery": [
+        "Octillery",
+        "Octillery"
+    ],
+    "Delibird": [
+        "Delibird",
+        "Cadoizo"
+    ],
+    "Mantine": [
+        "Mantine",
+        "D\u00e9manta"
+    ],
+    "Skarmory": [
+        "Skarmory",
+        "Airmure"
+    ],
+    "Houndour": [
+        "Houndour",
+        "Malosse"
+    ],
+    "Houndoom": [
+        "Houndoom",
+        "D\u00e9molosse"
+    ],
+    "Kingdra": [
+        "Kingdra",
+        "Hyporoi"
+    ],
+    "Phanpy": [
+        "Phanpy",
+        "Phanpy"
+    ],
+    "Donphan": [
+        "Donphan",
+        "Donphan"
+    ],
+    "Porygon2": [
+        "Porygon2",
+        "Porygon2"
+    ],
+    "Stantler": [
+        "Stantler",
+        "Cerfrousse"
+    ],
+    "Smeargle": [
+        "Smeargle",
+        "Queulorior"
+    ],
+    "Tyrogue": [
+        "Tyrogue",
+        "Debugant"
+    ],
+    "Hitmontop": [
+        "Hitmontop",
+        "Kapoera"
+    ],
+    "Smoochum": [
+        "Smoochum",
+        "Lippouti"
+    ],
+    "Elekid": [
+        "Elekid",
+        "\u00c9lekid"
+    ],
+    "Magby": [
+        "Magby",
+        "Magby"
+    ],
+    "Miltank": [
+        "Miltank",
+        "\u00c9cr\u00e9meuh"
+    ],
+    "Blissey": [
+        "Blissey",
+        "Leuphorie"
+    ],
+    "Raikou": [
+        "Raikou",
+        "Raikou"
+    ],
+    "Entei": [
+        "Entei",
+        "Entei"
+    ],
+    "Suicune": [
+        "Suicune",
+        "Suicune"
+    ],
+    "Larvitar": [
+        "Larvitar",
+        "Embrylex"
+    ],
+    "Pupitar": [
+        "Pupitar",
+        "Ymphect"
+    ],
+    "Tyranitar": [
+        "Tyranitar",
+        "Tyranocif"
+    ],
+    "Lugia": [
+        "Lugia",
+        "Lugia"
+    ],
+    "Ho-Oh": [
+        "Ho-Oh",
+        "Ho-Oh"
+    ],
+    "Celebi": [
+        "Celebi",
+        "Celebi"
+    ],
+    "Treecko": [
+        "Treecko",
+        "Arcko"
+    ],
+    "Grovyle": [
+        "Grovyle",
+        "Massko"
+    ],
+    "Sceptile": [
+        "Sceptile",
+        "Jungko"
+    ],
+    "Torchic": [
+        "Torchic",
+        "Poussifeu"
+    ],
+    "Combusken": [
+        "Combusken",
+        "Galifeu"
+    ],
+    "Blaziken": [
+        "Blaziken",
+        "Bras\u00e9gali"
+    ],
+    "Mudkip": [
+        "Mudkip",
+        "Gobou"
+    ],
+    "Marshtomp": [
+        "Marshtomp",
+        "Flobio"
+    ],
+    "Swampert": [
+        "Swampert",
+        "Laggron"
+    ],
+    "Poochyena": [
+        "Poochyena",
+        "Medhy\u00e8na"
+    ],
+    "Mightyena": [
+        "Mightyena",
+        "Grahy\u00e8na"
+    ],
+    "Zigzagoon": [
+        "Zigzagoon",
+        "Zigzaton"
+    ],
+    "Linoone": [
+        "Linoone",
+        "Lin\u00e9on"
+    ],
+    "Wurmple": [
+        "Wurmple",
+        "Chenipotte"
+    ],
+    "Silcoon": [
+        "Silcoon",
+        "Armulys"
+    ],
+    "Beautifly": [
+        "Beautifly",
+        "Charmillon"
+    ],
+    "Cascoon": [
+        "Cascoon",
+        "Blindalys"
+    ],
+    "Dustox": [
+        "Dustox",
+        "Papinox"
+    ],
+    "Lotad": [
+        "Lotad",
+        "N\u00e9nupiot"
+    ],
+    "Lombre": [
+        "Lombre",
+        "Lombre"
+    ],
+    "Ludicolo": [
+        "Ludicolo",
+        "Ludicolo"
+    ],
+    "Seedot": [
+        "Seedot",
+        "Grainipiot"
+    ],
+    "Nuzleaf": [
+        "Nuzleaf",
+        "Pifeuil"
+    ],
+    "Shiftry": [
+        "Shiftry",
+        "Tengalice"
+    ],
+    "Taillow": [
+        "Taillow",
+        "Nirondelle"
+    ],
+    "Swellow": [
+        "Swellow",
+        "H\u00e9l\u00e9delle"
+    ],
+    "Wingull": [
+        "Wingull",
+        "Go\u00e9lise"
+    ],
+    "Pelipper": [
+        "Pelipper",
+        "Bekipan"
+    ],
+    "Ralts": [
+        "Ralts",
+        "Tarsal"
+    ],
+    "Kirlia": [
+        "Kirlia",
+        "Kirlia"
+    ],
+    "Gardevoir": [
+        "Gardevoir",
+        "Gardevoir"
+    ],
+    "Surskit": [
+        "Surskit",
+        "Arakdo"
+    ],
+    "Masquerain": [
+        "Masquerain",
+        "Maskadra"
+    ],
+    "Shroomish": [
+        "Shroomish",
+        "Balignon"
+    ],
+    "Breloom": [
+        "Breloom",
+        "Chapignon"
+    ],
+    "Slakoth": [
+        "Slakoth",
+        "Parecool"
+    ],
+    "Vigoroth": [
+        "Vigoroth",
+        "Vigoroth"
+    ],
+    "Slaking": [
+        "Slaking",
+        "Monafl\u00e8mit"
+    ],
+    "Nincada": [
+        "Nincada",
+        "Ningale"
+    ],
+    "Ninjask": [
+        "Ninjask",
+        "Ninjask"
+    ],
+    "Shedinja": [
+        "Shedinja",
+        "Munja"
+    ],
+    "Whismur": [
+        "Whismur",
+        "Chuchmur"
+    ],
+    "Loudred": [
+        "Loudred",
+        "Ramboum"
+    ],
+    "Exploud": [
+        "Exploud",
+        "Brouhabam"
+    ],
+    "Makuhita": [
+        "Makuhita",
+        "Makuhita"
+    ],
+    "Hariyama": [
+        "Hariyama",
+        "Hariyama"
+    ],
+    "Azurill": [
+        "Azurill",
+        "Azurill"
+    ],
+    "Nosepass": [
+        "Nosepass",
+        "Tarinor"
+    ],
+    "Skitty": [
+        "Skitty",
+        "Skitty"
+    ],
+    "Delcatty": [
+        "Delcatty",
+        "Delcatty"
+    ],
+    "Sableye": [
+        "Sableye",
+        "T\u00e9n\u00e9fix"
+    ],
+    "Mawile": [
+        "Mawile",
+        "Mysdibule"
+    ],
+    "Aron": [
+        "Aron",
+        "Galekid"
+    ],
+    "Lairon": [
+        "Lairon",
+        "Galegon"
+    ],
+    "Aggron": [
+        "Aggron",
+        "Galeking"
+    ],
+    "Meditite": [
+        "Meditite",
+        "M\u00e9ditikka"
+    ],
+    "Medicham": [
+        "Medicham",
+        "Charmina"
+    ],
+    "Electrike": [
+        "Electrike",
+        "Dynavolt"
+    ],
+    "Manectric": [
+        "Manectric",
+        "\u00c9lecsprint"
+    ],
+    "Plusle": [
+        "Plusle",
+        "Posipi"
+    ],
+    "Minun": [
+        "Minun",
+        "N\u00e9gapi"
+    ],
+    "Volbeat": [
+        "Volbeat",
+        "Muciole"
+    ],
+    "Illumise": [
+        "Illumise",
+        "Lumivole"
+    ],
+    "Roselia": [
+        "Roselia",
+        "Ros\u00e9lia"
+    ],
+    "Gulpin": [
+        "Gulpin",
+        "Gloupti"
+    ],
+    "Swalot": [
+        "Swalot",
+        "Avaltout"
+    ],
+    "Carvanha": [
+        "Carvanha",
+        "Carvanha"
+    ],
+    "Sharpedo": [
+        "Sharpedo",
+        "Sharpedo"
+    ],
+    "Wailmer": [
+        "Wailmer",
+        "Wailmer"
+    ],
+    "Wailord": [
+        "Wailord",
+        "Wailord"
+    ],
+    "Numel": [
+        "Numel",
+        "Chamallot"
+    ],
+    "Camerupt": [
+        "Camerupt",
+        "Cam\u00e9rupt"
+    ],
+    "Torkoal": [
+        "Torkoal",
+        "Chartor"
+    ],
+    "Spoink": [
+        "Spoink",
+        "Spoink"
+    ],
+    "Grumpig": [
+        "Grumpig",
+        "Groret"
+    ],
+    "Spinda": [
+        "Spinda",
+        "Spinda"
+    ],
+    "Trapinch": [
+        "Trapinch",
+        "Kraknoix"
+    ],
+    "Vibrava": [
+        "Vibrava",
+        "Vibraninf"
+    ],
+    "Flygon": [
+        "Flygon",
+        "Lib\u00e9gon"
+    ],
+    "Cacnea": [
+        "Cacnea",
+        "Cacnea"
+    ],
+    "Cacturne": [
+        "Cacturne",
+        "Cacturne"
+    ],
+    "Swablu": [
+        "Swablu",
+        "Tylton"
+    ],
+    "Altaria": [
+        "Altaria",
+        "Altaria"
+    ],
+    "Zangoose": [
+        "Zangoose",
+        "Mangriff"
+    ],
+    "Seviper": [
+        "Seviper",
+        "S\u00e9viper"
+    ],
+    "Lunatone": [
+        "Lunatone",
+        "S\u00e9l\u00e9roc"
+    ],
+    "Solrock": [
+        "Solrock",
+        "Solaroc"
+    ],
+    "Barboach": [
+        "Barboach",
+        "Barloche"
+    ],
+    "Whiscash": [
+        "Whiscash",
+        "Barbicha"
+    ],
+    "Corphish": [
+        "Corphish",
+        "\u00c9crapince"
+    ],
+    "Crawdaunt": [
+        "Crawdaunt",
+        "Colhomard"
+    ],
+    "Baltoy": [
+        "Baltoy",
+        "Balbuto"
+    ],
+    "Claydol": [
+        "Claydol",
+        "Kaorine"
+    ],
+    "Lileep": [
+        "Lileep",
+        "Lilia"
+    ],
+    "Cradily": [
+        "Cradily",
+        "Vacilys"
+    ],
+    "Anorith": [
+        "Anorith",
+        "Anorith"
+    ],
+    "Armaldo": [
+        "Armaldo",
+        "Armaldo"
+    ],
+    "Feebas": [
+        "Feebas",
+        "Barpau"
+    ],
+    "Milotic": [
+        "Milotic",
+        "Milobellus"
+    ],
+    "Castform": [
+        "Castform",
+        "Morph\u00e9o"
+    ],
+    "Kecleon": [
+        "Kecleon",
+        "Kecleon"
+    ],
+    "Shuppet": [
+        "Shuppet",
+        "Polichombr"
+    ],
+    "Banette": [
+        "Banette",
+        "Branette"
+    ],
+    "Duskull": [
+        "Duskull",
+        "Skel\u00e9nox"
+    ],
+    "Dusclops": [
+        "Dusclops",
+        "T\u00e9raclope"
+    ],
+    "Tropius": [
+        "Tropius",
+        "Tropius"
+    ],
+    "Chimecho": [
+        "Chimecho",
+        "\u00c9oko"
+    ],
+    "Absol": [
+        "Absol",
+        "Absol"
+    ],
+    "Wynaut": [
+        "Wynaut",
+        "Ok\u00e9ok\u00e9"
+    ],
+    "Snorunt": [
+        "Snorunt",
+        "Stalgamin"
+    ],
+    "Glalie": [
+        "Glalie",
+        "Oniglali"
+    ],
+    "Spheal": [
+        "Spheal",
+        "Obalie"
+    ],
+    "Sealeo": [
+        "Sealeo",
+        "Phogleur"
+    ],
+    "Walrein": [
+        "Walrein",
+        "Kaimorse"
+    ],
+    "Clamperl": [
+        "Clamperl",
+        "Coquiperl"
+    ],
+    "Huntail": [
+        "Huntail",
+        "Serpang"
+    ],
+    "Gorebyss": [
+        "Gorebyss",
+        "Rosabyss"
+    ],
+    "Relicanth": [
+        "Relicanth",
+        "Relicanth"
+    ],
+    "Luvdisc": [
+        "Luvdisc",
+        "Lovdisc"
+    ],
+    "Bagon": [
+        "Bagon",
+        "Draby"
+    ],
+    "Shelgon": [
+        "Shelgon",
+        "Drackhaus"
+    ],
+    "Salamence": [
+        "Salamence",
+        "Drattak"
+    ],
+    "Beldum": [
+        "Beldum",
+        "Terhal"
+    ],
+    "Metang": [
+        "Metang",
+        "M\u00e9tang"
+    ],
+    "Metagross": [
+        "Metagross",
+        "M\u00e9talosse"
+    ],
+    "Regirock": [
+        "Regirock",
+        "Regirock"
+    ],
+    "Regice": [
+        "Regice",
+        "Regice"
+    ],
+    "Registeel": [
+        "Registeel",
+        "Registeel"
+    ],
+    "Latias": [
+        "Latias",
+        "Latias"
+    ],
+    "Latios": [
+        "Latios",
+        "Latios"
+    ],
+    "Kyogre": [
+        "Kyogre",
+        "Kyogre"
+    ],
+    "Groudon": [
+        "Groudon",
+        "Groudon"
+    ],
+    "Rayquaza": [
+        "Rayquaza",
+        "Rayquaza"
+    ],
+    "Jirachi": [
+        "Jirachi",
+        "Jirachi"
+    ],
+    "Deoxys": [
+        "Deoxys",
+        "Deoxys"
+    ],
+    "Turtwig": [
+        "Turtwig",
+        "Tortipouss"
+    ],
+    "Grotle": [
+        "Grotle",
+        "Boskara"
+    ],
+    "Torterra": [
+        "Torterra",
+        "Torterra"
+    ],
+    "Chimchar": [
+        "Chimchar",
+        "Ouisticram"
+    ],
+    "Monferno": [
+        "Monferno",
+        "Chimpenfeu"
+    ],
+    "Infernape": [
+        "Infernape",
+        "Simiabraz"
+    ],
+    "Piplup": [
+        "Piplup",
+        "Tiplouf"
+    ],
+    "Prinplup": [
+        "Prinplup",
+        "Prinplouf"
+    ],
+    "Empoleon": [
+        "Empoleon",
+        "Pingol\u00e9on"
+    ],
+    "Starly": [
+        "Starly",
+        "\u00c9tourmi"
+    ],
+    "Staravia": [
+        "Staravia",
+        "\u00c9tourvol"
+    ],
+    "Staraptor": [
+        "Staraptor",
+        "\u00c9touraptor"
+    ],
+    "Bidoof": [
+        "Bidoof",
+        "Keunotor"
+    ],
+    "Bibarel": [
+        "Bibarel",
+        "Castorno"
+    ],
+    "Kricketot": [
+        "Kricketot",
+        "Crikzik"
+    ],
+    "Kricketune": [
+        "Kricketune",
+        "M\u00e9lokrik"
+    ],
+    "Shinx": [
+        "Shinx",
+        "Lixy"
+    ],
+    "Luxio": [
+        "Luxio",
+        "Luxio"
+    ],
+    "Luxray": [
+        "Luxray",
+        "Luxray"
+    ],
+    "Budew": [
+        "Budew",
+        "Rozbouton"
+    ],
+    "Roserade": [
+        "Roserade",
+        "Roserade"
+    ],
+    "Cranidos": [
+        "Cranidos",
+        "Kranidos"
+    ],
+    "Rampardos": [
+        "Rampardos",
+        "Charkos"
+    ],
+    "Shieldon": [
+        "Shieldon",
+        "Dinoclier"
+    ],
+    "Bastiodon": [
+        "Bastiodon",
+        "Bastiodon"
+    ],
+    "Burmy": [
+        "Burmy",
+        "Cheniti"
+    ],
+    "Wormadam": [
+        "Wormadam",
+        "Cheniselle"
+    ],
+    "Mothim": [
+        "Mothim",
+        "Papilord"
+    ],
+    "Combee": [
+        "Combee",
+        "Apitrini"
+    ],
+    "Vespiquen": [
+        "Vespiquen",
+        "Apireine"
+    ],
+    "Pachirisu": [
+        "Pachirisu",
+        "Pachirisu"
+    ],
+    "Buizel": [
+        "Buizel",
+        "Must\u00e9bou\u00e9e"
+    ],
+    "Floatzel": [
+        "Floatzel",
+        "Must\u00e9flott"
+    ],
+    "Cherubi": [
+        "Cherubi",
+        "Ceribou"
+    ],
+    "Cherrim": [
+        "Cherrim",
+        "Ceriflor"
+    ],
+    "Shellos": [
+        "Shellos",
+        "Sancoki"
+    ],
+    "Gastrodon": [
+        "Gastrodon",
+        "Tritosor"
+    ],
+    "Ambipom": [
+        "Ambipom",
+        "Capidextre"
+    ],
+    "Drifloon": [
+        "Drifloon",
+        "Baudrive"
+    ],
+    "Drifblim": [
+        "Drifblim",
+        "Grodrive"
+    ],
+    "Buneary": [
+        "Buneary",
+        "Laporeille"
+    ],
+    "Lopunny": [
+        "Lopunny",
+        "Lockpin"
+    ],
+    "Mismagius": [
+        "Mismagius",
+        "Magir\u00eave"
+    ],
+    "Honchkrow": [
+        "Honchkrow",
+        "Corboss"
+    ],
+    "Glameow": [
+        "Glameow",
+        "Chaglam"
+    ],
+    "Purugly": [
+        "Purugly",
+        "Chaffreux"
+    ],
+    "Chingling": [
+        "Chingling",
+        "Korillon"
+    ],
+    "Stunky": [
+        "Stunky",
+        "Moufouette"
+    ],
+    "Skuntank": [
+        "Skuntank",
+        "Moufflair"
+    ],
+    "Bronzor": [
+        "Bronzor",
+        "Arch\u00e9omire"
+    ],
+    "Bronzong": [
+        "Bronzong",
+        "Arch\u00e9odong"
+    ],
+    "Bonsly": [
+        "Bonsly",
+        "Manza\u00ef"
+    ],
+    "Mime Jr.": [
+        "Mime Jr.",
+        "Mime Jr."
+    ],
+    "Happiny": [
+        "Happiny",
+        "Ptiravi"
+    ],
+    "Chatot": [
+        "Chatot",
+        "Pijako"
+    ],
+    "Spiritomb": [
+        "Spiritomb",
+        "Spiritomb"
+    ],
+    "Gible": [
+        "Gible",
+        "Griknot"
+    ],
+    "Gabite": [
+        "Gabite",
+        "Carmache"
+    ],
+    "Garchomp": [
+        "Garchomp",
+        "Carchacrok"
+    ],
+    "Munchlax": [
+        "Munchlax",
+        "Goinfrex"
+    ],
+    "Riolu": [
+        "Riolu",
+        "Riolu"
+    ],
+    "Lucario": [
+        "Lucario",
+        "Lucario"
+    ],
+    "Hippopotas": [
+        "Hippopotas",
+        "Hippopotas"
+    ],
+    "Hippowdon": [
+        "Hippowdon",
+        "Hippodocus"
+    ],
+    "Skorupi": [
+        "Skorupi",
+        "Rapion"
+    ],
+    "Drapion": [
+        "Drapion",
+        "Drascore"
+    ],
+    "Croagunk": [
+        "Croagunk",
+        "Cradopaud"
+    ],
+    "Toxicroak": [
+        "Toxicroak",
+        "Coatox"
+    ],
+    "Carnivine": [
+        "Carnivine",
+        "Vortente"
+    ],
+    "Finneon": [
+        "Finneon",
+        "\u00c9cayon"
+    ],
+    "Lumineon": [
+        "Lumineon",
+        "Lumin\u00e9on"
+    ],
+    "Mantyke": [
+        "Mantyke",
+        "Babimanta"
+    ],
+    "Snover": [
+        "Snover",
+        "Blizzi"
+    ],
+    "Abomasnow": [
+        "Abomasnow",
+        "Blizzaroi"
+    ],
+    "Weavile": [
+        "Weavile",
+        "Dimoret"
+    ],
+    "Magnezone": [
+        "Magnezone",
+        "Magn\u00e9zone"
+    ],
+    "Lickilicky": [
+        "Lickilicky",
+        "Coudlangue"
+    ],
+    "Rhyperior": [
+        "Rhyperior",
+        "Rhinastoc"
+    ],
+    "Tangrowth": [
+        "Tangrowth",
+        "Bouldeneu"
+    ],
+    "Electivire": [
+        "Electivire",
+        "\u00c9lekable"
+    ],
+    "Magmortar": [
+        "Magmortar",
+        "Maganon"
+    ],
+    "Togekiss": [
+        "Togekiss",
+        "Togekiss"
+    ],
+    "Yanmega": [
+        "Yanmega",
+        "Yanmega"
+    ],
+    "Leafeon": [
+        "Leafeon",
+        "Phyllali"
+    ],
+    "Glaceon": [
+        "Glaceon",
+        "Givrali"
+    ],
+    "Gliscor": [
+        "Gliscor",
+        "Scorvol"
+    ],
+    "Mamoswine": [
+        "Mamoswine",
+        "Mammochon"
+    ],
+    "Porygon-Z": [
+        "Porygon-Z",
+        "Porygon-Z"
+    ],
+    "Gallade": [
+        "Gallade",
+        "Gallame"
+    ],
+    "Probopass": [
+        "Probopass",
+        "Tarinorme"
+    ],
+    "Dusknoir": [
+        "Dusknoir",
+        "Noctunoir"
+    ],
+    "Froslass": [
+        "Froslass",
+        "Momartik"
+    ],
+    "Rotom": [
+        "Rotom",
+        "Motisma"
+    ],
+    "Uxie": [
+        "Uxie",
+        "Cr\u00e9helf"
+    ],
+    "Mesprit": [
+        "Mesprit",
+        "Cr\u00e9follet"
+    ],
+    "Azelf": [
+        "Azelf",
+        "Cr\u00e9fadet"
+    ],
+    "Dialga": [
+        "Dialga",
+        "Dialga"
+    ],
+    "Palkia": [
+        "Palkia",
+        "Palkia"
+    ],
+    "Heatran": [
+        "Heatran",
+        "Heatran"
+    ],
+    "Regigigas": [
+        "Regigigas",
+        "Regigigas"
+    ],
+    "Giratina": [
+        "Giratina",
+        "Giratina"
+    ],
+    "Cresselia": [
+        "Cresselia",
+        "Cresselia"
+    ],
+    "Phione": [
+        "Phione",
+        "Phione"
+    ],
+    "Manaphy": [
+        "Manaphy",
+        "Manaphy"
+    ],
+    "Darkrai": [
+        "Darkrai",
+        "Darkrai"
+    ],
+    "Shaymin": [
+        "Shaymin",
+        "Shaymin"
+    ],
+    "Arceus": [
+        "Arceus",
+        "Arceus"
+    ]
+}

@@ -142,7 +142,7 @@ void MainWindow::areaClicked(uint8_t index) {
         return;
     }
 
-    // enterAreaViewer(index);
+    enterAreaViewer(index);
 }
 
 void MainWindow::enterAreaViewer(uint8_t index) {

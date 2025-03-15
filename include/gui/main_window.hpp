@@ -10,6 +10,10 @@
 #include "manager/save_data_manager.hpp"
 
 #include <QMenuBar>
+#include <QLabel>
+#include <QFileDialog>
+
+#include <string>
 
 class MainWindow : public QWidget {
 public:
