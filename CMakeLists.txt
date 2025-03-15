@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 
 project(hgss_safari_zone_editor
-    VERSION 0.3
+    VERSION 0.4
     LANGUAGES CXX
 )
 
@@ -22,7 +22,6 @@ add_compile_definitions(
     VERSION_MAJOR=${hgss_safari_zone_editor_VERSION_MAJOR}
     VERSION_MINOR=${hgss_safari_zone_editor_VERSION_MINOR}
 )
-
 
 message(ASSIMP_INCLUDE_DIRS="${ASSIMP_INCLUDE_DIRS}")
 message(ASSIMP_LIBRARIES="${ASSIMP_LIBRARIES}")

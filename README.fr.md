@@ -41,7 +41,7 @@ Si une des librairies nécessaires n'est pas détectée, assurez-vous qu'elle es
 ## Licence
 Le code source de ce projet est disponible sous [licence MIT](LICENSE.MIT).
 
-Copyright © 2024 Yoyovicti
+Copyright © 2024-2025 Yoyovicti
 
 Librairies utilisées:
 - Ce projet utilise [nlohmann/json](https://github.com/nlohmann/json) disponible sous [licence MIT](LICENSE.MIT). Copyright © 2013-2024 Niels Lohmann
