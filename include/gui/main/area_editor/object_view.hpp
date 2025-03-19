@@ -15,6 +15,7 @@ public:
 
             QObject::connect(&obj_items_[i], &ObjectItem::enterHover, this, [this, i]() {emit enterItemHover(i);});
             QObject::connect(&obj_items_[i], &ObjectItem::leaveHover, this, [this, i]() {emit leaveItemHover(i);});
+            QObject::connect(&obj_items_[i], &ObjectItem::moveButtonClicked, this, [this, i]() {emit moveButtonClicked(i);});
         }
     }
 
@@ -50,6 +51,7 @@ private:
 signals:
     void enterItemHover(uint8_t i);
     void leaveItemHover(uint8_t i);
+    void moveButtonClicked(uint8_t i);
 };
 
 #endif // OBJECT_VIEW_HPP

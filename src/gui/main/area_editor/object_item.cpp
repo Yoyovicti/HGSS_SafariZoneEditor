@@ -42,6 +42,8 @@ ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), layou
     layout_.addWidget(&cy_label_, 1, 5, 1, 1);
     layout_.addWidget(&move_button_, 0, 6, 1, 1);
     layout_.addWidget(&delete_button_, 1, 6, 1, 1);
+
+    QObject::connect(&move_button_, &QPushButton::released, this, [this](){emit moveButtonClicked();});
 }
 
 void ObjectItem::setObject(const Object& object) {

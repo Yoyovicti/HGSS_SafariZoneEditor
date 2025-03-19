@@ -9,6 +9,8 @@
 #include <QPushButton>
 
 class ObjectItem : public QSelectItem {
+    Q_OBJECT
+
 public:
     ObjectItem(QWidget *parent = nullptr);
 
@@ -27,6 +29,9 @@ private:
 
     QPushButton move_button_;
     QPushButton delete_button_;
+
+signals:
+    void moveButtonClicked();
 };
 
 #endif // OBJECT_ITEM_HPP

@@ -25,7 +25,7 @@ struct VertexData {
 
 class Mesh : protected QOpenGLFunctions {
 public:
-    Mesh(const aiMaterial* material, const aiMesh* mesh, const std::filesystem::path& model_dir, const QVector3D& xyz_offset, const QVector3D& scale, BBox& bbox);
+    Mesh(const aiMaterial* material, const aiMesh* mesh, const std::filesystem::path& model_dir, BBox& bbox);
 
     ~Mesh() {
         // Delete textures
@@ -48,7 +48,7 @@ private:
     QOpenGLBuffer index_buf_;
     QOpenGLBuffer array_buf_;
 
-    void processVertices(const aiMesh* mesh, const QVector3D& xyz_offset, const QVector3D& scale, BBox& bbox);
+    void processVertices(const aiMesh* mesh, BBox& bbox);
     void processIndices(const aiMesh* mesh);
     void processMaterial(const aiMaterial* material, const aiMesh* mesh, const std::filesystem::path& model_dir);
     std::vector<QOpenGLTexture*> loadMaterialTextures(const aiMaterial *material, const std::filesystem::path& model_dir, aiTextureType type, std::string type_name);

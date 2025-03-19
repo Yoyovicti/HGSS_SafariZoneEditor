@@ -1,15 +1,13 @@
 #include "render/mesh.hpp"
 
-#include <limits>
-
-Mesh::Mesh(const aiMaterial* material, const aiMesh* mesh, const std::filesystem::path& model_dir, const QVector3D& xyz_offset, const QVector3D& scale, BBox& bbox) : index_buf_(QOpenGLBuffer::IndexBuffer) {
+Mesh::Mesh(const aiMaterial* material, const aiMesh* mesh, const std::filesystem::path& model_dir, BBox& bbox) : index_buf_(QOpenGLBuffer::IndexBuffer) {
     initializeOpenGLFunctions();
 
     // Generate VBOs
     array_buf_.create();
     index_buf_.create();
 
-    processVertices(mesh, xyz_offset, scale, bbox);
+    processVertices(mesh, bbox);
     processIndices(mesh);
     processMaterial(material, mesh, model_dir);
 
@@ -22,9 +20,7 @@ Mesh::Mesh(const aiMaterial* material, const aiMesh* mesh, const std::filesystem
     index_buf_.allocate(indices_.data(), indices_.size() * sizeof(GLuint));
 }
 
-void Mesh::processVertices(const aiMesh* mesh, const QVector3D& xyz_offset, const QVector3D& scale, BBox& bbox) {
-
-
+void Mesh::processVertices(const aiMesh* mesh, BBox& bbox) {
     for(size_t i = 0; i < mesh->mNumVertices; i++) {
         if(mesh->mVertices[i].x < bbox.min_.x()) bbox.min_.setX(mesh->mVertices[i].x);
         if(mesh->mVertices[i].y < bbox.min_.y()) bbox.min_.setY(mesh->mVertices[i].y);
@@ -39,18 +35,7 @@ void Mesh::processVertices(const aiMesh* mesh, const QVector3D& xyz_offset, cons
             mesh->mVertices[i].y,
             mesh->mVertices[i].z
         );
-        position += xyz_offset;
-        position *= scale;
 
-
-        // // Normal
-        // QVector3D normal(
-        //     mesh->mNormals[i].x,
-        //     mesh->mNormals[i].y,
-        //     mesh->mNormals[i].z
-        // );
-
-        // Texture coordinates
         QVector2D tex_coords(0.0, 0.0);
         if(mesh->mTextureCoords[0]) {
             tex_coords = {
@@ -61,7 +46,6 @@ void Mesh::processVertices(const aiMesh* mesh, const QVector3D& xyz_offset, cons
 
         VertexData v_data;
         v_data.position_ = position;
-        // v_data.normal_ = normal;
         v_data.tex_coords_ = tex_coords;
         vertices_.push_back(v_data);
     }
@@ -117,14 +101,6 @@ void Mesh::drawMesh(QOpenGLShaderProgram* program) {
 
     // Update offset
     offset += sizeof(QVector3D);
-
-    // // Locate normal data
-    // int normal_location = program->attributeLocation("a_normal");
-    // program->enableAttributeArray(normal_location);
-    // program->setAttributeBuffer(normal_location, GL_FLOAT, offset, 3, sizeof(VertexData));
-
-    // // Update offset
-    // offset += sizeof(QVector3D);
 
     // Locate vertex tex coords data
     int tex_coords_location = program->attributeLocation("a_texcoord");

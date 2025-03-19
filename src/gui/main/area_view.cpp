@@ -29,6 +29,7 @@ AreaView::AreaView(QWidget *parent) : QWidget(parent), layout_(this), back_butto
     QObject::connect(&back_button_, &QPushButton::released, this, [this](){emit backButtonReleased();});
     QObject::connect(&object_view_, &ObjectView::enterItemHover, &view_3d_, &Widget3DView::startHighlightModel);
     QObject::connect(&object_view_, &ObjectView::leaveItemHover, &view_3d_, &Widget3DView::stopHighlightModel);
+    QObject::connect(&object_view_, &ObjectView::moveButtonClicked,&view_3d_, &Widget3DView::enterMoveMode);
 }
 
 void AreaView::setSlot(const Slot& slot) {

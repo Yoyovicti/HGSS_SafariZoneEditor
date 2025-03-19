@@ -5,8 +5,15 @@
 
 #include <iostream>
 
-Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset) : model_dir_(model_dir), xyz_offset_(xyz_offset), highlight_(false) {
+Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset) : model_dir_(model_dir), highlight_(false) {
     initializeOpenGLFunctions();
+
+    float scale = 1.0f / 256;
+    transform_.setToIdentity();
+    transform_.scale(scale);
+    transform_.translate(xyz_offset);
+
+    qDebug() << transform_;
 
     bbox_.max_ = std::numeric_limits<QVector3D>::min();
     bbox_.min_ = std::numeric_limits<QVector3D>::max();
@@ -35,8 +42,8 @@ Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset
 
     processNode(scene->mRootNode, scene);
 
-    bbox_.max_ /= 256;
-    bbox_.min_ /= 256;
+    bbox_.max_ *= scale;
+    bbox_.min_ *= scale;
 }
 
 // https://learnopengl.com/Model-Loading/Assimp
@@ -59,8 +66,7 @@ void Model::processMesh(const aiMesh* ai_mesh, const aiScene* scene) {
         return;
 
     aiMaterial* material = scene->mMaterials[ai_mesh->mMaterialIndex];
-    QVector3D scale(1.0, 1.0, 1.0);
-    Mesh* mesh = new Mesh(material, ai_mesh, model_dir_, xyz_offset_, scale / 256, bbox_);
+    Mesh* mesh = new Mesh(material, ai_mesh, model_dir_, bbox_);
     meshes_.push_back(mesh);
 }
 
@@ -80,7 +86,8 @@ void Model::drawModel(QOpenGLShaderProgram* program, uint8_t pass_type) {
         return;
     }
 
-    program->setUniformValue("highlight", highlight_ ? 1 : 0);
+    // program->setUniformValue("highlight", highlight_ ? 1 : 0);
+    program->setUniformValue("model", transform_);
     program->setUniformValue("pass_type", pass_type);
     for(Mesh* mesh : meshes_) {
         mesh->drawMesh(program);

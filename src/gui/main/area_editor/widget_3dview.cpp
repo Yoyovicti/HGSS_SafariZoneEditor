@@ -57,21 +57,23 @@ void Widget3DView::setObjects(const Slot& slot) {
         std::string en_name = object_table[obj.id_][0];
         std::filesystem::path obj_dir(global_obj_dir / en_name);
 
+        QVector3D obj_pos = {
+            float(obj.x_),
+            float(obj.y_),
+            float(obj.z_)
+        };
+
         json obj_data_table;
         if(!obj_manager.getTable(&obj_data_table, en_name)) {
             std::cerr << "Unknown object data key: " << en_name << std::endl;
             continue;
         }
-        uint8_t width = obj_data_table["width"];
-        uint8_t height = obj_data_table["height"];
+        QVector2D obj_dim = {
+            obj_data_table["width"],
+            obj_data_table["height"]
+        };
 
-        QVector3D offset(
-            16.0f * (obj.x_ - (16.0f - float(width) * 0.5f)),
-            obj.y_,
-            16.0f * (obj.z_ - (15.0f + float(height) * 0.5f))
-        );
-
-        Model* model = new Model(obj_dir, offset);
+        ObjectModel* model = new ObjectModel(obj_dir, obj_pos, obj_dim);
         object_models_.push_back(model);
     }
 }
@@ -164,7 +166,6 @@ void Widget3DView::initShaders()
         close();
     if(!outline_program_.bind())
         close();
-
 }
 
 void Widget3DView::resizeGL(int w, int h)
@@ -213,10 +214,10 @@ void Widget3DView::paintGL()
     matrix.rotate(50, QVector3D(1.0, 0.0, 0.0));
 
     // Set modelview-projection matrix
-    outline_program_.setUniformValue("mvp_matrix", projection_ * matrix);
+    outline_program_.setUniformValue("vp_matrix", projection_ * matrix);
 
     program_.bind();
-    program_.setUniformValue("mvp_matrix", projection_ * matrix);
+    program_.setUniformValue("vp_matrix", projection_ * matrix);
 
     glStencilMask(0x00);
 
@@ -245,6 +246,8 @@ void Widget3DView::paintGL()
     float scale = 2.0f;
 
     for(Model* model : object_models_) {
+        if(!model->getHighlight()) continue;
+
         QVector3D centroid(
             (model->bbox_.max_.x() + model->bbox_.min_.x()) / 2,
             (model->bbox_.max_.y() + model->bbox_.min_.y()) / 2,
@@ -261,7 +264,7 @@ void Widget3DView::paintGL()
         matrix2.rotate(50, QVector3D(1.0, 0.0, 0.0));
 
         // Set modelview-projection matrix
-        outline_program_.setUniformValue("mvp_matrix", projection_ * matrix2);
+        outline_program_.setUniformValue("vp_matrix", projection_ * matrix2);
 
         model->drawModel(&outline_program_, 0);
         // model->drawModel(&program, 1);
@@ -280,5 +283,11 @@ void Widget3DView::startHighlightModel(uint8_t i) {
 
 void Widget3DView::stopHighlightModel(uint8_t i) {
     object_models_[i]->setHighlight(false);
+    update();
+}
+
+void Widget3DView::enterMoveMode(uint8_t i) {
+    // TODO
+    object_models_[i]->translate({1, 0, 0});
     update();
 }

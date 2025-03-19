@@ -4,20 +4,17 @@ precision mediump int;
 precision mediump float;
 #endif
 
-uniform mat4 mvp_matrix;
+uniform mat4 vp_matrix;
+uniform mat4 model;
 
 attribute vec4 a_position;
-// attribute vec3 a_normal;
 attribute vec2 a_texcoord;
-
-// varying vec3 v_normal;
 varying vec2 v_texcoord;
 
 void main()
 {
     // Calculate vertex position in screen space
-    gl_Position = mvp_matrix * a_position;
-    // v_normal = normalize(mat3(mvp_matrix) * a_normal);
+    gl_Position = vp_matrix * model * a_position;
 
     // Pass texture coordinate to fragment shader
     // Value will be automatically interpolated to fragments inside polygon faces

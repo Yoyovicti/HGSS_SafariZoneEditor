@@ -27,14 +27,18 @@ public:
     void drawModel(QOpenGLShaderProgram* program, uint8_t pass_type);
 
     void setHighlight(bool highlight = true) {highlight_ = highlight;}
+    bool getHighlight() {return highlight_;}
 
     BBox bbox_;
+
+protected:
+    // QVector3D xyz_offset_;
+    QMatrix4x4 transform_;
 
 private:
     std::vector<Mesh*> meshes_;
     std::filesystem::path model_dir_;
 
-    QVector3D xyz_offset_;
     bool highlight_;
 
     void processNode(const aiNode* node, const aiScene* scene);

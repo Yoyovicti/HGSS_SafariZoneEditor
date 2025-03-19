@@ -3,6 +3,7 @@
 
 #include "manager/save_data_manager.hpp"
 #include "render/model.hpp"
+#include "render/object_model.hpp"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -34,7 +35,7 @@ private:
     QOpenGLShaderProgram outline_program_;
 
     Model* area_model_;
-    std::vector<Model*> object_models_;
+    std::vector<ObjectModel*> object_models_;
 
     QMatrix4x4 projection_;
     QVector2D mouse_press_pos_;
@@ -59,6 +60,7 @@ private:
 public slots:
     void startHighlightModel(uint8_t i);
     void stopHighlightModel(uint8_t i);
+    void enterMoveMode(uint8_t i);
 };
 
 #endif // WIDGET_3DVIEW_HPP
