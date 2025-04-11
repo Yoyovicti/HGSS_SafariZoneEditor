@@ -15,8 +15,11 @@ public:
     ObjectItem(QWidget *parent = nullptr);
 
     void setObject(const Object& object);
+    void updatePosition();
 
 private:
+    const Object* object_;
+
     QGridLayout layout_;
 
     QLabel icon_label_;

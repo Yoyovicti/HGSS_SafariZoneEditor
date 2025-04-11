@@ -6,7 +6,7 @@
 #include <QScrollBar>
 #include <QFileDialog>
 
-MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(this), safari_layout_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
+MainWindow::MainWindow(QWidget* parent) : QWidget(parent), layout_(this), menu_bar_(this), file_menu_(this), options_menu_(this), area_view_(&save_data_manager_, this), safari_layout_(this), day_counters_(this), edit_button_(this), area_scroll_(this), area_selector_(this), selected_area_(-1), edit_mode_(false) {
     menu_bar_.addMenu(&file_menu_);
     menu_bar_.addMenu(&options_menu_);
 
@@ -167,7 +167,7 @@ void MainWindow::enterAreaViewer(uint8_t index) {
     std::cout << "Loading area: " << map_path << std::endl;
 
     area_view_.setDayCount(save_data_manager_.getCounters()[slot.area_type_]);
-    area_view_.setSlot(slot);
+    area_view_.setSlot(index);
     area_view_.setModelDir(map_path);
     area_view_.show();
     adjustSize();

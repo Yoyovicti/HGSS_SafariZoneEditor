@@ -12,11 +12,14 @@ class AreaView : public QWidget {
     Q_OBJECT
 
 public:
-    AreaView(QWidget *parent = nullptr);
+    AreaView(SaveDataManager* save_data_manager_, QWidget *parent = nullptr);
 
     void setDayCount(uint8_t count) {day_edit_.setText(QString::number(count));}
-    void setSlot(const Slot& slot);
+
+    void setSlot(uint8_t slot_index);
     void setModelDir(const std::filesystem::path& model_dir) {view_3d_.setModelDir(model_dir);}
+
+    void keyReleaseEvent(QKeyEvent* event) override;
 
 private:
     QGridLayout layout_;
@@ -34,9 +37,18 @@ private:
     QScrollArea obj_area_;
     ObjectView object_view_;
 
+    SaveDataManager* save_data_manager_;
+    uint8_t selected_slot_;
+    uint8_t selected_object_;
+    bool edit_mode_;
+
 signals:
     void backButtonReleased();
     void counterChanged(uint8_t c_id, uint8_t value);
+
+private slots:
+    void enterItemHover(uint8_t i);
+    void leaveItemHover(uint8_t i);
 };
 
 #endif // AREA_VIEW_HPP

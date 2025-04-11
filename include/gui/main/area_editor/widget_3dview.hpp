@@ -26,6 +26,11 @@ public:
     void setModelDir(const std::filesystem::path& model_dir);
     void setObjects(const Slot& slot);
 
+    void translateObject(uint8_t index, QVector3D vector);
+
+    void startHighlightModel(uint8_t i);
+    void stopHighlightModel(uint8_t i);
+
 private:
     const std::string JSON_KEY = "objects";
 
@@ -56,11 +61,6 @@ private:
     void paintGL() override;
 
     void initShaders();
-
-public slots:
-    void startHighlightModel(uint8_t i);
-    void stopHighlightModel(uint8_t i);
-    void enterMoveMode(uint8_t i);
 };
 
 #endif // WIDGET_3DVIEW_HPP

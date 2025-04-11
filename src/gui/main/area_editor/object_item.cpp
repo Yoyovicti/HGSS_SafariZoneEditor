@@ -5,7 +5,7 @@
 
 #include <QFontDatabase>
 
-ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), layout_(this) {
+ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), object_(nullptr), layout_(this) {
     int max_icon_size = 50;
     icon_label_.setFixedSize(max_icon_size, max_icon_size);
     icon_label_.setAlignment(Qt::AlignCenter);
@@ -47,6 +47,8 @@ ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), layou
 }
 
 void ObjectItem::setObject(const Object& object) {
+    object_ = &object;
+
     std::filesystem::path obj_dir("assets");
     obj_dir.append("objects");
 
@@ -65,5 +67,12 @@ void ObjectItem::setObject(const Object& object) {
     icon_label_.setPixmap(QPixmap::fromImage(obj_image.scaled(50, 50, Qt::KeepAspectRatio)));
 
     cx_label_.setText(QString::number(object.x_));
-    cy_label_.setText(QString::number(object.y_));
+    cy_label_.setText(QString::number(object.z_));
+
+    adjustSize();
+}
+
+void ObjectItem::updatePosition() {
+    cx_label_.setText(QString::number(object_->x_));
+    cy_label_.setText(QString::number(object_->z_));
 }

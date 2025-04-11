@@ -286,8 +286,6 @@ void Widget3DView::stopHighlightModel(uint8_t i) {
     update();
 }
 
-void Widget3DView::enterMoveMode(uint8_t i) {
-    // TODO
-    object_models_[i]->translate({1, 0, 0});
-    update();
+void Widget3DView::translateObject(uint8_t index, QVector3D vector) {
+    object_models_[index]->translate(vector);
 }

@@ -22,10 +22,10 @@ public:
     int getWidth() {return obj_items_[0].sizeHint().width();}
 
     void setSlot(const Slot& slot) {
-        slot_ = slot;
+        slot_ = &slot;
 
         for(uint8_t i = 0; i < obj_items_.size(); i++) {
-            Object& obj = slot_.objects_[i];
+            const Object& obj = slot_->objects_[i];
             if(i >= slot.object_count_) {
                 obj_items_[i].hide();
                 continue;
@@ -40,13 +40,17 @@ public:
         adjustSize();
     }
 
+    void updateObjectPosition(uint8_t index) {
+        obj_items_[index].updatePosition();
+    }
+
 private:
     const std::string JSON_KEY = "objects";
 
     QVBoxLayout layout_;
     std::array<ObjectItem, 30> obj_items_;
 
-    Slot slot_;
+    const Slot* slot_;
 
 signals:
     void enterItemHover(uint8_t i);

@@ -1,6 +1,8 @@
 #ifndef SAVE_DATA_MANAGER_HPP
 #define SAVE_DATA_MANAGER_HPP
 
+#include <QVector3D>
+
 #include <array>
 #include <filesystem>
 #include <fstream>
@@ -109,6 +111,12 @@ public:
     void setAreaSlot(uint8_t area_slot, uint8_t area_id) {
         slots_[area_slot].area_type_ = area_id;
         slots_[area_slot].object_count_ = 0;
+    }
+    void translateObject(uint8_t area_slot, uint8_t object_index, QVector3D vector) {
+        Object& obj = slots_[area_slot].objects_[object_index];
+        obj.x_ += vector.x();
+        obj.y_ += vector.y();
+        obj.z_ += vector.z();
     }
 
 private:
