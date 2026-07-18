@@ -18,6 +18,7 @@ public:
     void setSlot(const Slot& slot);
     void setModelDir(const std::filesystem::path& model_dir) {view_3d_.setModelDir(model_dir);}
 
+    void updateLanguage(uint8_t locale);
 private:
     QGridLayout layout_;
 

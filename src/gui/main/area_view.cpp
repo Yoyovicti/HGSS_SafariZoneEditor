@@ -39,3 +39,7 @@ void AreaView::setSlot(const Slot& slot) {
     object_view_.setSlot(slot);
     view_3d_.setObjects(slot);
 }
+
+void AreaView::updateLanguage(uint8_t locale) {
+    object_view_.updateLanguage(locale);
+}

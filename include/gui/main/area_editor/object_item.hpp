@@ -14,7 +14,10 @@ public:
 
     void setObject(const Object& object);
 
+    void updateLanguage(const uint8_t& language);
 private:
+    const Object* object_;
+
     QGridLayout layout_;
 
     QLabel icon_label_;

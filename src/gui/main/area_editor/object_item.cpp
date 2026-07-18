@@ -1,11 +1,12 @@
 #include "object_item.hpp"
 
 #include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
 #include "utils.hpp"
 
 #include <QFontDatabase>
 
-ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), layout_(this) {
+ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), object_(nullptr), layout_(this) {
     int max_icon_size = 50;
     icon_label_.setFixedSize(max_icon_size, max_icon_size);
     icon_label_.setAlignment(Qt::AlignCenter);
@@ -45,6 +46,8 @@ ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), layou
 }
 
 void ObjectItem::setObject(const Object& object) {
+    object_ = &object;
+
     std::filesystem::path obj_dir("assets");
     obj_dir.append("objects");
 
@@ -55,13 +58,39 @@ void ObjectItem::setObject(const Object& object) {
         return;
     }
 
-    std::string obj_name = obj_table[object.id_][0];
+    ConfigManager& config_manager = ConfigManager::getInstance();
+    uint8_t locale = config_manager.getLocale();
+
+    std::string obj_name = obj_table[object.id_][locale];
     object_label_.setText(obj_name.c_str());
 
-    std::filesystem::path obj_path(obj_dir / (obj_name + ".png"));
+    std::string obj_name_en = obj_table[object.id_][0];
+    std::filesystem::path obj_path(obj_dir / (obj_name_en + ".png"));
     QImage obj_image(obj_path.string().c_str());
     icon_label_.setPixmap(QPixmap::fromImage(obj_image.scaled(50, 50, Qt::KeepAspectRatio)));
 
     cx_label_.setText(QString::number(object.x_));
-    cy_label_.setText(QString::number(object.y_));
+    cy_label_.setText(QString::number(object.z_));
+
+    adjustSize();
 }
+
+void ObjectItem::updateLanguage(const uint8_t& language) {
+    if(!object_)
+        return;
+
+    LocaleManager& locale_manager = LocaleManager::getInstance();
+    json table;
+    if(!locale_manager.getTable(&table, "objects")) {
+        std::cerr << "Unable to load objects table" << std::endl;
+        return;
+    }
+
+    std::string obj_name = table[object_->id_][language];
+    object_label_.setText(obj_name.c_str());
+
+    adjustSize();
+}
+
+
+
