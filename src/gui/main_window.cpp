@@ -129,6 +129,7 @@ void MainWindow::updateLanguage(uint8_t locale) {
     edit_button_.setText(QString::fromStdString(table["edit_button"][locale]));
     area_selector_.updateLanguage(locale);
     day_counters_.updateLanguage(locale);
+    area_view_.updateLanguage(locale);
     file_menu_.updateLanguage(locale);
 }
 

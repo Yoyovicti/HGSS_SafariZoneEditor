@@ -1,6 +1,7 @@
 #include "object_item.hpp"
 
 #include "manager/locale_manager.hpp"
+#include "manager/config_manager.hpp"
 #include "utils.hpp"
 
 #include <QFontDatabase>
@@ -59,10 +60,14 @@ void ObjectItem::setObject(const Object& object) {
         return;
     }
 
-    std::string obj_name = obj_table[object.id_][0];
+    ConfigManager& config_manager = ConfigManager::getInstance();
+    uint8_t locale = config_manager.getLocale();
+
+    std::string obj_name = obj_table[object.id_][locale];
     object_label_.setText(obj_name.c_str());
 
-    std::filesystem::path obj_path(obj_dir / (obj_name + ".png"));
+    std::string obj_name_en = obj_table[object.id_][0];
+    std::filesystem::path obj_path(obj_dir / (obj_name_en + ".png"));
     QImage obj_image(obj_path.string().c_str());
     icon_label_.setPixmap(QPixmap::fromImage(obj_image.scaled(50, 50, Qt::KeepAspectRatio)));
 
@@ -76,3 +81,21 @@ void ObjectItem::updatePosition() {
     cx_label_.setText(QString::number(object_->x_));
     cy_label_.setText(QString::number(object_->z_));
 }
+
+void ObjectItem::updateLanguage(const uint8_t& language) {
+    if(!object_)
+        return;
+
+    LocaleManager& locale_manager = LocaleManager::getInstance();
+    json table;
+    if(!locale_manager.getTable(&table, "objects")) {
+        std::cerr << "Unable to load objects table" << std::endl;
+        return;
+    }
+
+    std::string obj_name = table[object_->id_][language];
+    object_label_.setText(obj_name.c_str());
+
+    adjustSize();
+}
+

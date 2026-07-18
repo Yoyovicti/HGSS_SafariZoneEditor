@@ -21,6 +21,7 @@ public:
 
     void keyReleaseEvent(QKeyEvent* event) override;
 
+    void updateLanguage(uint8_t locale);
 private:
     QGridLayout layout_;
 

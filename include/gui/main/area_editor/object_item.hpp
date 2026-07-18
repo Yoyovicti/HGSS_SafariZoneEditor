@@ -17,6 +17,7 @@ public:
     void setObject(const Object& object);
     void updatePosition();
 
+    void updateLanguage(const uint8_t& language);
 private:
     const Object* object_;
 

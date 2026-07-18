@@ -43,6 +43,13 @@ public:
     void updateObjectPosition(uint8_t index) {
         obj_items_[index].updatePosition();
     }
+    
+    void updateLanguage(uint8_t language) {
+        for(uint8_t i = 0; i < obj_items_.size(); i++) {
+            if(obj_items_[i].isVisible())
+                obj_items_[i].updateLanguage(language);
+        }
+    }
 
 private:
     const std::string JSON_KEY = "objects";

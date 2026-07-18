@@ -79,3 +79,7 @@ void AreaView::enterItemHover(uint8_t i) {
 void AreaView::leaveItemHover(uint8_t i) {
     view_3d_.stopHighlightModel(i);
 }
+
+void AreaView::updateLanguage(uint8_t locale) {
+    object_view_.updateLanguage(locale);
+}
