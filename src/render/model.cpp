@@ -5,11 +5,19 @@
 
 #include <iostream>
 
-Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset) : model_dir_(model_dir), xyz_offset_(xyz_offset), highlight_(false) {
+Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset) : model_dir_(model_dir), xyz_offset_(xyz_offset) {
     initializeOpenGLFunctions();
 
-    bbox_.max_ = std::numeric_limits<QVector3D>::min();
-    bbox_.min_ = std::numeric_limits<QVector3D>::max();
+    bbox_.min_ = QVector3D(
+        std::numeric_limits<float>::max(),
+        std::numeric_limits<float>::max(),
+        std::numeric_limits<float>::max()
+    );
+    bbox_.max_ = QVector3D(
+        std::numeric_limits<float>::lowest(),
+        std::numeric_limits<float>::lowest(),
+        std::numeric_limits<float>::lowest()
+    );
     bool model_found = false;
 
     std::filesystem::path model_path;
@@ -34,9 +42,6 @@ Model::Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset
     }
 
     processNode(scene->mRootNode, scene);
-
-    bbox_.max_ /= 256;
-    bbox_.min_ /= 256;
 }
 
 // https://learnopengl.com/Model-Loading/Assimp
@@ -64,27 +69,29 @@ void Model::processMesh(const aiMesh* ai_mesh, const aiScene* scene) {
     meshes_.push_back(mesh);
 }
 
-void Model::drawModel(QOpenGLShaderProgram* program, uint8_t pass_type) {
-    switch(pass_type) {
-    case 0:
+void Model::drawModel(QOpenGLShaderProgram* program, TexturePass texture_pass) {
+    switch(texture_pass) {
+    case TexturePass::Opaque:
         glDisable(GL_BLEND);
         break;
 
-    case 1:
+    case TexturePass::Transparent:
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         break;
 
     default:
-        std::cerr << "Model::drawModel unknown pass_type: " << int(pass_type) << std::endl;
+        std::cerr << "Model::drawModel unknown texture_pass: " << static_cast<int>(texture_pass) << std::endl;
         return;
     }
 
-    program->setUniformValue("highlight", highlight_ ? 1 : 0);
-    program->setUniformValue("pass_type", pass_type);
+    program->setUniformValue("texture_pass", static_cast<int>(texture_pass));
     for(Mesh* mesh : meshes_) {
         mesh->drawMesh(program);
     }
 }
 
+QVector3D Model::boundingBoxCenter() const {
+    return (bbox_.min_ + bbox_.max_) * 0.5f;
+}
 

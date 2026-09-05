@@ -17,6 +17,11 @@
 
 #define DEBUG
 
+constexpr float OUTLINE_SCALE = 1.4f;
+
+constexpr GLint STENCIL_OBJECT = 1;
+constexpr GLuint STENCIL_MASK = 0xFF;
+
 class Widget3DView : public QOpenGLWidget, protected QOpenGLFunctions {
 public:
     Widget3DView(QWidget* parent = nullptr);
@@ -30,19 +35,22 @@ private:
 
     std::filesystem::path model_dir_;
 
-    QOpenGLShaderProgram program_;
+    QOpenGLShaderProgram base_program_;
     QOpenGLShaderProgram outline_program_;
 
     Model* area_model_;
+    Model* highlighted_model_;
     std::vector<Model*> object_models_;
 
     QMatrix4x4 projection_;
+    QQuaternion rotation_;
+
+#ifdef DEBUG
     QVector2D mouse_press_pos_;
     QVector3D rotation_axis_;
     qreal angular_speed_ = 0;
-    QQuaternion rotation_;
+#endif
 
-    QBasicTimer timer_;
     Slot slot_;
     double start_time_;
 
@@ -51,10 +59,21 @@ private:
     void timerEvent(QTimerEvent *e) override;
 
     void initializeGL() override;
-    void resizeGL(int w, int h) override;
-    void paintGL() override;
-
     void initShaders();
+
+    void resizeGL(int w, int h) override;
+
+    void paintGL() override;
+    const float getElapsedTime();
+    QMatrix4x4 createViewMatrix() const;
+    void setupRenderingState();
+    void clearBuffers();
+    void drawArea(const QMatrix4x4& view_matrix);
+    void drawOtherObjects(const QMatrix4x4& view_matrix);
+    void drawSelectedStencil(const QMatrix4x4& view_matrix);
+    void drawSelectedOutline(const QMatrix4x4& view_matrix, float elapsed_time);
+    QMatrix4x4 createOutlineMatrix(const Model* Model, const QMatrix4x4& view_matrix) const;
+    void drawSelectedObject(const QMatrix4x4& view_matrix);
 
 public slots:
     void startHighlightModel(uint8_t i);

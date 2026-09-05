@@ -13,6 +13,11 @@
 
 #include <filesystem>
 
+enum class TexturePass {
+    Opaque = 0,
+    Transparent
+};
+
 class Model : protected QOpenGLFunctions {
 public:
     Model(const std::filesystem::path& model_dir, const QVector3D& xyz_offset);
@@ -24,21 +29,19 @@ public:
         }
     }
 
-    void drawModel(QOpenGLShaderProgram* program, uint8_t pass_type);
+    void drawModel(QOpenGLShaderProgram* program, TexturePass texture_pass);
 
-    void setHighlight(bool highlight = true) {highlight_ = highlight;}
-
-    BBox bbox_;
-
+    QVector3D boundingBoxCenter() const;
 private:
     std::vector<Mesh*> meshes_;
     std::filesystem::path model_dir_;
 
     QVector3D xyz_offset_;
-    bool highlight_;
 
     void processNode(const aiNode* node, const aiScene* scene);
     void processMesh(const aiMesh* ai_mesh, const aiScene* scene);
+
+    BBox bbox_;
 };
 
 #endif // MODEL_HPP

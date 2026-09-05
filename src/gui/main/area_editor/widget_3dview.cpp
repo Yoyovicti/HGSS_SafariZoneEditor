@@ -12,13 +12,16 @@
 Widget3DView::Widget3DView(QWidget* parent) : QOpenGLWidget(parent), start_time_(QDateTime::currentMSecsSinceEpoch()) {
     setFixedSize(400, 400);
     area_model_ = nullptr;
+    highlighted_model_ = nullptr;
 }
 
-Widget3DView::~Widget3DView()
-{
+Widget3DView::~Widget3DView() {
     // Make sure the context is current when deleting textures and buffers.
     makeCurrent();
     if(area_model_) delete area_model_;
+    
+    highlighted_model_ = nullptr;
+
     for(Model* model : object_models_) {
         if(model) delete model;
     }
@@ -76,33 +79,27 @@ void Widget3DView::setObjects(const Slot& slot) {
     }
 }
 
-void Widget3DView::mousePressEvent(QMouseEvent *e)
-{
+void Widget3DView::mousePressEvent(QMouseEvent *e) {
+#ifdef DEBUG
     // Save mouse press position
     mouse_press_pos_ = QVector2D(e->position());
+#endif
 }
 
-void Widget3DView::mouseReleaseEvent(QMouseEvent *e)
-{
+void Widget3DView::mouseReleaseEvent(QMouseEvent *e) {
+#ifdef DEBUG
     // Mouse release position - mouse press position
-    QVector2D diff = QVector2D(e->position()) - mouse_press_pos_;
+    QVector2D movement = QVector2D(e->position()) - mouse_press_pos_;
+    QVector3D axis = QVector3D(movement.y(), movement.x(), 0.0).normalized();
+    float speed = movement.length() / 100.0;
 
-    // Rotation axis is perpendicular to the mouse position difference
-    // vector
-    QVector3D n = QVector3D(diff.y(), diff.x(), 0.0).normalized();
-
-    // Accelerate angular speed relative to the length of the mouse sweep
-    qreal acc = diff.length() / 100.0;
-
-    // Calculate new rotation axis as weighted sum
-    rotation_axis_ = (rotation_axis_ * angular_speed_ + n * acc).normalized();
-
-    // Increase angular speed
-    angular_speed_ += acc;
+    // Calculate new rotation axis and speed
+    rotation_axis_ = (rotation_axis_ * angular_speed_ + axis * speed).normalized();
+    angular_speed_ += speed;
+#endif
 }
 
-void Widget3DView::timerEvent(QTimerEvent *)
-{
+void Widget3DView::timerEvent(QTimerEvent *) {
 #ifdef DEBUG
     // Decrease angular speed (friction)
     angular_speed_ *= 0.99;
@@ -120,8 +117,7 @@ void Widget3DView::timerEvent(QTimerEvent *)
     update();
 }
 
-void Widget3DView::initializeGL()
-{
+void Widget3DView::initializeGL() {
     initializeOpenGLFunctions();
 
     // Clear background color with widget color (for illusion of transparency)
@@ -130,29 +126,19 @@ void Widget3DView::initializeGL()
 
     initShaders();
 
-    timer_.start(12, this);
-
     // Offset viewport for centering model
     glViewport(0, 15, 400, 415);
 }
 
-void Widget3DView::initShaders()
-{
+void Widget3DView::initShaders() {
     // Base shader program
-    // Compile vertex shader
-    if (!program_.addShaderFromSourceFile(QOpenGLShader::Vertex, "assets/shaders/vshader.glsl"))
+    if (!base_program_.addShaderFromSourceFile(QOpenGLShader::Vertex, "assets/shaders/vshader.glsl"))
         close();
-
-    // Compile fragment shader
-    if (!program_.addShaderFromSourceFile(QOpenGLShader::Fragment, "assets/shaders/fshader.glsl"))
+    if (!base_program_.addShaderFromSourceFile(QOpenGLShader::Fragment, "assets/shaders/fshader.glsl"))
         close();
-
-    // Link shader pipeline
-    if (!program_.link())
+    if (!base_program_.link())
         close();
-
-    // Bind shader pipeline for use
-    if (!program_.bind())
+    if (!base_program_.bind())
         close();
 
     // Outline program
@@ -167,118 +153,161 @@ void Widget3DView::initShaders()
 
 }
 
-void Widget3DView::resizeGL(int w, int h)
-{
-    // Calculate aspect ratio
-    qreal aspect = qreal(w) / qreal(h ? h : 1);
-
-    // Set near plane, far plane and FOV
-    const qreal zNear = 1.0, zFar = 10.0, fov = 45.0;
-
-    // Reset projection
-    projection_.setToIdentity();
+void Widget3DView::resizeGL(int w, int h) {
+    const float aspect_ratio = static_cast<float>(w) / (h < 1 ? 1 : h);
+    const float z_near = 1.0f;
+    const float z_far = 10.0f;
+    const float fov = 45.0f;
 
     // Set perspective projection
-    projection_.perspective(fov, aspect, zNear, zFar);
+    projection_.setToIdentity();
+    projection_.perspective(fov, aspect_ratio, z_near, z_far);
 }
 
-void Widget3DView::paintGL()
-{
+void Widget3DView::paintGL() {
+    const float elapsed_time = getElapsedTime();
+    const QMatrix4x4 view_matrix = createViewMatrix();
+
+    setupRenderingState();
+    clearBuffers();
+
+    drawArea(view_matrix);
+    drawOtherObjects(view_matrix);
+
+    if(!highlighted_model_)
+        return;
+
+    drawSelectedStencil(view_matrix);
+    drawSelectedOutline(view_matrix, elapsed_time);
+    drawSelectedObject(view_matrix);
+}
+
+const float Widget3DView::getElapsedTime() {
     double curr_time = QDateTime::currentMSecsSinceEpoch();
-    float elapsed_time = (curr_time - start_time_) / 1000;
+    const float elapsed_time = (curr_time - start_time_) / 1000;
 
-    // Enable depth buffer
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
+    return elapsed_time;
+}
 
-    // Stencil test
-    glEnable(GL_STENCIL_TEST);
-    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
-    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
-
-#ifndef DEBUG
-    // Enable back face culling
-    glEnable(GL_CULL_FACE);
-#endif
-
-    // Clear color and depth buffer
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-
-    outline_program_.bind();
-
-    // Calculate model view transformation
+QMatrix4x4 Widget3DView::createViewMatrix() const {
     QMatrix4x4 matrix;
+
     matrix.translate(0.0, 0.0, -3.0);
     matrix.rotate(rotation_);
     matrix.rotate(50, QVector3D(1.0, 0.0, 0.0));
 
-    // Set modelview-projection matrix
-    outline_program_.setUniformValue("mvp_matrix", projection_ * matrix);
+    return matrix;
+}
 
-    program_.bind();
-    program_.setUniformValue("mvp_matrix", projection_ * matrix);
+void Widget3DView::setupRenderingState() {
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 
+    glEnable(GL_STENCIL_TEST);
+    glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+    glStencilMask(STENCIL_MASK);
+
+#ifndef DEBUG
+    glEnable(GL_CULL_FACE);
+#endif
+}
+
+void Widget3DView::clearBuffers() {
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+}
+
+void Widget3DView::drawArea(const QMatrix4x4& view_matrix) {
+    // The area does not contribute to the outline stencil
     glStencilMask(0x00);
 
-    // draw non-outlined models (aka floor), do not write stencil buffer
-    // Draw model in 2 passes : first with only opaque fragments, second with only transparent fragments
-    area_model_->drawModel(&program_, 0);
-    // area_model_->drawModel(&program, 1);
+    base_program_.bind();
+    base_program_.setUniformValue("mvp_matrix", projection_ * view_matrix);
 
-    // First pass, draw objects as normal and write stencil buffer
-    glStencilFunc(GL_ALWAYS, 1, 0xFF);
-    glStencilMask(0xFF);
+    area_model_->drawModel(&base_program_, TexturePass::Opaque);
+}
+
+void Widget3DView::drawOtherObjects(const QMatrix4x4& view_matrix) {
+    // Non selected objects do not contribute to the outline stencil
+    glStencilMask(0x00);
+
+    base_program_.bind();
+    base_program_.setUniformValue("mvp_matrix", projection_ * view_matrix);
 
     for(Model* model : object_models_) {
-        model->drawModel(&program_, 0);
-        // model->drawModel(&program, 1);
-    }
+        if(model == highlighted_model_)
+            continue;
 
-    // Second pass : Draw scaled version of objects, do not write stencil buffer
-    // Stencil buffer is filled with 1's from objects, which are not drawn this time.
-    glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+        model->drawModel(&base_program_, TexturePass::Opaque);
+        model->drawModel(&base_program_, TexturePass::Transparent);
+    }
+}
+
+void Widget3DView::drawSelectedStencil(const QMatrix4x4& view_matrix) {
+    // Non selected objects do not contribute to the outline stencil
+    glEnable(GL_DEPTH_TEST);
+
+    // Record object silhouettes in the stencil buffer
+    glStencilFunc(GL_ALWAYS, STENCIL_OBJECT, STENCIL_MASK);
+    glStencilMask(STENCIL_MASK);
+
+    base_program_.bind();
+    base_program_.setUniformValue("mvp_matrix", projection_ * view_matrix);
+
+    highlighted_model_->drawModel(&base_program_, TexturePass::Opaque);
+    highlighted_model_->drawModel(&base_program_, TexturePass::Transparent);
+}
+
+void Widget3DView::drawSelectedOutline(const QMatrix4x4& view_matrix, float elapsed_time) {
+    // Only render where the stencil wasn't written
+    glStencilFunc(GL_NOTEQUAL, STENCIL_OBJECT, STENCIL_MASK);
+
+    // Stencil is only used as a mask during this pass
     glStencilMask(0x00);
+
+    // Draw selected outline in front of previously drawn objects
     glDisable(GL_DEPTH_TEST);
 
     outline_program_.bind();
     outline_program_.setUniformValue("time", elapsed_time);
-    float scale = 2.0f;
 
-    for(Model* model : object_models_) {
-        QVector3D centroid(
-            (model->bbox_.max_.x() + model->bbox_.min_.x()) / 2,
-            (model->bbox_.max_.y() + model->bbox_.min_.y()) / 2,
-            (model->bbox_.max_.z() + model->bbox_.min_.z()) / 2
-        );
+    const QMatrix4x4 outline_matrix = createOutlineMatrix(highlighted_model_, view_matrix);
+    outline_program_.setUniformValue("mvp_matrix", projection_ * outline_matrix);
 
-        // Calculate model view transformation
-        QMatrix4x4 matrix2;
-        matrix2.translate(-centroid);
-        matrix2.scale(scale);
-        matrix2.translate(centroid);
-        matrix2.translate(0.0, 0.0, -3.0);
-        matrix2.rotate(rotation_);
-        matrix2.rotate(50, QVector3D(1.0, 0.0, 0.0));
+    highlighted_model_->drawModel(&outline_program_, TexturePass::Transparent);
+}
 
-        // Set modelview-projection matrix
-        outline_program_.setUniformValue("mvp_matrix", projection_ * matrix2);
+QMatrix4x4 Widget3DView::createOutlineMatrix(const Model* model, const QMatrix4x4& view_matrix) const {
+    const QVector3D center = model->boundingBoxCenter();
 
-        model->drawModel(&outline_program_, 0);
-        // model->drawModel(&program, 1);
-    }
+    // Scale around model center
+    QMatrix4x4 matrix = view_matrix;
+    matrix.translate(center);
+    matrix.scale(OUTLINE_SCALE);
+    matrix.translate(-center);
 
-    glStencilMask(0xFF);
-    glStencilFunc(GL_ALWAYS, 0, 0xFF);
-    glEnable(GL_DEPTH_TEST);
+    return matrix;
+}
 
+void Widget3DView::drawSelectedObject(const QMatrix4x4& view_matrix) {
+    // Stencil is not used during this pass
+    glStencilMask(0x00);
+
+    // Draw the selected object on top of everything else
+    glDisable(GL_DEPTH_TEST);
+
+    base_program_.bind();
+    base_program_.setUniformValue("mvp_matrix", projection_ * view_matrix);
+
+    highlighted_model_->drawModel(&base_program_, TexturePass::Opaque);
+    highlighted_model_->drawModel(&base_program_, TexturePass::Transparent);
 }
 
 void Widget3DView::startHighlightModel(uint8_t i) {
-    object_models_[i]->setHighlight(true);
+    highlighted_model_ = object_models_[i];
     update();
 }
 
 void Widget3DView::stopHighlightModel(uint8_t i) {
-    object_models_[i]->setHighlight(false);
+    highlighted_model_ = nullptr;
     update();
 }

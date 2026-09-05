@@ -5,22 +5,24 @@ precision mediump float;
 #endif
 
 uniform sampler2D texture;
-uniform int passtype;
+uniform int texture_pass;
 
 varying vec2 v_texcoord;
-// varying vec3 v_normal;
+
+const int OPAQUE_PASS = 0;
+const int TRANSPARENT_PASS = 1;
 
 void main()
 {
     // Set fragment color from texture
     vec4 tex_color = texture2D(texture, v_texcoord);
 
-    // Apply tex color or discard based on pass type
-    if(passtype == 0 && tex_color.a < 0.9) discard;
-    if(passtype == 1 && tex_color.a > 0.9) discard;
+    // Remove black pixels (shadows)
+    if (tex_color.rgb == vec3(0.0)) discard;
 
-    // Check normals
-    // gl_FragColor = vec4(v_normal * 0.5 + 0.5, 1.0);
+    // Apply tex color or discard based on pass type
+    if(texture_pass == OPAQUE_PASS         && tex_color.a < 0.9) discard;
+    if(texture_pass == TRANSPARENT_PASS    && tex_color.a > 0.9) discard;
 
     gl_FragColor = tex_color;
 }
