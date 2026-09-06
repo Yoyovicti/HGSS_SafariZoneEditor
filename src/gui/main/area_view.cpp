@@ -20,7 +20,6 @@ AreaView::AreaView(QWidget *parent) : QWidget(parent), layout_(this), back_butto
     layout_.addWidget(&day_edit_, 0, 4, 1, 1);
 
     layout_.addWidget(&objects_label_, 0, 5, 1, 1);
-    layout_.addWidget(&obj_add_button_, 0, 6, 1, 1);
 
     layout_.addWidget(&view_3d_, 1, 0, 5, 5);
 

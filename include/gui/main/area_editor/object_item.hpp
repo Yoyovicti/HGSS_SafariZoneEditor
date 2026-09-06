@@ -27,9 +27,6 @@ private:
     QLabel cx_label_;
     QLabel y_label_;
     QLabel cy_label_;
-
-    QPushButton move_button_;
-    QPushButton delete_button_;
 };
 
 #endif // OBJECT_ITEM_HPP

@@ -27,7 +27,6 @@ private:
     DayCounterEdit day_edit_;
 
     QLabel objects_label_;
-    QPushButton obj_add_button_;
 
     Widget3DView view_3d_;
 

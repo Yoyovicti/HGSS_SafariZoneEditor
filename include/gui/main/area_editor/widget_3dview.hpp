@@ -15,8 +15,6 @@
 
 #include <filesystem>
 
-#define DEBUG
-
 constexpr float OUTLINE_SCALE = 1.4f;
 
 constexpr GLint STENCIL_OBJECT = 1;

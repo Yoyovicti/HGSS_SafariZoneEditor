@@ -32,8 +32,6 @@ ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), objec
     y_label_.setStyleSheet("color: indianred");
 
     const QColor& text_color = object_label_.palette().color(QPalette::Text);
-    move_button_.setIcon(loadAndRecolorIcon("assets/icons/drag-arrow-icon.png", text_color));
-    delete_button_.setIcon(loadAndRecolorIcon("assets/icons/delete-icon.png", text_color));
 
     layout_.addWidget(&icon_label_, 0, 0, 2, 2);
     layout_.addWidget(&object_label_, 0, 2, 1, 4);
@@ -41,8 +39,6 @@ ObjectItem::ObjectItem(QWidget *parent) : QSelectItem("obj_item", parent), objec
     layout_.addWidget(&cx_label_, 1, 3, 1, 1);
     layout_.addWidget(&y_label_, 1, 4, 1, 1);
     layout_.addWidget(&cy_label_, 1, 5, 1, 1);
-    layout_.addWidget(&move_button_, 0, 6, 1, 1);
-    layout_.addWidget(&delete_button_, 1, 6, 1, 1);
 }
 
 void ObjectItem::setObject(const Object& object) {
